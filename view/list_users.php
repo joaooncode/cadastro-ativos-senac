@@ -4,7 +4,8 @@ include('../models/connect_db.php');
 include('../controllers/functions.php');
 
 
-$data_bd = fetchData($conn, 'usuario');
+$users = fetchData($conn, 'usuario');
+
 
 
 ?>

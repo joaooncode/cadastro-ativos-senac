@@ -14,40 +14,45 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body class='min-vh-100 min-vw-100 overflow-hidden  bg-light'>
+<body class='min-vh-100 min-vw-100 overflow-hidden bg-light'>
     <header>
         <!-- place navbar here -->
+        <nav class="w-100 d-flex justify-content-center align-items-center my-4">
+            <img src="https://api.senacrs.com.br/bff/site-senac/v1/file/078f143692e591ec20623efea089cdf3d19a24.png"
+                alt="" height="80px" class="">
+        </nav>
     </header>
-    <h1 class='text-center h-100 my-5'>Cadastar novo usuário</h1>
+    <h1 class='text-center h-100 my-5'>Cadastrar novo usuário</h1>
     <main class='mx-4 my-4 min-vw-100 min-vh-100 flex-grow-1'>
-        <form action='' class="d-flex align-items-center justify-content-center w-100 h-100 my-5">
+        <form method="POST" action='../controllers/register_user.php'
+            class="d-flex align-items-center justify-content-center w-100 h-100 my-5">
             <!--Nome do usuário-->
             <div class="form-floating mb-3 w-75">
-                <input type="text" class="form-control mb-4" id="floatingInput" placeholder="Informe seu nome completo"
-                    required>
+                <input name="nameUser" type="text" class="form-control mb-4" id="floatingInput"
+                    placeholder="Informe seu nome completo" required>
                 <label for="floatingInput">Nome completo</label>
                 <!--Email do usuário-->
                 <div class="form-floating">
-                    <input type="email" class="form-control mb-4" id="floatingEmail"
+                    <input name="emailUser" type="email" class="form-control mb-4" id="floatingEmail"
                         placeholder="Informe seu endereço de email" required>
                     <label for="floatingEmail">Endereço de email</label>
                 </div>
                 <!--Senha Usuário-->
                 <div class="form-floating">
-                    <input type="password" class="form-control mb-4" id="floatingPassword"
+                    <input name="passwordUser" type="password" class="form-control mb-4" id="floatingPassword"
                         placeholder="Insira uma senha" required minlength="8">
                     <label for="floatingPassword">Senha</label>
                 </div>
                 <!--Confirmar Senha Usuário-->
                 <div class="form-floating">
-                    <input type="password" class="form-control mb-4" id="floatingPasswordConfirm"
-                        placeholder="A senhas devem coincidir" required minlength="8">
+                    <input name="confirmPasswordUser" type="password" class="form-control mb-4"
+                        id="floatingPasswordConfirm" placeholder="A senhas devem coincidir" required minlength="8">
                     <label for="floatingPasswordConfirm">Confirmar senha</label>
                 </div>
                 <!--Turma Usuário-->
                 <div class="form-floating">
-                    <input type="text" class="form-control mb-4" id="floatingClass" placeholder="Informe sua turma"
-                        required>
+                    <input name="classUser" type="text" class="form-control mb-4" id="floatingClass"
+                        placeholder="Informe sua turma" required>
                     <label for="floatingClass">Turma</label>
                 </div>
         </form>

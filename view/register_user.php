@@ -22,7 +22,7 @@
                 alt="" height="80px" class="">
         </nav>
     </header>
-    <h1 class='text-center h-100 my-5'>Cadastrar novo usuário</h1>
+    <h1 class='text-center text-primary h-100 my-5'>Cadastrar novo usuário</h1>
     <main class='mx-4 my-4 min-vw-100 min-vh-100 flex-grow-1'>
         <form method="POST" action='../controllers/register_user.php'
             class="d-flex align-items-center justify-content-center w-100 h-100 my-5">

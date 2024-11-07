@@ -1,21 +1,21 @@
 <?php
 
-include('../models/connect_db.php');
+/* include('../models/connect_db.php');
 include('../controllers/functions.php');
 
 
-$users = fetchData($conn, 'usuario');
+$patch_user = $_GET['idUsuario'];
 
-
+$query_db = fetchData($conn, 'usuario', 'idUsuario', $patch_user); */
 
 ?>
 
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-    <title>Listar Usuários</title>
+    <title>Alteração de usuário</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -23,8 +23,6 @@ $users = fetchData($conn, 'usuario');
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <!--Link css-->
-    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body class="min-vw-100 min-vh-100">
@@ -49,10 +47,10 @@ $users = fetchData($conn, 'usuario');
                                 <a class="nav-link link-primary" aria-current="page" href="./index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link link-primary" href="#">Listar Ativos</a>
+                                <a class="nav-link link-primary" href="">Listar Ativos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link link-primary active" href="./list_users.php">Listar Usuário</a>
+                                <a class="nav-link link-primary" href="./list_users.php">Listar Usuário</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link link-primary" href="#">Cadastrar Ativo</a>
@@ -64,47 +62,22 @@ $users = fetchData($conn, 'usuario');
         </div>
     </header>
     <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
-        <div class=" container mb-5 w-100">
-            <h1 class="text-center text-primary">Lista de usuários</h1>
-            <table class="table table-striped table-bordered mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Turma</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($users as $user => $value) {
-                        ?>
-                        <tr>
-                            <td>
-                                <?php echo $value['idUsuario'] ?>
-                            </td>
-                            <td>
-                                <p>
-                                    <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="./patch_user.php?idUsuario=<?php echo $value['nomeUsuario'] ?>">
-                                        <?php echo $value['nomeUsuario'] ?>
-                                    </a>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="./patch_user.php?idUsuario=<?php echo $value['nomeUsuario'] ?>">
-                                        <?php echo $value['turmaUsuario'] ?>
-                                    </a>
-                                </p>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+        <h1 class="text-center text-primary">Alterar usuário</h1>
+        <hr class="border border-primary border-3 opacity-25 w-100">
+        <form action="../controllers/patch_user.php" method="POST">
+
+            <div class="row g-3 mt-5">
+                <div class="col-sm-7 mx-4">
+                    <input type="text" class="form-control" placeholder="Nome" aria-label="Nome" required
+                        name="nameUser">
+                </div>
+                <div class="col-sm">
+                    <input type="text" class="form-control" placeholder="Turma" aria-label="Nome" required
+                        name="classUser">
+                </div>
+            </div>
+        </form>
+        <button class="btn btn-outline-primary mt-5  py-2 px-2" style="width:20%">Alterar</button>
     </main>
     <footer>
         <!-- place footer here -->

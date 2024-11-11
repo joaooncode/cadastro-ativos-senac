@@ -3,7 +3,6 @@
 /* include('../models/connect_db.php');
 include('../controllers/functions.php');
 
-
 $patch_user = $_GET['idUsuario'];
 
 $query_db = fetchData($conn, 'usuario', 'idUsuario', $patch_user); */
@@ -25,9 +24,10 @@ $query_db = fetchData($conn, 'usuario', 'idUsuario', $patch_user); */
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
 
-<body class="min-vw-100 min-vh-100">
+<body class="min-vw-100 min-vh-100 overflow-hidden">
+
     <header>
-        <!-- place navbar here -->
+        <!-- Navbar -->
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-body-tertiary fs-5 shadow p-3 mb-5 bg-body-tertiary rounded fixed-top"
                 data-bs-theme="light">
@@ -61,32 +61,36 @@ $query_db = fetchData($conn, 'usuario', 'idUsuario', $patch_user); */
             </nav>
         </div>
     </header>
-    <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
-        <h1 class="text-center text-primary">Alterar usuário</h1>
-        <hr class="border border-primary border-3 opacity-25 w-100">
-        <form action="../controllers/patch_user.php" method="POST">
 
-            <div class="row g-3 mt-5">
-                <div class="col-sm-7 mx-4">
-                    <input type="text" class="form-control" placeholder="Nome" aria-label="Nome" required
-                        name="nameUser">
-                </div>
-                <div class="col-sm">
-                    <input type="text" class="form-control" placeholder="Turma" aria-label="Nome" required
-                        name="classUser">
-                </div>
+    <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column mt-5 pt-5">
+        <h1 class="text-center text-primary mb-3">Alterar usuário</h1>
+        <hr class="border border-primary border-3 opacity-25 w-100 mb-4">
+
+        <!-- Form -->
+        <form action="../controllers/patch_user.php" method="POST" class="w-75 w-md-50">
+            <div class="mb-3">
+                <label for="nameUser" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nameUser" name="nameUser" required />
+            </div>
+            <div class="mb-3">
+                <label for="classUser" class="form-label">Turma</label>
+                <input type="text" class="form-control" id="classUser" name="classUser" required />
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-primary py-2 px-4" style="width:20%">Alterar</button>
             </div>
         </form>
-        <button class="btn btn-outline-primary mt-5  py-2 px-2" style="width:20%">Alterar</button>
     </main>
-    <footer>
-        <!-- place footer here -->
+
+    <footer class="mt-5 py-3 text-center">
+        <!-- Add footer content here if needed -->
     </footer>
-    <!-- Bootstrap JavaScript Libraries -->
+
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>

@@ -12,7 +12,7 @@ $users = fetchData($conn, 'usuario');
 
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <title>Listar Usuários</title>
@@ -52,7 +52,7 @@ $users = fetchData($conn, 'usuario');
                                 <a class="nav-link link-primary" href="#">Listar Ativos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link link-primary active" href="./list_users.php">Listar Usuário</a>
+                                <a class="nav-link link-primary active" href="list_users.php">Listar Usuário</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link link-primary" href="#">Cadastrar Ativo</a>
@@ -64,6 +64,7 @@ $users = fetchData($conn, 'usuario');
         </div>
     </header>
     <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
+        <!--Tabela usuários cadastrados-->
         <div class=" container mb-5 w-100">
             <h1 class="text-center text-primary">Lista de usuários</h1>
             <table class="table table-striped table-bordered mt-5">
@@ -85,7 +86,7 @@ $users = fetchData($conn, 'usuario');
                             <td>
                                 <p>
                                     <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="./patch_user.php?idUsuario=<?php echo $value['nomeUsuario'] ?>">
+                                        href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
                                         <?php echo $value['nomeUsuario'] ?>
                                     </a>
                                 </p>
@@ -93,7 +94,7 @@ $users = fetchData($conn, 'usuario');
                             <td>
                                 <p>
                                     <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="./patch_user.php?idUsuario=<?php echo $value['nomeUsuario'] ?>">
+                                        href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
                                         <?php echo $value['turmaUsuario'] ?>
                                     </a>
                                 </p>

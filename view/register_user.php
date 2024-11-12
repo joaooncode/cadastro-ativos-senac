@@ -1,27 +1,17 @@
+<?php
+include('navbar.php');
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
 <head>
     <title>Cadastrar Usuário</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <!--Link CSS-->
-    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body class='min-vh-100 min-vw-100 overflow-hidden bg-light'>
-    <header>
-        <!-- place navbar here -->
-        <nav class="w-100 d-flex justify-content-center align-items-center my-4">
-            <img src="https://api.senacrs.com.br/bff/site-senac/v1/file/078f143692e591ec20623efea089cdf3d19a24.png"
-                alt="" height="80px" class="">
-        </nav>
-    </header>
     <h1 class='text-center text-primary h-100 my-5'>Cadastrar novo usuário</h1>
     <main class='mx-4 my-4 min-vw-100 min-vh-100 flex-grow-1'>
         <form method="POST" action='../controllers/register_user.php'
@@ -35,7 +25,7 @@
                 <div class="form-floating">
                     <input name="emailUser" type="email" class="form-control mb-4" id="floatingEmail"
                         placeholder="Informe seu endereço de email" required>
-                    <label for="floatingEmail">Endereço de email</label>
+                    <label for="floatingEmail">Endereço de e-mail</label>
                 </div>
                 <!--Senha Usuário-->
                 <div class="form-floating">
@@ -56,7 +46,7 @@
                     <label for="floatingClass">Turma</label>
                 </div>
         </form>
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <button type="submit" class="btn btn-lg btn-outline-primary">Cadastrar</button>
     </main>
     <!--Footer-->
     <!-- Bootstrap JavaScript Libraries -->

@@ -55,13 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo "<script>
                     alert('Senha incorreta!');
-                    window.location.href='../view/login.php';
+                    window.location.href='../view/index.php';
                   </script>";
         }
     } else {
         echo "<script>
                 alert('Usuário não encontrado!');
-                window.location.href='../view/login.php';
+                window.location.href='../view/index.php';
               </script>";
     }
 

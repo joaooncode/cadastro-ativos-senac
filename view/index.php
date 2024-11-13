@@ -21,6 +21,7 @@ include('navbar.php');
           <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
             required />
           <label for="floatingInput">Endereço de e-mail</label>
+          <div id="email-feedback" class="invalid-feedback">Por favor, insira um e-mail válido.</div>
         </div>
         <div class="form-floating w-75 mt-4">
           <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
@@ -40,6 +41,8 @@ include('navbar.php');
   <footer>
     <!-- place footer here -->
   </footer>
+  <!--Validação visual-->
+  <script src="../js/emailValidation.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,21 @@
 <?php
+session_start();
+if (isset($_GET['error']) && $_GET['error'] === 'access_denied') {
+  echo "<script> 
+      alert('Usuário não autenticado')
+  </script>";
+}
+
+if (isset($_GET['error_auten']) && $_GET['error_auten'] == 'yes') {
+  echo "
+  <script>
+    alert('Senha e/ou email inválidos') 
+  </script>";
+}
+
+
 include('navbar.php');
+
 ?>
 
 <!DOCTYPE html>

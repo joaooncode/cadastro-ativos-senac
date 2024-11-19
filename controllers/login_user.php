@@ -2,6 +2,9 @@
 // Incluir a conexão com o banco de dados
 include('../models/connect_db.php');
 
+session_start();
+
+
 // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -44,8 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Verificar se a senha fornecida corresponde ao hash bcrypt armazenado
         if (password_verify($password, $user['senhaUsuario'])) {
             // Iniciar a sessão e armazenar o ID do usuário
-            session_start();
             $_SESSION['user_id'] = $user['idUsuario'];
+            $_SESSION['login_ok'] = true;
+            $_SESSION['login_controle'] = true;
 
             // Redirecionar para a área restrita
             echo "<script>
@@ -53,15 +57,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     window.location.href='../view/list_users.php';
                   </script>";
         } else {
+            $_SESSION['login_ok'] = false;
+            unset($_SESSION['login_controle']);
             echo "<script>
-                    alert('Senha incorreta!');
-                    window.location.href='../view/index.php';
+                    window.location.href='../view/index.php?error_auten=yes';
                   </script>";
         }
     } else {
+        $_SESSION['login_ok'] = false;
+        unset($_SESSION['login_controle']);
         echo "<script>
-                alert('Usuário não encontrado!');
-                window.location.href='../view/index.php';
+                window.location.href='../view/index.php?error_auten=yes';
               </script>";
     }
 

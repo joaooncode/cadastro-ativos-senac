@@ -3,52 +3,14 @@
 include('../models/connect_db.php');
 include('../controllers/functions.php');
 include('navbar.php');
+include_once('../controllers/session.php');
 
 
 $users = fetchData($conn, 'usuario');
 
 ?>
 
-<!doctype html>
-<title>Listar usuários</title>
-<html lang="pt-br">
-
 <body class="min-vw-100 min-vh-100">
-    <header>
-        <!-- place navbar here -->
-        <div class="container">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary fs-5 shadow p-3 mb-5 bg-body-tertiary rounded fixed-top"
-                data-bs-theme="light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        <img src="https://api.senacrs.com.br/bff/site-senac/v1/file/078f143692e591ec20623efea089cdf3d19a24.png"
-                            alt="logo-senac" height="45" />
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link link-primary" aria-current="page" href="./index.php">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-primary" href="#">Listar Ativos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-primary active" href="list_users.php">Listar Usuário</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link link-primary" href="#">Cadastrar Ativo</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
     <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
         <!--Tabela usuários cadastrados-->
         <div class=" container mb-5 w-100">

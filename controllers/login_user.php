@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['login_ok'] = true;
             $_SESSION['login_controle'] = true;
 
+
             // Redirecionar para a área restrita
             echo "<script>
                     alert('Login bem-sucedido!');
@@ -62,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "<script>
                     window.location.href='../view/index.php?error_auten=yes';
                   </script>";
+
         }
     } else {
         $_SESSION['login_ok'] = false;
@@ -69,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>
                 window.location.href='../view/index.php?error_auten=yes';
               </script>";
+
     }
 
     // Fechar a declaração

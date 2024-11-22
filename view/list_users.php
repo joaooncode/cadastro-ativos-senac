@@ -1,8 +1,9 @@
 <?php
 
-include('../models/connect_db.php');
-include('../controllers/functions.php');
-include('navbar.php');
+include_once('../models/connect_db.php');
+include_once('../controllers/functions.php');
+include_once('head.php');
+include_once('dropdown.php');
 include_once('../controllers/session.php');
 
 

@@ -14,7 +14,7 @@ if (isset($_GET['error_auten']) && $_GET['error_auten'] == 'yes') {
 }
 
 
-include('navbar.php');
+include('head.php');
 
 ?>
 

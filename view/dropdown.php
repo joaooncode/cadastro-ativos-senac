@@ -36,7 +36,7 @@ include_once('head.php');
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item link-primary" href="list_user.php">Listar Usuário</a></li>
+                            <li><a class="dropdown-item link-primary" href="list_users.php">Listar Usuário</a></li>
                         </ul>
                     </li>
                 </ul>

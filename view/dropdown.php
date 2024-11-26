@@ -23,7 +23,7 @@ include_once('head.php');
                         <a class="nav-link link-primary" href="#">Movimentações</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-primary" href="#">Ativos</a>
+                        <a class="nav-link link-primary" href="register_assets.php">Ativos</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a id="dropdown" class="nav-link link-primary dropdown-toggle" href="#" role="button"

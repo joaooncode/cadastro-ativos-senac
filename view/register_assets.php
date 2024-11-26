@@ -31,5 +31,5 @@ include_once('navbar.php');
         </div>
     </main>
 </body>
-<script src="../js/ativos.js"></script>
+<script src="../js/assets.js"></script>
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Abrir modal</button>

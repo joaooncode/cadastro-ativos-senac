@@ -12,7 +12,6 @@ $brand = $_POST['brand'];
 $type = $_POST['type'];
 $user = $_SESSION['user_id'];
 
-
 $query = "
     INSERT INTO ativo(
         idMarca,
@@ -35,3 +34,8 @@ $query = "
 
 
 $result = mysqli_query($conn, $query) or die(false);
+
+if ($result) {
+    # code...
+    echo "Cadastro realizado com sucesso!";
+}

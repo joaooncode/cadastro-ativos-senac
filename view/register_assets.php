@@ -3,7 +3,13 @@ include_once('head.php');
 include_once('../controllers/session.php');
 include_once('modal.php');
 include_once('dropdown.php');
-?>
+include_once('../models/connect_db.php');
+include_once('../controllers/functions.php');
+
+
+$assets = fetchData($conn, 'ativo')
+
+    ?>
 
 <body class="min-vw-100 min-vh-100 overflow-hidden">
     <div class="container min-vh-100 min-vw-100 d-flex align-content-center justify-content-center flex-column">
@@ -26,9 +32,54 @@ include_once('dropdown.php');
                             Status
                         </th>
                         <th scope="col">
+                            Observação
+                        </th>
+                        <th scope="col">
                             Tipo
                         </th>
                     </thead>
+                    <tbody>
+                        <?php
+                        foreach ($assets as $assets => $value) {
+                            ?>
+                            <tr>
+
+                                <td>
+                                    <p>
+                                        <?php echo $value['descricaoAtivo'] ?>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php echo $value['quantidadeAtivo'] ?>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php echo $value['idMarca'] ?>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php echo $value['statusAtivo'] ?>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php echo $value['obsAtivo'] ?>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php echo $value['idTipo'] ?>
+                                    </p>
+                                </td>
+
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
             <button style="width: 15%;" type="button" class="btn btn-outline-primary mt-3  p-3" data-bs-toggle="modal"

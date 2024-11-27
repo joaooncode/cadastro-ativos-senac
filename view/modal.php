@@ -5,7 +5,7 @@ include_once('head.php');
 
 <!--MODAL CADASTRO DE ATIVOS-->
 
-<form id="register" type="submit">
+<form id="form">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -13,8 +13,8 @@ include_once('head.php');
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Ativo</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form type="submit" method="post">
+                    <div class="modal-body">
                         <div class="mb-3">
                             <label for="description" class="col-form-label">Descrição:</label>
                             <input required type="text" class="form-control" id="description">
@@ -57,11 +57,11 @@ include_once('head.php');
                                 <option value="Miscelânea">Miscelânea</option>
                             </select>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary" id="clear-btn">Limpar</button>
-                    <button type="submit" class="btn btn-primary" id="save-btn">Salvar</button>
+                    <button type="button" class="btn btn-primary" id="save-btn">Salvar</button>
                 </div>
             </div>
         </div>

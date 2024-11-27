@@ -21,6 +21,10 @@ $(document).ready(function () {
         brand: brand,
         type: type,
       },
+      success: function (result) {
+        // alert(result);
+        location.reload();
+      },
     });
   });
 });

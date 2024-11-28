@@ -18,77 +18,86 @@ $assets = fetchData($conn, 'ativo');
             <div class="container mb-5 w-100">
                 <h1 class="text-center text-primary">Lista de Ativos</h1>
                 <table class="table table-bordered  border-primary mt-5">
-                    <thead>
-                        <th scope="col">
-                            Descrição
-                        </th>
-                        <th scope="col">
-                            Quantidade
-                        </th>
-                        <th scope="col">
-                            Marca
-                        </th>
-                        <th scope="col">
-                            Status
-                        </th>
-                        <th scope="col">
-                            Observação
-                        </th>
-                        <th scope="col">
-                            Tipo
-                        </th>
-                        <th scope="col">
-                            Ações
-                        </th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($assets as $assets => $value) {
-                            ?>
-                            <tr>
-
-                                <td>
-                                    <p>
-                                        <?php echo $value['descricaoAtivo'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <?php echo $value['quantidadeAtivo'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <?php echo $value['idMarca'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <?php echo $value['statusAtivo'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <?php echo $value['obsAtivo'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <?php echo $value['idTipo'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <button class="btn  btn-primary">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                                </td>
-
-                            </tr>
+                    <table class="table table-bordered  border-primary mt-5">
+                        <thead>
+                            <th scope="col">
+                                Descrição
+                            </th>
+                            <th scope="col">
+                                Quantidade
+                            </th>
+                            <th scope="col">
+                                Marca
+                            </th>
+                            <th scope="col">
+                                Status
+                            </th>
+                            <th scope="col">
+                                Observação
+                            </th>
+                            <th scope="col">
+                                Tipo
+                            </th>
+                            <th scope="col">
+                                Ações
+                            </th>
+                        </thead>
+                        <tbody>
                             <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                            foreach ($assets as $assets => $value) {
+                                ?>
+                                <tr>
+
+                                    <td>
+                                        <p>
+                                            <?php echo $value['descricaoAtivo'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <?php echo $value['quantidadeAtivo'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <?php echo $value['idMarca'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <?php echo $value['statusAtivo'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <?php echo $value['obsAtivo'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <?php echo $value['idTipo'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <button class="btn  btn-primary">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn  btn-primary">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button class="btn  btn-success">
+                                            <i class="bi bi-check-circle"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
             </div>
             <button style="width: 15%;" type="button" class="btn btn-outline-primary mt-3  p-3" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">Cadastrar Ativo</button>

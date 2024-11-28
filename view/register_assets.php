@@ -17,7 +17,7 @@ $assets = fetchData($conn, 'ativo')
             <!--Tabela ativos cadastrados-->
             <div class="container mb-5 w-100">
                 <h1 class="text-center text-primary">Lista de Ativos</h1>
-                <table class="table table-bordered border-primary mt-5">
+                <table class="table table-bordered  border-primary mt-5">
                     <thead>
                         <th scope="col">
                             Descrição
@@ -36,6 +36,9 @@ $assets = fetchData($conn, 'ativo')
                         </th>
                         <th scope="col">
                             Tipo
+                        </th>
+                        <th scope="col">
+                            Ações
                         </th>
                     </thead>
                     <tbody>
@@ -73,6 +76,14 @@ $assets = fetchData($conn, 'ativo')
                                     <p>
                                         <?php echo $value['idTipo'] ?>
                                     </p>
+                                </td>
+                                <td>
+                                    <button class="btn  btn-primary">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn  btn-success">
+                                        <i class="bi bi-check-circle"></i>
+                                    </button>
                                 </td>
 
                             </tr>

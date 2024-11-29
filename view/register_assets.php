@@ -9,6 +9,25 @@ include_once('../controllers/functions.php');
 
 $assets = fetchData($conn, 'ativo');
 
+
+$sql = "
+    SELECT 
+    idAtivo,
+    descricaoAtivo,
+    (SELECT descricaoMarca FROM marca m WHERE m.idMarca = a.idMarca) as marca
+    , statusAtivo,
+    dataHoraCadastroAtivo, 
+    quantidadeAtivo,
+    obsAtivo,
+    (SELECT descricaotipo FROM tipo t WHERE t.idTipo = a.idTipo) as tipo
+    FROM ativo a
+";
+
+$result = mysqli_query($conn, $sql) or die(false);
+
+//retorna todos os ativos
+$data = $result->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 <body class="min-vw-100 min-vh-100 overflow-hidden">
@@ -39,12 +58,15 @@ $assets = fetchData($conn, 'ativo');
                                 Tipo
                             </th>
                             <th scope="col">
+                                Data de Cadastro
+                            </th>
+                            <th scope="col">
                                 Ações
                             </th>
                         </thead>
                         <tbody>
                             <?php
-                            foreach ($assets as $assets => $value) {
+                            foreach ($data as $assets => $value) {
                                 ?>
                                 <tr>
 
@@ -60,7 +82,7 @@ $assets = fetchData($conn, 'ativo');
                                     </td>
                                     <td>
                                         <p>
-                                            <?php echo $value['idMarca'] ?>
+                                            <?php echo $value['marca'] ?>
                                         </p>
                                     </td>
                                     <td>
@@ -75,7 +97,12 @@ $assets = fetchData($conn, 'ativo');
                                     </td>
                                     <td>
                                         <p>
-                                            <?php echo $value['idTipo'] ?>
+                                            <?php echo $value['tipo'] ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p>
+                                            <?php echo $value['dataHoraCadastroAtivo'] ?>
                                         </p>
                                     </td>
                                     <td>
@@ -83,15 +110,6 @@ $assets = fetchData($conn, 'ativo');
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </td>
-                                    <td>
-                                        <button class="btn  btn-primary">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button class="btn  btn-success">
-                                            <i class="bi bi-check-circle"></i>
-                                        </button>
-                                    </td>
-
                                 </tr>
                                 <?php
                             }
@@ -99,8 +117,8 @@ $assets = fetchData($conn, 'ativo');
                         </tbody>
                     </table>
             </div>
-            <button style="width: 15%;" type="button" class="btn btn-outline-primary mt-3  p-3" data-bs-toggle="modal"
-                data-bs-target="#exampleModal">Cadastrar Ativo</button>
+            <button style="width: 15%;" type="button" class="btn btn-outline-primary mt-3 mb-3  p-3"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">Cadastrar Ativo</button>
         </main>
     </div>
 </body>

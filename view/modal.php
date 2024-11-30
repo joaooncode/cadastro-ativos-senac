@@ -39,20 +39,25 @@ include_once('head.php');
                         <div class="mb-3">
                             <label for="brand">Marca:</label>
                             <select required id="brand" class="form-select" aria-label="Default select example">
-                                <option class="selected">Selecione a marca:</option>
-                                <option value="1">Dell</option>
-                                <option value="2">Lenovo</option>
-                                <option value="3">Positivo</option>
+                                <?php
+                                foreach ($brands as $brand => $value) {
+                                    echo '<option value ="' . $value['idMarca'] . '">' . $value['descricaoMarca'] . '</option>';
+
+                                }
+
+                                var_dump($brands)
+                                    ?>
+
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="type">Tipo:</label>
                             <select required id="type" class="form-select" aria-label="Default select example">
-                                <option class="selected">Selecione o tipo do ativo:</option>
-                                <option value="1">Ferramenta</option>
-                                <option value="2">Hardware</option>
-                                <option value="3">Software</option>
-                                <option value="4">Redes</option>
+                                <?php
+                                foreach ($types as $type => $value) {
+                                    echo '<option value="' . $value['idTipo'] . '">' . $value['descricaoTipo'] . '</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>

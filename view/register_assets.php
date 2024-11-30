@@ -1,11 +1,15 @@
 <?php
 include_once('head.php');
 include_once('../controllers/session.php');
-include_once('modal.php');
 include_once('dropdown.php');
 include_once('../models/connect_db.php');
 include_once('../controllers/functions.php');
 
+
+$brands = fetchData($conn, 'marca');
+$types = fetchData($conn, 'tipo');
+
+include_once('modal.php');
 
 $assets = fetchData($conn, 'ativo');
 
@@ -40,6 +44,8 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                     <table class="table table-bordered  border-primary mt-5">
                         <thead>
                             <th scope="col">
+                                Código
+                            <th scope="col">
                                 Descrição
                             </th>
                             <th scope="col">
@@ -70,6 +76,11 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                 ?>
                                 <tr>
 
+                                    <td>
+                                        <p>
+                                            <?php echo $value['idAtivo'] ?>
+                                        </p>
+                                    </td>
                                     <td>
                                         <p>
                                             <?php echo $value['descricaoAtivo'] ?>
@@ -117,7 +128,7 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                         </tbody>
                     </table>
             </div>
-            <button style="width: 15%;" type="button" class="btn btn-outline-primary mt-3 mb-3  p-3"
+            <button style="width: 15%;" type="button" class="btn btn-outline-primary mt-3 mb-5  p-3"
                 data-bs-toggle="modal" data-bs-target="#exampleModal">Cadastrar Ativo</button>
         </main>
     </div>

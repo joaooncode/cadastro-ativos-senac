@@ -10,10 +10,22 @@ $(document).ready(function () {
     const status = $("#status").val();
     const brand = $("#brand").val();
     const type = $("#type").val();
+    const idAsset = $("#idAsset").val();
+    let action = "";
+    console.log(idAsset);
+
+    if (idAsset == "") {
+      action = "insert";
+    } else {
+      action = "update";
+    }
+    console.log(action);
+
     $.ajax({
       type: "POST",
       url: "../controllers/assets.php",
       data: {
+        action: action,
         description: description,
         quantity: quantity,
         obs: obs,
@@ -28,3 +40,19 @@ $(document).ready(function () {
     });
   });
 });
+
+// Alterar o status do ativo no banco de dados
+function changeStatus(status, id) {
+  $.ajax({
+    type: "POST",
+    url: "../controllers/assets.php",
+    data: {
+      action: "changeStatus",
+      status: status,
+      idAtivo: id,
+    },
+    success: function (result) {
+      location.reload();
+    },
+  });
+}

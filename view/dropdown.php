@@ -2,8 +2,8 @@
 include_once('head.php');
 ?>
 
-<body class="min-vh-100 min-vw-100 overflow-hidden">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fs-4">
+<body class="min-vh-100 min-vw-100 overflow-x-hidden position-relative">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fs-4 mb-5 position-sticky">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="https://api.senacrs.com.br/bff/site-senac/v1/file/078f143692e591ec20623efea089cdf3d19a24.png"

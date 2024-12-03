@@ -22,6 +22,9 @@ $brand = fetchData($conn, 'marca');
                         <th scope="col">
                             Descrição
                         </th>
+                        <th scope="col">
+                            Usuário de cadastro
+                        </th>
                     </thead>
                     <tbody>
                         <?php
@@ -32,6 +35,12 @@ $brand = fetchData($conn, 'marca');
                                 <td>
                                     <p>
                                         <?php echo $value['descricaoMarca'] ?>
+                                    </p>
+                                </td>
+
+                                <td>
+                                    <p>
+                                        <?php echo $value['idUsuario'] ?>
                                     </p>
                                 </td>
                             </tr>

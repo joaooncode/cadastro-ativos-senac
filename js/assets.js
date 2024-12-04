@@ -56,3 +56,13 @@ function changeStatus(status, id) {
     },
   });
 }
+
+function updateAsset(id) {
+  alert(id);
+  $("#updateBtn").click();
+  $.ajax({
+    type: "PUT",
+    url: "../controllers/update_assets.php",
+    data: {},
+  });
+}

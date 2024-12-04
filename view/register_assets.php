@@ -9,6 +9,7 @@ $brands = fetchData($conn, 'marca');
 $types = fetchData($conn, 'tipo');
 
 include_once('modal.php');
+include_once('modal/update_assets_btn.php');
 
 $assets = fetchData($conn, 'ativo');
 
@@ -44,9 +45,10 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
             <div class="container-fluid mb-2 w-100">
 
                 <!-- Adicionando responsividade à tabela -->
-                <div class="table-responsive" style="overflow-x:auto; width: 100%;">
+                <div class="table-responsive d-flex align-items-center justify-content-center"
+                    style="overflow-x:auto; width: 100%;">
 
-                    <table class="table table-bordered border-primary mt-5">
+                    <table class="table table-bordered border-primary w-75 mt-5">
                         <thead>
                             <tr>
                                 <th scope="col">Código</th>
@@ -75,7 +77,8 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                     <td><?php echo $value['dataHoraCadastroAtivo'] ?></td>
                                     <td>
                                         <div class="actions d-flex justify-content-evenly">
-                                            <button id="editAsset" class="mx-2 btn btn-primary">
+                                            <button id="editAsset" onclick="updateAsset('<?php echo $value['idAtivo']; ?>')"
+                                                class="mx-2 btn btn-primary">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                             <div class="changeStatus">
@@ -114,4 +117,5 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
     </div>
 
     <script src="../js/assets.js"></script>
+    <script src="../js/updateAssets.js"></script>
 </body>

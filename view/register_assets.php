@@ -38,8 +38,9 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
     <div class="container-fluid d-flex align-items-center justify-content-center flex-column">
         <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
 
-            <button style="width: 100%; max-width: 200px;" type="button" class="btn btn-outline-primary mt-3 mb-3 p-3"
-                data-bs-toggle="modal" data-bs-target="#exampleModal">Cadastrar Ativo</button>
+            <button id="cadastrarAtivoBtn" onclick="clearModal()" style="width: 100%; max-width: 200px;" type="button"
+                class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Cadastrar Ativo</button>
 
             <!-- Tabela ativos cadastrados -->
             <div class="container-fluid mb-2 w-100">
@@ -74,7 +75,9 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                     <td><?php echo $value['statusAtivo'] ?></td>
                                     <td><?php echo $value['obsAtivo'] ?></td>
                                     <td><?php echo $value['tipo'] ?></td>
-                                    <td><?php echo $value['dataHoraCadastroAtivo'] ?></td>
+                                    <td><?php $date = new DateTime($value['dataHoraCadastroAtivo']);
+                                    echo $date->format('d/m/Y H:i:s') ?>
+                                    </td>
                                     <td>
                                         <div class="actions d-flex justify-content-evenly">
                                             <button id="editAsset" onclick="updateAsset('<?php echo $value['idAtivo']; ?>')"

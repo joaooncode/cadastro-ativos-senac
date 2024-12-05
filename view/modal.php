@@ -11,7 +11,8 @@ include_once('head.php');
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Ativo</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button onclick="clearModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <form type="submit" method="post">
                     <div class="modal-body">
@@ -26,15 +27,6 @@ include_once('head.php');
                         <div class="mb-3">
                             <label for="observation" class="col-form-label">Observação:</label>
                             <textarea type="text" class="form-control" id="observation"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status">Status:</label>
-                            <select required id="status" class="form-select" aria-label="Default select example">
-                                <option class="selected">Informe o status do ativo:</option>
-                                <option value="Ativo">Ativo</option>
-                                <option value="Inativo">Inativo</option>
-                                <option value="Em transferência">Em transferência</option>
-                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="brand">Marca:</label>

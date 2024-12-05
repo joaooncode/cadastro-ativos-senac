@@ -32,6 +32,7 @@ $(document).ready(function () {
         status: status,
         brand: brand,
         type: type,
+        idAtivo: idAsset,
       },
       success: function (result) {
         // alert(result);
@@ -57,12 +58,39 @@ function changeStatus(status, id) {
   });
 }
 
+// Atualiza as informações do ativo
 function updateAsset(id) {
-  alert(id);
-  $("#updateBtn").click();
+  $("#idAsset").val(id);
+  //alert(id);
+
   $.ajax({
-    type: "PUT",
-    url: "../controllers/update_assets.php",
-    data: {},
+    type: "POST",
+    url: "../controllers/assets.php",
+    data: {
+      action: "getInfo",
+      idAtivo: id,
+    },
+    success: function (result) {
+      jsonReturn = JSON.parse(result);
+      $("#cadastrarAtivoBtn").click();
+
+      $("#description").val(jsonReturn[0]["descricaoAtivo"]);
+      $("#quantity").val(jsonReturn[0]["quantidadeAtivo"]);
+      $("#observation").val(jsonReturn[0]["obsAtivo"]);
+      $("#brand").val(jsonReturn[0]["idMarca"]);
+      $("#type").val(jsonReturn[0]["idTipo"]);
+
+      console.log(jsonReturn);
+      //console.log(result);
+    },
   });
+}
+
+function clearModal(params) {
+  $("#description").val("");
+  $("#quantity").val("");
+  $("#observation").val("");
+  $("#brand").val("");
+  $("#type").val("");
+  $("#idAsset").val("");
 }

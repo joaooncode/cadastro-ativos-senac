@@ -61,3 +61,49 @@ if ($action == 'changeStatus') {
         echo "Status Alterado";
     }
 }
+
+
+if ($action == 'getInfo') {
+    $sql = "
+        SELECT   
+            idMarca,
+            idTipo,
+            descricaoAtivo,
+            quantidadeAtivo,
+            obsAtivo
+        FROM 
+            ativo
+        WHERE 
+            idAtivo = $idAsset
+    ";
+
+    $result = mysqli_query($conn, $sql) or die(false);
+
+    //retorna todos os ativos
+
+    $asset = $result->fetch_all(MYSQLI_ASSOC);
+
+    echo json_encode($asset);
+    exit();
+}
+
+
+
+if ($action == 'update') {
+    $sql = "
+    UPDATE ativo SET 
+        descricaoAtivo = '$description',
+        quantidadeAtivo = '$quantity',
+        obsAtivo = '$obs',
+        idMarca = '$brand',
+        idTipo = $type
+
+        where idAtivo = $idAsset
+";
+
+    $result = mysqli_query($conn, $sql) or die(false);
+
+    if ($result) {
+        echo "Informações alteradas";
+    }
+}

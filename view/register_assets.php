@@ -26,7 +26,7 @@ $sql = "
     FROM ativo a
 ";
 
-$result = mysqli_query($conn, $sql) or die(false);
+$result = mysqli_query($conn, query: $sql) or die(false);
 
 //retorna todos os ativos
 $data = $result->fetch_all(MYSQLI_ASSOC);

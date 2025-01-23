@@ -10,7 +10,6 @@ include_once('../controllers/types.php');
 
 
 include_once('modal/types_modal.php');
-include_once('../view/modal/update_types.php');
 
 
 $brand = fetchData($conn, 'tipo');
@@ -63,8 +62,7 @@ $brand = fetchData($conn, 'tipo');
                                 </td>
                                 <td>
                                     <div class="actions d-flex justify-content-evenly">
-                                        <button id="editType" data-bs-toggle="modal" data-bs-target="#updateTypes"
-                                            onclick="updateTypes('<?php echo $value['idTipo']; ?>')"
+                                        <button id="editType" onclick="updateTypes('<?php echo $value['idTipo']; ?>')"
                                             class="mx-2 btn btn-primary">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>

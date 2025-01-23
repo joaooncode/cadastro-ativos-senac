@@ -1,10 +1,15 @@
 <?php
 include_once('dropdown.php');
 include_once('head.php');
+
 include_once('../controllers/session.php');
-include_once('../models/connect_db.php');
 include_once('../controllers/functions.php');
-include_once('modal_brand.php');
+include_once('../models/connect_db.php');
+
+include_once('../controllers/brands.php');
+
+
+include_once('modal/modal_marca.php');
 
 
 $brand = fetchData($conn, 'marca');
@@ -16,7 +21,12 @@ $brand = fetchData($conn, 'marca');
         <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
             <!--Tabela ativos cadastrados-->
             <div class="container mb-5 w-100">
-                <h1 class="text-center text-primary">Marcas</h1>
+                <div class="d-flex flex-column justify-content-evenly align-items-center">
+                    <h1 class="text-center text-primary">Marcas</h1>
+                    <button id="cadastrarAtivoBtn" onclick="limparModal()" style="width: 100%; max-width: 200px;"
+                        type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
+                        data-bs-target="#updateModal">Cadastrar Marca</button>
+                </div>
                 <table class="table table-bordered  border-primary mt-5">
                     <thead>
                         <th scope="col">
@@ -24,6 +34,9 @@ $brand = fetchData($conn, 'marca');
                         </th>
                         <th scope="col">
                             Usuário de cadastro
+                        </th>
+                        <th scope="col">
+                            Ações
                         </th>
                     </thead>
                     <tbody>
@@ -52,7 +65,8 @@ $brand = fetchData($conn, 'marca');
                     </tbody>
                 </table>
             </div>
-            <button data-bs-toggle="modal" class="btn btn-outline-primary btn-lg p-4">Cadastrar marca</button>
+
         </main>
     </div>
+    <script src="../js/marcas.js"></script>
 </body>

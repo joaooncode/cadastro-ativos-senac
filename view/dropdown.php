@@ -23,6 +23,12 @@ include_once('head.php');
                         <a class="nav-link link-primary" href="#">Movimentações</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link link-primary" href="brand.php">Marcas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-primary" href="types.php">Tipos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link link-primary" href="register_assets.php">Ativos</a>
                     </li>
                     <li class="nav-item dropdown">

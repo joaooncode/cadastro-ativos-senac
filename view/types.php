@@ -10,7 +10,7 @@ include_once('../controllers/types.php');
 
 
 include_once('modal/types_modal.php');
-
+include_once('./modal/update_types.php');
 
 $brand = fetchData($conn, 'tipo');
 
@@ -35,6 +35,7 @@ $brand = fetchData($conn, 'tipo');
                         <th scope="col">
                             Usuário de cadastro
                         </th>
+                        <th scope="col">Data de Cadastro</th>
                         <th scope="col">Status</th>
                         <th scope="col">Ações</th>
                     </thead>
@@ -57,12 +58,19 @@ $brand = fetchData($conn, 'tipo');
                                 </td>
                                 <td>
                                     <p>
-                                        <?php echo $value['statusTipo'] ?>
+                                        <?php echo $value['dataCadastroTipo'] ?>
                                     </p>
                                 </td>
                                 <td>
+                                    <p>
+                                        <?php echo $value['statusTipo'] ?>
+                                    </p>
+                                </td>
+
+                                <td>
                                     <div class="actions d-flex justify-content-evenly">
-                                        <button id="editType" onclick="updateTypes('<?php echo $value['idTipo']; ?>')"
+                                        <button id="editType" data-bs-toggle="modal" data-bs-target="updateTypes"
+                                            onclick="editar('<?php echo $value['idTipo']; ?>')"
                                             class="mx-2 btn btn-primary">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>

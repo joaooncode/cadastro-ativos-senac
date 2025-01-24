@@ -9,6 +9,10 @@ include_once('../controllers/session.php');
 
 $users = fetchData($conn, 'usuario');
 
+
+$admin = $_SESSION['is_admin'];
+
+
 ?>
 
 <body class="min-vw-100 min-vh-100">
@@ -28,28 +32,28 @@ $users = fetchData($conn, 'usuario');
                     <?php
                     foreach ($users as $user => $value) {
                         ?>
-                        <tr>
-                            <td>
-                                <?php echo $value['idUsuario'] ?>
-                            </td>
-                            <td>
-                                <p>
-                                    <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
-                                        <?php echo $value['nomeUsuario'] ?>
-                                    </a>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
-                                        <?php echo $value['turmaUsuario'] ?>
-                                    </a>
-                                </p>
-                            </td>
-                        </tr>
-                        <?php
+                    <tr>
+                        <td>
+                            <?php echo $value['idUsuario'] ?>
+                        </td>
+                        <td>
+                            <p>
+                                <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+                                    href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
+                                    <?php echo $value['nomeUsuario'] ?>
+                                </a>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+                                    href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
+                                    <?php echo $value['turmaUsuario'] ?>
+                                </a>
+                            </p>
+                        </td>
+                    </tr>
+                    <?php
                     }
                     ?>
                 </tbody>

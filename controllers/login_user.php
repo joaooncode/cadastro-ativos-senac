@@ -4,7 +4,6 @@ include('../models/connect_db.php');
 
 session_start();
 
-
 // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -22,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Consultar o banco de dados para verificar se o email existe
-    $query = "SELECT idUsuario, senhaUsuario FROM usuario WHERE emailUsuario = ?";
+    $query = "SELECT idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
         echo "<script>
@@ -51,19 +50,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['login_ok'] = true;
             $_SESSION['login_controle'] = true;
 
-
-            // Redirecionar para a área restrita
-            echo "<script>
-                    alert('Login bem-sucedido!');
-                    window.location.href='../view/list_users.php';
-                  </script>";
+            // Verificar se o usuário é um admin
+            if ($user['isAdmin'] == 1) {
+                $_SESSION['is_admin'] = 'S'; // Definir uma variável de sessão para o admin
+                // Redirecionar para a página de administração
+                echo "<script>
+                        alert('Login bem-sucedido! Você é um administrador.');
+                        window.location.href='../view/admin_dashboard.php'; // ou qualquer outra página de admin
+                      </script>";
+            } else {
+                // Redirecionar para a página padrão
+                echo "<script>
+                        alert('Login bem-sucedido!');
+                        window.location.href='../view/list_users.php';
+                      </script>";
+            }
         } else {
             $_SESSION['login_ok'] = false;
             unset($_SESSION['login_controle']);
             echo "<script>
                     window.location.href='../view/index.php?error_auten=yes';
                   </script>";
-
         }
     } else {
         $_SESSION['login_ok'] = false;
@@ -71,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<script>
                 window.location.href='../view/index.php?error_auten=yes';
               </script>";
-
     }
 
     // Fechar a declaração

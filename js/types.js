@@ -19,8 +19,8 @@ $(document).ready(function () {
         idTipo: idTipo,
       },
       success: function (result) {
-        alert(result);
-        //location.reload();
+        //alert(result);
+        location.reload();
       },
     });
   });

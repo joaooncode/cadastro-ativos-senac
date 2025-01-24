@@ -17,7 +17,11 @@ if ($passwd !== $passwdConfirm) {
     exit();
 }
 
+
+
 $passwd_hash = password_hash($passwd, PASSWORD_BCRYPT);
+
+
 $query = "
     INSERT INTO usuario (
         nomeUsuario,
@@ -50,8 +54,3 @@ if ($result) {
     window.location.href='../view/register_users.php'
     </script>";
 }
-
-
-
-
-

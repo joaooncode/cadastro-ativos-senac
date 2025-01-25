@@ -12,7 +12,7 @@ $(document).ready(function () {
     //alert(descricao_ativo);
     $.ajax({
       type: "POST",
-      url: "../controllers/types.php",
+      url: "../controllers/typesController.php",
       data: {
         acao: acao,
         tipo: tipo,
@@ -29,7 +29,7 @@ $(document).ready(function () {
 function muda_status(status, idTipo) {
   $.ajax({
     type: "POST",
-    url: "../controllers/types.php",
+    url: "../controllers/typesController.php",
     data: {
       acao: "alterar_status",
       status: status,
@@ -47,7 +47,7 @@ function editar(idTipo) {
   $("#idTipo").val(idTipo);
   $.ajax({
     type: "POST",
-    url: "../controllers/types.php",
+    url: "../controllers/typesController.php",
     data: {
       acao: "get_info",
       idTipo: idTipo,

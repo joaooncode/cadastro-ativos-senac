@@ -37,7 +37,7 @@ include_once('headView.php');
                             Usuário
                         </a>
                         <ul id="dropdown-menu" class="dropdown-menu">
-                            <li><a class="dropdown-item link-primary" href="register_user.php">Cadastrar usuário</a>
+                            <li><a class="dropdown-item link-primary" href="registerUserView.php">Cadastrar usuário</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">

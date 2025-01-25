@@ -12,7 +12,7 @@ $(document).ready(function () {
     //alert(descricao_ativo);
     $.ajax({
       type: "POST",
-      url: "../controllers/brands.php",
+      url: "../controllers/brandsController.php",
       data: {
         acao: acao,
         marca: marca,
@@ -29,7 +29,7 @@ $(document).ready(function () {
 function muda_status(status, idMarca) {
   $.ajax({
     type: "POST",
-    url: "../controllers/brands.php",
+    url: "../controllers/brandsController.php",
     data: {
       acao: "alterar_status",
       status: status,
@@ -47,7 +47,7 @@ function editar(idMarca) {
   $("#idMarca").val(idMarca);
   $.ajax({
     type: "POST",
-    url: "../controllers/brands.php",
+    url: "../controllers/brandsController.php",
     data: {
       acao: "get_info",
       idMarca: idMarca,

@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "../controllers/assets.php",
+      url: "../controllers/assetsController.php",
       data: {
         action: action,
         description: description,
@@ -46,7 +46,7 @@ $(document).ready(function () {
 function changeStatus(status, id) {
   $.ajax({
     type: "POST",
-    url: "../controllers/assets.php",
+    url: "../controllers/assetsController.php",
     data: {
       action: "changeStatus",
       status: status,
@@ -65,7 +65,7 @@ function updateAsset(id) {
 
   $.ajax({
     type: "POST",
-    url: "../controllers/assets.php",
+    url: "../controllers/assetsController.php",
     data: {
       action: "getInfo",
       idAtivo: id,

@@ -49,7 +49,7 @@ include('headView.php');
         Entrar
       </button>
       <p class="mt-5 fs-5">
-        <a class="link-offset-2 link-underline link-underline-opacity-0" href="./register_user.php">Cadastrar novo
+        <a class="link-offset-2 link-underline link-underline-opacity-0" href="registerUserView.php">Cadastrar novo
           usuário?</a>
       </p>
     </form>

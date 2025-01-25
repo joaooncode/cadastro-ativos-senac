@@ -10,7 +10,7 @@ include_once('../controllers/types.php');
 
 
 include_once('modal/types_modal.php');
-include_once('./modal/update_types.php');
+/* include_once('./modal/update_types.php'); */
 
 $brand = fetchData($conn, 'tipo');
 
@@ -23,7 +23,7 @@ $brand = fetchData($conn, 'tipo');
             <div class="container mb-5 w-100">
                 <div class="d-flex flex-column justify-content-evenly align-items-center">
                     <h1 class="text-center text-primary">Tipos</h1>
-                    <button id="cadastrarAtivoBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
+                    <button id="cadastrarTipoBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
                         type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
                         data-bs-target="#typesModal">Cadastrar Tipo</button>
                 </div>

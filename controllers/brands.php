@@ -40,18 +40,16 @@ if ($acao == 'alterar_status') {
 }
 
 if ($acao == 'get_info') {
-  $sql = "
+  $sql =
+    "
     Select
-      descricaoAtivo,
-      quantidadeAtivo,
-      observacaoAtivo,
-      idMarca,
-      idTipo
+      descricaoMarca,
+      idMarca
     from
-      ativo
+      marca
     where
-      idAtivo = $idAtivo
-  ";
+      idMarca = $idMarca
+    ";
   $result = mysqli_query($conn, $sql) or die(false);
   $ativo = $result->fetch_all(MYSQLI_ASSOC);
   echo json_encode($ativo);
@@ -61,14 +59,9 @@ if ($acao == 'get_info') {
 
 if ($acao == 'update') {
   $sql = "
-    Update ativo set
-      descricaoAtivo='$ativo',
-      idMarca = '$marca',
-      idTipo  ='$tipo',
-      quantidadeAtivo = '$quantidade',
-      observacaoAtivo = '$observacao'
-
-    where idAtivo = $idAtivo
+    Update marca set
+      descricaoMarca='$marca'
+    where idMarca = $idMarca
   ";
   // echo $sql;
   $result = mysqli_query($conn, $sql) or die(false);

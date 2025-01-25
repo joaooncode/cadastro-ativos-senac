@@ -54,23 +54,16 @@ function editar(idTipo) {
     },
     success: function (result) {
       retorno = JSON.parse(result);
-      $("#btn_modal").click();
+      $("#cadastrarTipoBtn").click();
 
-      $("#ativo").val(retorno[0]["descricaoAtivo"]);
-      $("#marca").val(retorno[0]["idMarca"]);
-      $("#tipo").val(retorno[0]["idTipo"]);
-      $("#quantidade").val(retorno[0]["observacaoAtivo"]);
-      $("#observacao").val(retorno[0]["quantidadeAtivo"]);
+      $("#tipo").val(retorno[0]["descricaoTipo"]);
+      $("#idTipo").val(retorno[0]["idTipo"]);
 
       console.log(retorno);
     },
   });
 }
 function limpar_modal() {
-  $("#ativo").val("");
-  $("#marca").val("");
   $("#tipo").val("");
-  $("#quantidade").val("");
-  $("#observacao").val("");
-  $("#idAtivo").val("");
+  $("#idTipo").val("");
 }

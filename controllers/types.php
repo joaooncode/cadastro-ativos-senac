@@ -43,9 +43,6 @@ if ($acao == 'get_info') {
   $sql = "
     Select
       descricaoTipo,
-      quantidadeTipo,
-      observacaoTipo,
-      idMarca,
       idTipo
     from
       tipo
@@ -61,8 +58,8 @@ if ($acao == 'get_info') {
 
 if ($acao == 'update') {
   $sql = "
-    Update ativo set
-      descricaoTipo='$tipo',
+    update tipo set
+      descricaoTipo='$tipo'
      
     where idTipo = $idTipo
   ";

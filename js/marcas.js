@@ -26,14 +26,14 @@ $(document).ready(function () {
   });
 });
 
-function muda_status(status, idAtivo) {
+function muda_status(status, idMarca) {
   $.ajax({
     type: "POST",
-    url: "../controllers/assets.php",
+    url: "../controllers/brands.php",
     data: {
       acao: "alterar_status",
       status: status,
-      idAtivo: idAtivo,
+      idMarca: idMarca,
     },
     success: function (result) {
       //console.log(result)
@@ -43,34 +43,29 @@ function muda_status(status, idAtivo) {
   });
 }
 
-function editar(idAtivo) {
-  $("#idAtivo").val(idAtivo);
+function editar(idMarca) {
+  $("#idMarca").val(idMarca);
   $.ajax({
     type: "POST",
-    url: "../controllers/assets.php",
+    url: "../controllers/brands.php",
     data: {
       acao: "get_info",
-      idAtivo: idAtivo,
+      idMarca: idMarca,
     },
     success: function (result) {
-      retorno = JSON.parse(result);
-      $("#btn_modal").click();
+      console.log(result);
 
-      $("#ativo").val(retorno[0]["descricaoAtivo"]);
-      $("#marca").val(retorno[0]["idMarca"]);
-      $("#tipo").val(retorno[0]["idTipo"]);
-      $("#quantidade").val(retorno[0]["observacaoAtivo"]);
-      $("#observacao").val(retorno[0]["quantidadeAtivo"]);
+      retorno = JSON.parse(result);
+      $("#cadastrarMarcaBtn").click();
+
+      $("#marca").val(retorno[0]["descricaoMarca"]);
+      $("#idMarca").val(retorno[0]["idMarca"]);
 
       console.log(retorno);
     },
   });
 }
 function limpar_modal() {
-  $("#ativo").val("");
   $("#marca").val("");
-  $("#tipo").val("");
-  $("#quantidade").val("");
-  $("#observacao").val("");
-  $("#idAtivo").val("");
+  $("#idMarca").val("");
 }

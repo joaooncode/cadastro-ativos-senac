@@ -11,7 +11,6 @@ include_once('../controllers/brands.php');
 
 include_once('modal/modal_marca.php');
 
-
 $brand = fetchData($conn, 'marca');
 
 ?>
@@ -23,9 +22,9 @@ $brand = fetchData($conn, 'marca');
             <div class="container mb-5 w-100">
                 <div class="d-flex flex-column justify-content-evenly align-items-center">
                     <h1 class="text-center text-primary">Marcas</h1>
-                    <button id="cadastrarAtivoBtn" onclick="limparModal()" style="width: 100%; max-width: 200px;"
+                    <button id="cadastrarMarcaBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
                         type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
-                        data-bs-target="#updateModal">Cadastrar Marca</button>
+                        data-bs-target="#cadastrarMarca">Cadastrar Marca</button>
                 </div>
                 <table class="table table-bordered  border-primary mt-5">
                     <thead>
@@ -35,9 +34,9 @@ $brand = fetchData($conn, 'marca');
                         <th scope="col">
                             Usuário de cadastro
                         </th>
-                        <th scope="col">
-                            Ações
-                        </th>
+                        <th scope="col">Data de Cadastro</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
                     </thead>
                     <tbody>
                         <?php
@@ -55,6 +54,46 @@ $brand = fetchData($conn, 'marca');
                                     <p>
                                         <?php echo $value['idUsuario'] ?>
                                     </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php echo $value['dataCadastroMarca'] ?>
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        <?php echo $value['statusMarca'] ?>
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="actions d-flex justify-content-evenly">
+                                        <button id="editBrand" data-bs-toggle="modal" data-bs-target="cadastrarMarca"
+                                            onclick="editar('<?php echo $value['idMarca']; ?>')"
+                                            class="mx-2 btn btn-primary">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <div class="changeStatus">
+                                            <?php
+                                            if ($value['statusMarca'] == "Ativo") {
+                                                ?>
+                                                <button id="activeBrand"
+                                                    onclick="muda_status('Inativo','<?php echo $value['idMarca']; ?>')"
+                                                    class=" btn btn-success">
+                                                    <i class="bi bi-toggle-on"></i>
+                                                </button>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <button id="inactiveBrand"
+                                                    onclick="muda_status('Ativo','<?php echo $value['idMarca']; ?>')"
+                                                    class=" btn btn-danger">
+                                                    <i class="bi bi-toggle-off"></i>
+                                                </button>
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             <?php

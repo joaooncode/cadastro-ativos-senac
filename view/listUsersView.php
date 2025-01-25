@@ -1,10 +1,10 @@
 <?php
 
 include_once('../models/connect_db.php');
-include_once('../controllers/functions.php');
-include_once('head.php');
-include_once('dropdown.php');
-include_once('../controllers/session.php');
+include_once('../controllers/functionsController.php');
+include_once('headView.php');
+include_once('dropdownView.php');
+include_once('../controllers/sessionController.php');
 
 
 $users = fetchData($conn, 'usuario');
@@ -39,7 +39,7 @@ $admin = $_SESSION['is_admin'];
                         <td>
                             <p>
                                 <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                    href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
+                                    href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
                                     <?php echo $value['nomeUsuario'] ?>
                                 </a>
                             </p>
@@ -47,7 +47,7 @@ $admin = $_SESSION['is_admin'];
                         <td>
                             <p>
                                 <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                    href="./patch_user.php?idUsuario=<?php echo $value['idUsuario'] ?>">
+                                    href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
                                     <?php echo $value['turmaUsuario'] ?>
                                 </a>
                             </p>

@@ -1,9 +1,9 @@
 <?php
 
 include('../models/connect_db.php');
-include('../controllers/functions.php');
-include_once('head.php');
-include_once('dropdown.php');
+include('../controllers/functionsController.php');
+include_once('headView.php');
+include_once('dropdownView.php');
 
 // id do usuário a ser alterado
 $id = $_GET['idUsuario'];
@@ -31,8 +31,8 @@ foreach ($query_db as $key => $value) {
         <!-- Formulário -->
         <div class="container w-100 h-100 mt-5">
 
-            <form action="../controllers/patch_user.php" method="POST"
-                class="w-100 d-flex flex-column justify-content-center align-items-center">
+            <form action="../controllers/patchUserController.php" method="POST"
+                  class="w-100 d-flex flex-column justify-content-center align-items-center">
                 <input type="hidden" name="idUsuario" value="<?php echo $idUsuario ?>">
                 <div class="mb-3">
                     <label for="nomeUsuario" class="form-label">Nome</label>

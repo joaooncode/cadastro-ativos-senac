@@ -1,9 +1,9 @@
 <?php
-include_once('head.php');
+include_once('headView.php');
 ?>
 
 
-<!--MODAL CADASTRO DE MARCAS-->
+<!--MODAL CADASTRO DE ATIVOS-->
 
 <form id="form">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -11,7 +11,8 @@ include_once('head.php');
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Ativo</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button onclick="clearModal()" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <form type="submit" method="post">
                     <div class="modal-body">
@@ -28,31 +29,27 @@ include_once('head.php');
                             <textarea type="text" class="form-control" id="observation"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="status">Status:</label>
-                            <select required id="status" class="form-select" aria-label="Default select example">
-                                <option class="selected">Informe o status do ativo:</option>
-                                <option value="Ativo">Ativo</option>
-                                <option value="Inativo">Inativo</option>
-                                <option value="Em transferência">Em transferência</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
                             <label for="brand">Marca:</label>
                             <select required id="brand" class="form-select" aria-label="Default select example">
-                                <option class="selected">Selecione a marca:</option>
-                                <option value="1">Dell</option>
-                                <option value="2">Lenovo</option>
-                                <option value="3">Positivo</option>
+                                <?php
+                                foreach ($brands as $brand => $value) {
+                                    echo '<option value ="' . $value['idMarca'] . '">' . $value['descricaoMarca'] . '</option>';
+
+                                }
+
+                                var_dump($brands)
+                                    ?>
+
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="type">Tipo:</label>
                             <select required id="type" class="form-select" aria-label="Default select example">
-                                <option class="selected">Selecione o tipo do ativo:</option>
-                                <option value="1">Ferramenta</option>
-                                <option value="2">Hardware</option>
-                                <option value="3">Software</option>
-                                <option value="4">Redes</option>
+                                <?php
+                                foreach ($types as $type => $value) {
+                                    echo '<option value="' . $value['idTipo'] . '">' . $value['descricaoTipo'] . '</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>

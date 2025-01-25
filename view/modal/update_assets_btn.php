@@ -1,7 +1,7 @@
 <?php
 include_once('update_assets.php');
-include_once('../view/head.php');
-include_once('../controllers/session.php');
+include_once('../view/headView.php');
+include_once('../controllers/sessionController.php');
 
 ?>
 

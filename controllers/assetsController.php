@@ -3,7 +3,7 @@ ini_set('display_errors', 0);
 error_reporting(E_ERROR);
 
 include_once('../models/connect_db.php');
-include_once('session.php');
+include_once('sessionController.php');
 
 $description = $_POST['description'];
 $quantity = $_POST['quantity'];

@@ -12,7 +12,7 @@ $class = $_POST['classUser'];
 if ($passwd !== $passwdConfirm) {
     echo "<script>
             alert('Senhas precisam ser iguais')
-            window.location.href='../view/register_user.php'
+            window.location.href='../view/registerUserController.php'
     </script>";
     exit();
 }
@@ -45,7 +45,7 @@ $result = mysqli_query($conn, $query) or die(false);
 if ($result) {
     echo "<script>
     alert('Usuário cadastrado!');
-    window.location.href='../view/list_users.php'
+    window.location.href='../view/listUsersView.php'
     </script>";
 
 } else {

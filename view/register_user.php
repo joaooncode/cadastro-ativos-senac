@@ -1,5 +1,5 @@
 <?php
-include('navbar.php');
+include('navbarView.php');
 
 ?>
 
@@ -13,7 +13,7 @@ include('navbar.php');
 <body class='min-vh-100 min-vw-100 bg-light overflow-hidden'>
     <h1 class='text-center text-primary h-100'>Cadastrar novo usuário</h1>
     <main class='mx-4 my-4 min-vw-100 min-vh-100 flex-grow-1'>
-        <form method="POST" action='../controllers/register_user.php'
+        <form method="POST" action='../controllers/registerUserController.php'
             class="d-flex align-items-center  justify-content-center min-vw-100 min-vh-100 my-5">
             <!--Nome do usuário-->
             <div class="form-floating mb-3 w-75">

@@ -43,7 +43,7 @@
                             <a class="nav-link link-primary" href="#">Listar Ativos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link link-primary" href="./list_users.php">Listar Usuário</a>
+                            <a class="nav-link link-primary" href="listUsersView.php">Listar Usuário</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link link-primary" href="#">Cadastrar Ativo</a>

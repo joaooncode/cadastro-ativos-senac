@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Redirecionar para a página padrão
                 echo "<script>
                         alert('Login bem-sucedido!');
-                        window.location.href='../view/list_users.php';
+                        window.location.href='../view/listUsersView.php';
                       </script>";
             }
         } else {

@@ -1,14 +1,14 @@
 <?php
-include_once('head.php');
-include_once('../controllers/session.php');
-include_once('dropdown.php');
+include_once('headView.php');
+include_once('../controllers/sessionController.php');
+include_once('dropdownView.php');
 include_once('../models/connect_db.php');
-include_once('../controllers/functions.php');
+include_once('../controllers/functionsController.php');
 
 $brands = fetchData($conn, 'marca');
 $types = fetchData($conn, 'tipo');
 
-include_once('modal.php');
+include_once('modalView.php');
 include_once('modal/update_assets_btn.php');
 
 $assets = fetchData($conn, 'ativo');

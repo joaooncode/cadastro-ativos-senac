@@ -23,7 +23,7 @@ $result = mysqli_query($conn, $sql_query) or die(false);
 if ($result) {
     echo "<script>
     alert('Usuário alterado!');
-    window.location.href='../view/list_users.php'
+    window.location.href='../view/listUsersView.php'
     </script>";
 
 } else {

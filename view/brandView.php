@@ -1,18 +1,17 @@
 <?php
-include_once('dropdown.php');
-include_once('head.php');
+include_once('dropdownView.php');
+include_once('headView.php');
 
-include_once('../controllers/session.php');
-include_once('../controllers/functions.php');
+include_once('../controllers/sessionController.php');
+include_once('../controllers/functionsController.php');
 include_once('../models/connect_db.php');
 
-include_once('../controllers/types.php');
+include_once('../controllers/brandsController.php');
 
 
-include_once('modal/types_modal.php');
-/* include_once('./modal/update_types.php'); */
+include_once('modal/modal_marca.php');
 
-$brand = fetchData($conn, 'tipo');
+$brand = fetchData($conn, 'marca');
 
 ?>
 
@@ -22,10 +21,10 @@ $brand = fetchData($conn, 'tipo');
             <!--Tabela ativos cadastrados-->
             <div class="container mb-5 w-100">
                 <div class="d-flex flex-column justify-content-evenly align-items-center">
-                    <h1 class="text-center text-primary">Tipos</h1>
-                    <button id="cadastrarTipoBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
+                    <h1 class="text-center text-primary">Marcas</h1>
+                    <button id="cadastrarMarcaBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
                         type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
-                        data-bs-target="#typesModal">Cadastrar Tipo</button>
+                        data-bs-target="#cadastrarMarca">Cadastrar Marca</button>
                 </div>
                 <table class="table table-bordered  border-primary mt-5">
                     <thead>
@@ -47,7 +46,7 @@ $brand = fetchData($conn, 'tipo');
 
                                 <td>
                                     <p>
-                                        <?php echo $value['descricaoTipo'] ?>
+                                        <?php echo $value['descricaoMarca'] ?>
                                     </p>
                                 </td>
 
@@ -58,36 +57,35 @@ $brand = fetchData($conn, 'tipo');
                                 </td>
                                 <td>
                                     <p>
-                                        <?php echo $value['dataCadastroTipo'] ?>
+                                        <?php echo $value['dataCadastroMarca'] ?>
                                     </p>
                                 </td>
                                 <td>
                                     <p>
-                                        <?php echo $value['statusTipo'] ?>
+                                        <?php echo $value['statusMarca'] ?>
                                     </p>
                                 </td>
-
                                 <td>
                                     <div class="actions d-flex justify-content-evenly">
-                                        <button id="editType" data-bs-toggle="modal" data-bs-target="updateTypes"
-                                            onclick="editar('<?php echo $value['idTipo']; ?>')"
+                                        <button id="editBrand" data-bs-toggle="modal" data-bs-target="cadastrarMarca"
+                                            onclick="editar('<?php echo $value['idMarca']; ?>')"
                                             class="mx-2 btn btn-primary">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                         <div class="changeStatus">
                                             <?php
-                                            if ($value['statusTipo'] == "Ativo") {
+                                            if ($value['statusMarca'] == "Ativo") {
                                                 ?>
-                                                <button id=" activeType"
-                                                    onclick="changeStatus('Inativo','<?php echo $value['idTipo']; ?>')"
+                                                <button id="activeBrand"
+                                                    onclick="muda_status('Inativo','<?php echo $value['idMarca']; ?>')"
                                                     class=" btn btn-success">
                                                     <i class="bi bi-toggle-on"></i>
                                                 </button>
                                                 <?php
                                             } else {
                                                 ?>
-                                                <button id="inactiveType"
-                                                    onclick="changeStatus('Ativo','<?php echo $value['idTipo']; ?>')"
+                                                <button id="inactiveBrand"
+                                                    onclick="muda_status('Ativo','<?php echo $value['idMarca']; ?>')"
                                                     class=" btn btn-danger">
                                                     <i class="bi bi-toggle-off"></i>
                                                 </button>
@@ -109,5 +107,5 @@ $brand = fetchData($conn, 'tipo');
 
         </main>
     </div>
-    <script src="../js/types.js"></script>
+    <script src="../js/marcas.js"></script>
 </body>

@@ -1,5 +1,5 @@
 <?php
-include_once('head.php');
+include_once('headView.php');
 ?>
 
 <body class="min-vh-100 min-vw-100 overflow-x-hidden position-relative">
@@ -23,13 +23,13 @@ include_once('head.php');
                         <a class="nav-link link-primary" href="#">Movimentações</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-primary" href="brand.php">Marcas</a>
+                        <a class="nav-link link-primary" href="brandView.php">Marcas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-primary" href="types.php">Tipos</a>
+                        <a class="nav-link link-primary" href="typesView.php">Tipos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-primary" href="register_assets.php">Ativos</a>
+                        <a class="nav-link link-primary" href="registerAssetsView.php">Ativos</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a id="dropdown" class="nav-link link-primary dropdown-toggle" href="#" role="button"
@@ -42,12 +42,12 @@ include_once('head.php');
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item link-primary" href="list_users.php">Listar Usuário</a></li>
+                            <li><a class="dropdown-item link-primary" href="listUsersView.php">Listar Usuário</a></li>
                         </ul>
                     </li>
                 </ul>
                 <!-- Botão de fechar alinhado à direita -->
-                <form action="../controllers/logout.php" method="post">
+                <form action="../controllers/logoutController.php" method="post">
                     <button id="signOut" type="submit" class="btn btn-lg btn-outline-primary mx-5 ms-auto">
                         <i class="fa fa-close"></i>
                     </button>

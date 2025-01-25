@@ -14,7 +14,7 @@ if (isset($_GET['error_auten']) && $_GET['error_auten'] == 'yes') {
 }
 
 
-include('head.php');
+include('headView.php');
 
 ?>
 
@@ -31,7 +31,7 @@ include('head.php');
     </div>
     <!--Login form-->
     <form class="container d-flex flex-column align-items-center justify-content-center"
-      action="../controllers/login_user.php" method="POST">
+          action="../controllers/loginUserController.php" method="POST">
       <div class="container d-flex flex-column align-items-center justify-content-center">
         <div class="form-floating mb-3 w-75">
           <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com"

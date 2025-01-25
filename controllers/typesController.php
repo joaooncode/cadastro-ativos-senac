@@ -3,22 +3,22 @@ ini_set('display_errors', 1);
 error_reporting(E_ERROR);
 
 include('../models/connect_db.php');
-include('session.php');
-$marca = $_POST['marca'];
+include('sessionController.php');
+$tipo = $_POST['tipo'];
 $user = $_SESSION['user_id'];
 $acao = $_POST['acao'];
-$idMarca = $_POST['idMarca'];
+$idTipo = $_POST['idTipo'];
 //$statusAtivo = $_POST['status'];
 
 if ($acao == 'inserir') {
   $query = "
-        insert into marca (
-                              descricaoMarca,
+        insert into tipo (
+                              descricaoTipo,
                                
-                              dataCadastroMarca,
+                              dataCadastroTipo,
                               idUsuario
                             )values(
-                              '" . $marca . "',
+                              '" . $tipo . "',
                               NOW(),
                               '" . $user . "'
                             )
@@ -31,7 +31,7 @@ if ($acao == 'inserir') {
 }
 if ($acao == 'alterar_status') {
   $sql = "
-    Update ativo set statusAtivo ='$statusAtivo' where idAtivo=$idAtivo
+    Update ativo set statusTipo ='$statusTipo' where idTipo=$idTipo
   ";
   $result = mysqli_query($conn, $sql) or die(false);
   if ($result) {
@@ -40,16 +40,15 @@ if ($acao == 'alterar_status') {
 }
 
 if ($acao == 'get_info') {
-  $sql =
-    "
+  $sql = "
     Select
-      descricaoMarca,
-      idMarca
+      descricaoTipo,
+      idTipo
     from
-      marca
+      tipo
     where
-      idMarca = $idMarca
-    ";
+      idTipo = $idTipo
+  ";
   $result = mysqli_query($conn, $sql) or die(false);
   $ativo = $result->fetch_all(MYSQLI_ASSOC);
   echo json_encode($ativo);
@@ -59,9 +58,10 @@ if ($acao == 'get_info') {
 
 if ($acao == 'update') {
   $sql = "
-    Update marca set
-      descricaoMarca='$marca'
-    where idMarca = $idMarca
+    update tipo set
+      descricaoTipo='$tipo'
+     
+    where idTipo = $idTipo
   ";
   // echo $sql;
   $result = mysqli_query($conn, $sql) or die(false);

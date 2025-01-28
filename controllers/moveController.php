@@ -26,3 +26,8 @@ $resultadoQuery = mysqli_query($conn, $totalAtivo) or die(false);
 $total = $resultadoQuery->fetch_assoc();
 
 $qtdTotal = $total['quantidadeAtivo'];
+
+
+echo $qtdTotal;
+
+exit();

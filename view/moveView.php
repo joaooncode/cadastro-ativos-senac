@@ -24,8 +24,8 @@ include_once('modal/move_modal.php');
             <div class="container mb-5 w-100">
                 <div class="d-flex flex-column justify-content-evenly align-items-center">
                     <h1 class="text-center text-primary">Movimentações</h1>
-                    <button id="cadastrarTipoBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
-                        type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
+                    <button id="cadastrarTipoBtn" style="width: 100%; max-width: 200px;" type="button"
+                        class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
                         data-bs-target="#cadastrarMovimentacao">Realizar Nova Movimentação</button>
                 </div>
                 <table class="table table-bordered  border-primary mt-5">

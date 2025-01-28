@@ -20,7 +20,7 @@ include_once('headView.php');
                         <a class="nav-link link-primary" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link link-primary" href="#">Movimentações</a>
+                        <a class="nav-link link-primary" href="moveView.php">Movimentações</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link link-primary" href="brandView.php">Marcas</a>

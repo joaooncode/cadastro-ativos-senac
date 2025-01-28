@@ -6,7 +6,6 @@ include_once('../controllers/sessionController.php');
 include_once('../controllers/functionsController.php');
 include_once('../models/connect_db.php');
 
-include_once('../controllers/moveController.php');
 
 
 /* include_once('./modal/update_types.php'); */
@@ -49,7 +48,7 @@ include_once('modal/move_modal.php');
 
                                 <td>
                                     <p>
-                                        <?php echo $value['idAtivo'] ?>
+                                        <?php echo $value['descricaoAtivo'] ?>
                                     </p>
                                 </td>
 

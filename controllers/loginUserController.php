@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Redirecionar para a página de administração
                 echo "<script>
                         alert('Login bem-sucedido! Você é um administrador.');
-                        window.location.href='../view/admin_dashboard.php'; // ou qualquer outra página de admin
+                        window.location.href='../view/admin_dashboard.php';
                       </script>";
             } else {
                 // Redirecionar para a página padrão

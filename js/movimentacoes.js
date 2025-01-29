@@ -24,6 +24,7 @@ $(".salvar").click(function (params) {
       origem: origem,
       destino: destino,
       tipo: tipo,
+      quantidade: quantidade,
     },
     success: function (response) {
       if (response == "sucesso") {

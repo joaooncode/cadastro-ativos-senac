@@ -1,5 +1,6 @@
 <?php
 include_once('headView.php');
+
 ?>
 
 <body class="min-vh-100 min-vw-100 overflow-x-hidden position-relative">
@@ -21,6 +22,9 @@ include_once('headView.php');
                     </li>
                     <li class="nav-item">
                         <a class="nav-link link-primary" href="moveView.php">Movimentações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-primary" href="relatoriosView.php">Relatórios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link link-primary" href="brandView.php">Marcas</a>

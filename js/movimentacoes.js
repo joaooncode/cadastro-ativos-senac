@@ -27,13 +27,18 @@ $(".salvar").click(function (params) {
       quantidade: quantidade,
     },
     success: function (response) {
-      if (response == "sucesso") {
+      if (response == "Sucesso") {
         console.log(response);
+        alert("Movimentação cadastrada com sucesso!");
+        location.reload();
+      } else {
+        alert(response);
       }
     },
     error: function (response) {
-      if (response == "erro") {
+      if (response == "Erro") {
         console.log(error);
+        alert("Falha ao realizar a movimentação\n" + error);
       }
     },
   });

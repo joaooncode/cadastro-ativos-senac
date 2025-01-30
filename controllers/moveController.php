@@ -13,7 +13,7 @@ ini_set('display_errors', 1);
 
 $ativo = $_POST['ativo'];
 $tipo = $_POST['tipo'];
-$quantidade = $_POST['quantidade'];
+$quantidadeMov = $_POST['quantidade'];
 $origem = $_POST['origem'];
 $destino = $_POST['destino'];
 $descricao = $_POST['descricao'];
@@ -31,16 +31,15 @@ $qtdTotalAtivo = $total['quantidadeAtivo'];
 // Realiza busca no banco de dados
 $qtdUsoQuery = "SELECT COALESCE(quantidadeUso, 0) as quantidadeUso FROM movimentacao WHERE idAtivo=$ativo and statusMovimentacao='S'";
 
-echo $qtdUsoQuery;
-
 $qtdUsoQueryResult = mysqli_query($conn, $qtdUsoQuery) or die(false);
 
 $ativoUso = $qtdUsoQueryResult->fetch_assoc();
-$qtdUso = $ativoUso['quantidadeUso'];
+$qtdUso = isset($ativoUso['quantidadeUso']) ? $ativoUso['quantidadeUso'] : 0;
 
-if ($tipo == 'adicionar') {
+
+if ($tipo == 'entrada') {
     $total = $qtdUso + $quantidadeMov;
-    if ($total < $qtdTotalAtivo) {
+    if ($total > $qtdTotalAtivo) {
         echo "Erro! Quantidade de ativos em uso + quantidade selecionada ultrpassa o total de ativos";
         exit();
     }
@@ -82,12 +81,19 @@ $queryInsert = "INSERT into movimentacao (
     '" . $destino . "',
     now(),
     '" . $descricao . "',
-    '" . $qtdUso . "',
+    '" . $total . "',
     'S',
-    '" . $quantidadeMov . "',
-
+    '" . $tipo . "',
+    '" . $quantidadeMov . "'
 ) ";
 
+
+$result = mysqli_query($conn, $queryInsert) or die(false);
+if ($result) {
+    echo "Sucesso";
+} else {
+    echo "Erro";
+}
 
 
 exit();

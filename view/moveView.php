@@ -1,4 +1,6 @@
 <?php
+// Start the session at the top
+
 include_once('dropdownView.php');
 include_once('headView.php');
 
@@ -6,11 +8,26 @@ include_once('../controllers/sessionController.php');
 include_once('../controllers/functionsController.php');
 include_once('../models/connect_db.php');
 
-/* include_once('./modal/update_types.php'); */
-
-$ativos = fetchData($conn, 'ativo', 'statusAtivo', 'Ativo');
+// Fetch the data
+$ativos = fetchData($conn, 'movimentacao', 'statusAtivo', 'Ativo'); // Check if this function is correct for your needs
 
 include_once('modal/move_modal.php');
+
+$moveQuery = "SELECT idUsuario,
+                     tipoMovimentacao,
+                     quantidadeUso,
+                     quantidadeMovimentacao,
+                     localOrigem,
+                     localDestino,
+                     descricaoMovimentacao,
+                     dataHoraMovimentacao,
+                     (SELECT usuario FROM usaurio u WHERE u.idUsuario = m.idUsuario) AS usuario,
+                     (SELECT descricaoAtivo FROM ativo a WHERE a.idAtivo = m.idAtivo) AS ativo
+              FROM movimentacao m
+              WHERE m.statusMovimentacao = 'S'";
+
+$moveQueryResult = mysqli_query($conn, $moveQuery) or die(false);
+$movimentacoes = $moveQueryResult->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <body class="min-vw-100 min-vh-100">
@@ -28,7 +45,7 @@ include_once('modal/move_modal.php');
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered  border-primary mt-5">
+                    <table class="table table-hover table-bordered mt-5">
                         <thead class="table-primary">
                             <tr>
                                 <th scope="col">Ativo</th>
@@ -44,18 +61,18 @@ include_once('modal/move_modal.php');
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($ativos as $ativo => $value): ?>
+                            <?php foreach ($movimentacoes as $value): ?>
                                 <tr>
-                                    <td><?= $value['descricaoAtivo'] ?></td>
-                                    <td><?= $value['idUsuario'] ?></td>
-                                    <td><?= $value['tipoMovimentacao'] ?></td>
-                                    <td><?= $value['quantidadeMovimentacao'] ?></td>
-                                    <td><?= $value['quantidadeUso'] ?></td>
-                                    <td><?= $value['ultimaMovimentacao'] ?></td>
-                                    <td><?= $value['localOrigem'] ?></td>
-                                    <td><?= $value['localDestino'] ?></td>
-                                    <td><?= $value['descricaoMovimentacao'] ?></td>
-                                    <td><?= $value['dataHoraMovimentacao'] ?></td>
+                                    <td><?php echo $value['ativo']; ?></td>
+                                    <td><?php echo $value['usuario']; ?></td>
+                                    <td><?php echo $value['tipoMovimentacao']; ?></td>
+                                    <td><?php echo $value['quantidadeMovimentacao']; ?></td>
+                                    <td><?php echo $value['quantidadeUso']; ?></td>
+                                    <td><?php echo $value['dataHoraMovimentacao']; ?></td>
+                                    <td><?php echo $value['localOrigem']; ?></td>
+                                    <td><?php echo $value['localDestino']; ?></td>
+                                    <td><?php echo $value['descricaoMovimentacao']; ?></td>
+                                    <td><?php echo $value['dataHoraMovimentacao']; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

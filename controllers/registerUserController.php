@@ -19,7 +19,7 @@ if ($passwd !== $passwdConfirm) {
 
 
 
-$passwd_hash = password_hash($passwd, PASSWORD_BCRYPT);
+$passwd_hash = base64_encode($passwd);
 
 
 $query = "

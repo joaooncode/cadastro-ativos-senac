@@ -1,16 +1,15 @@
 <?php
 
+include_once('../controllers/sessionController.php');
 include_once('../models/connect_db.php');
 include_once('../controllers/functionsController.php');
 include_once('headView.php');
 include_once('dropdownView.php');
-include_once('../controllers/sessionController.php');
 
 
 $users = fetchData($conn, 'usuario');
 
 
-$admin = $_SESSION['is_admin'];
 
 
 ?>
@@ -32,28 +31,28 @@ $admin = $_SESSION['is_admin'];
                     <?php
                     foreach ($users as $user => $value) {
                         ?>
-                    <tr>
-                        <td>
-                            <?php echo $value['idUsuario'] ?>
-                        </td>
-                        <td>
-                            <p>
-                                <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                    href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
-                                    <?php echo $value['nomeUsuario'] ?>
-                                </a>
-                            </p>
-                        </td>
-                        <td>
-                            <p>
-                                <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                    href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
-                                    <?php echo $value['turmaUsuario'] ?>
-                                </a>
-                            </p>
-                        </td>
-                    </tr>
-                    <?php
+                        <tr>
+                            <td>
+                                <?php echo $value['idUsuario'] ?>
+                            </td>
+                            <td>
+                                <p>
+                                    <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+                                        href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
+                                        <?php echo $value['nomeUsuario'] ?>
+                                    </a>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+                                        href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
+                                        <?php echo $value['turmaUsuario'] ?>
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                        <?php
                     }
                     ?>
                 </tbody>

@@ -13,6 +13,7 @@ $ativos = fetchData($conn, 'movimentacao', 'statusAtivo', 'Ativo'); // Check if 
 
 include_once('modal/move_modal.php');
 
+
 $moveQuery = "SELECT idUsuario,
                      tipoMovimentacao,
                      quantidadeUso,

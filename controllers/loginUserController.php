@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Obter dados do formulário
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
-
+    $crip = base64_encode($password);
     // Verificar se os campos foram preenchidos
     if (empty($email) || empty($password)) {
         echo "<script>
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Consultar o banco de dados para verificar se o email existe
-    $query = "SELECT idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
+    $query = "SELECT COUNT('*') as quantidade, idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ? AND senhaUsuario =?";
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
         echo "<script>
@@ -32,31 +32,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Vincular o parâmetro
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param("ss", $email, $crip);
 
     // Executar a consulta
     $stmt->execute();
     $result = $stmt->get_result();
+
+
 
     // Verificar se o usuário existe
     if ($result->num_rows > 0) {
         // Obter os dados do usuário
         $user = $result->fetch_assoc();
 
+
         // Verificar se a senha fornecida corresponde ao hash bcrypt armazenado
-        if (password_verify($password, $user['senhaUsuario'])) {
+        if ($user['quantidade'] > 0) {
             // Iniciar a sessão e armazenar o ID do usuário
             $_SESSION['user_id'] = $user['idUsuario'];
             $_SESSION['login_ok'] = true;
             $_SESSION['login_controle'] = true;
 
             // Verificar se o usuário é um admin
-            if ($user['isAdmin'] == 1) {
+            if ($user['isAdmin'] == 'S') {
                 $_SESSION['is_admin'] = 'S'; // Definir uma variável de sessão para o admin
                 // Redirecionar para a página de administração
                 echo "<script>
                         alert('Login bem-sucedido! Você é um administrador.');
-                        window.location.href='../view/admin_dashboard.php';
+                        window.location.href='../view/registerAssetsView.php';
                       </script>";
             } else {
                 // Redirecionar para a página padrão

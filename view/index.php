@@ -31,7 +31,7 @@ include('headView.php');
     </div>
     <!--Login form-->
     <form class="container d-flex flex-column align-items-center justify-content-center"
-          action="../controllers/loginUserController.php" method="POST">
+      action="../controllers/loginUserController.php" method="POST">
       <div class="container d-flex flex-column align-items-center justify-content-center">
         <div class="form-floating mb-3 w-75">
           <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
@@ -49,7 +49,8 @@ include('headView.php');
         Entrar
       </button>
       <p class="mt-5 fs-5">
-        <a class="link-offset-2 link-underline link-underline-opacity-0" href="registerUserView.php">Cadastrar novo
+        <a class="link-offset-2 link-underline link-underline-opacity-0" href="registerUserView.php">Cadastrar
+          novo
           usuário?</a>
       </p>
     </form>

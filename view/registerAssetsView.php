@@ -49,8 +49,8 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                 <div class="table-responsive d-flex align-items-center justify-content-center"
                     style="overflow-x:auto; width: 100%;">
 
-                    <table class="table table-bordered border-primary w-75 mt-5">
-                        <thead>
+                    <table class="table table-bordered border-dark w-75 mt-5">
+                        <thead class="table table-dark">
                             <tr>
                                 <th scope="col">Código</th>
                                 <th scope="col">Descrição</th>

@@ -1,8 +1,8 @@
 <?php
+include_once('../controllers/sessionController.php');
 include_once('dropdownView.php');
 include_once('headView.php');
 
-include_once('../controllers/sessionController.php');
 include_once('../controllers/functionsController.php');
 include_once('../models/connect_db.php');
 
@@ -27,8 +27,8 @@ $brand = fetchData($conn, 'tipo');
                         type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
                         data-bs-target="#typesModal">Cadastrar Tipo</button>
                 </div>
-                <table class="table table-bordered  border-primary mt-5">
-                    <thead>
+                <table class="table table-bordered  border-dark mt-5">
+                    <thead class="table table-dark">
                         <th scope="col">
                             Descrição
                         </th>

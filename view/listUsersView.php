@@ -19,8 +19,8 @@ $users = fetchData($conn, 'usuario');
         <!--Tabela usuários cadastrados-->
         <div class=" container mb-5 w-100">
             <h1 class="text-center text-primary">Lista de usuários</h1>
-            <table class="table table-bordered border-primary mt-5">
-                <thead>
+            <table class="table table-bordered border-dark mt-5">
+                <thead class="table table-dark">
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Nome</th>
@@ -60,5 +60,3 @@ $users = fetchData($conn, 'usuario');
         </div>
     </main>
 </body>
-
-</html>

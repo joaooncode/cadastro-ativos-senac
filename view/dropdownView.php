@@ -53,7 +53,7 @@ include_once('headView.php');
                 <!-- Botão de fechar alinhado à direita -->
                 <form action="../controllers/logoutController.php" method="post">
                     <button id="signOut" type="submit" class="btn btn-lg btn-outline-primary mx-5 ms-auto">
-                        <i class="fa fa-close"></i>
+                        <i class="bi bi-box-arrow-right"></i>
                     </button>
                 </form>
             </div>

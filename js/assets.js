@@ -60,7 +60,6 @@ function changeStatus(status, id) {
 
 // Atualiza as informações do ativo
 function updateAsset(id) {
-  $("#idAsset").val(id);
   //alert(id);
 
   $.ajax({
@@ -73,7 +72,7 @@ function updateAsset(id) {
     success: function (result) {
       jsonReturn = JSON.parse(result);
       $("#cadastrarAtivoBtn").click();
-
+      $("#idAsset").val(id);
       $("#description").val(jsonReturn[0]["descricaoAtivo"]);
       $("#quantity").val(jsonReturn[0]["quantidadeAtivo"]);
       $("#observation").val(jsonReturn[0]["obsAtivo"]);

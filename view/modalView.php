@@ -58,6 +58,7 @@ include_once('headView.php');
                                 id="imagem_ativo">
                         </div>
                     </div>
+                    <input id='idAsset' type="hidden">
                 </form>
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-secondary" id="clear-btn">Limpar</button>

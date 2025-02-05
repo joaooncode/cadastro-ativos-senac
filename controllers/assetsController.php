@@ -15,7 +15,7 @@ $user = $_SESSION['user_id'];
 $action = $_POST['action'];
 $idAsset = $_POST['idAtivo'];
 $statusAsset = $_POST['status'];
-$image = $_FILES['imagem_ativo'];
+$imagem = $_FILES['imagem_ativo'];
 
 
 if ($action == 'insert') {
@@ -28,7 +28,8 @@ INSERT INTO ativo(
     statusAtivo,
     quantidadeAtivo,
     obsAtivo,
-    dataHoraCadastroAtivo 
+    dataHoraCadastroAtivo
+    imagem_url 
 ) values(
     '" . $brand . "',
     '" . $type . "',
@@ -36,6 +37,7 @@ INSERT INTO ativo(
     '" . $status . "',
     '" . $quantity . "',
     '" . $obs . "',
+    '" . $image . "'
     NOW()
 )
 ";

@@ -8,7 +8,7 @@ $marca = $_POST['marca'];
 $user = $_SESSION['user_id'];
 $acao = $_POST['acao'];
 $idMarca = $_POST['idMarca'];
-//$statusAtivo = $_POST['status'];
+$statusMarca = $_POST['status'];
 
 if ($acao == 'inserir') {
   $query = "
@@ -31,8 +31,9 @@ if ($acao == 'inserir') {
 }
 if ($acao == 'alterar_status') {
   $sql = "
-    Update ativo set statusAtivo ='$statusAtivo' where idAtivo=$idAtivo
+    Update marca set statusMarca ='$statusMarca' where idMarca='$idMarca'
   ";
+
   $result = mysqli_query($conn, $sql) or die(false);
   if ($result) {
     echo "Status Alterado";

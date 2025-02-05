@@ -76,10 +76,10 @@ $brand = fetchData($conn, 'tipo');
                                         </button>
                                         <div class="changeStatus">
                                             <?php
-                                            if ($value['statusTipo'] == "Ativo") {
+                                            if ($value['statusTipo'] == "S") {
                                                 ?>
                                                 <button id=" activeType"
-                                                    onclick="changeStatus('Inativo','<?php echo $value['idTipo']; ?>')"
+                                                    onclick="muda_status('N','<?php echo $value['idTipo']; ?>')"
                                                     class=" btn btn-success">
                                                     <i class="bi bi-toggle-on"></i>
                                                 </button>
@@ -87,7 +87,7 @@ $brand = fetchData($conn, 'tipo');
                                             } else {
                                                 ?>
                                                 <button id="inactiveType"
-                                                    onclick="changeStatus('Ativo','<?php echo $value['idTipo']; ?>')"
+                                                    onclick="muda_status('S','<?php echo $value['idTipo']; ?>')"
                                                     class=" btn btn-danger">
                                                     <i class="bi bi-toggle-off"></i>
                                                 </button>

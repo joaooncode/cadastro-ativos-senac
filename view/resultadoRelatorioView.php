@@ -79,8 +79,8 @@ $movimentacoesResult = $resultQuery->fetch_all(MYSQLI_ASSOC);
 
 
 <body>
-    <div id="toolbar"></div>
     <div class="container mt-5">
+        <div id="toolbar" class="mb-5"></div>
         <h1 class="text-center text-primary mb-4">Resultado do Relatório</h1>
         <div class="table-responsive">
             <table id="relatorios" class="table table-bordered table-hover mt-4">
@@ -123,7 +123,20 @@ $movimentacoesResult = $resultQuery->fetch_all(MYSQLI_ASSOC);
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
-        let table = new DataTable('#relatorios');
+        $(document).ready(function () {
+            let table = $('#relatorios').DataTable({
+                search: {
+                    return: true
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
+            table.buttons().container()
+                .appendTo('#toolbar');
+        });
     </script>
 </body>
 

@@ -1,15 +1,14 @@
 <?php
-include_once('dropdownView.php');
-include_once('headView.php');
+include_once '../controllers/sessionController.php';
+include_once 'dropdownView.php';
+include_once 'headView.php';
 
-include_once('../controllers/sessionController.php');
-include_once('../controllers/functionsController.php');
-include_once('../models/connect_db.php');
+include_once '../controllers/functionsController.php';
+include_once '../models/connect_db.php';
 
-include_once('../controllers/brandsController.php');
+include_once '../controllers/brandsController.php';
 
-
-include_once('modal/modal_marca.php');
+include_once 'modal/modal_marca.php';
 
 $brand = fetchData($conn, 'marca');
 
@@ -69,17 +68,17 @@ $brand = fetchData($conn, 'marca');
                                 </td>
                                 <td>
                                     <div class="actions d-flex justify-content-evenly">
-                                        <button id="editBrand" data-bs-toggle="modal" data-bs-target="cadastrarMarca"
+                                        <button id="editBrand" data-bs-toggle="modal" data-bs-target="#cadastrarMarca"
                                             onclick="editar('<?php echo $value['idMarca']; ?>')"
                                             class="mx-2 btn btn-primary">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                         <div class="changeStatus">
                                             <?php
-                                                if ($value['statusMarca'] == "Ativo") {
+                                                if ($value['statusMarca'] == "S") {
                                                     ?>
                                             <button id="activeBrand"
-                                                onclick="muda_status('Inativo','<?php echo $value['idMarca']; ?>')"
+                                                onclick="muda_status('N','<?php echo $value['idMarca']; ?>')"
                                                 class=" btn btn-success">
                                                 <i class="bi bi-toggle-on"></i>
                                             </button>
@@ -87,7 +86,7 @@ $brand = fetchData($conn, 'marca');
                                                 } else {
                                                     ?>
                                             <button id="inactiveBrand"
-                                                onclick="muda_status('Ativo','<?php echo $value['idMarca']; ?>')"
+                                                onclick="muda_status('S','<?php echo $value['idMarca']; ?>')"
                                                 class=" btn btn-danger">
                                                 <i class="bi bi-toggle-off"></i>
                                             </button>
@@ -103,7 +102,6 @@ $brand = fetchData($conn, 'marca');
                             ?>
                         </tbody>
 
-                        </tbody>
                     </table>
                 </div>
             </div>

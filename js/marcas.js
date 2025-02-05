@@ -37,7 +37,7 @@ function muda_status(status, idMarca) {
     },
     success: function (result) {
       //console.log(result)
-      //alert(result);
+      alert(result);
       location.reload();
     },
   });

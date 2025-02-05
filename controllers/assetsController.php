@@ -15,6 +15,7 @@ $user = $_SESSION['user_id'];
 $action = $_POST['action'];
 $idAsset = $_POST['idAtivo'];
 $statusAsset = $_POST['status'];
+$image = $_FILES['imagem_ativo'];
 
 
 if ($action == 'insert') {

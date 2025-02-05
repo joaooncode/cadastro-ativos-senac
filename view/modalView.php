@@ -14,7 +14,7 @@ include_once('headView.php');
                     <button onclick="clearModal()" type="button" class="btn-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <form type="submit" method="post">
+                <form type="submit" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="description" class="col-form-label">Descrição:</label>
@@ -51,6 +51,11 @@ include_once('headView.php');
                                 }
                                 ?>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Inserir Imagem</label>
+                            <input class="form-control" accept="image/png, image/jpeg" type="file" name="imagem_ativo"
+                                id="imagem_ativo">
                         </div>
                     </div>
                 </form>

@@ -86,10 +86,10 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                             </button>
                                             <div class="changeStatus">
                                                 <?php
-                                                if ($value['statusAtivo'] == "Ativo") {
+                                                if ($value['statusAtivo'] == "S") {
                                                     ?>
                                                     <button id=" activeAsset"
-                                                        onclick="changeStatus('Inativo','<?php echo $value['idAtivo']; ?>')"
+                                                        onclick="changeStatus('N','<?php echo $value['idAtivo']; ?>')"
                                                         class=" btn btn-success">
                                                         <i class="bi bi-toggle-on"></i>
                                                     </button>
@@ -97,7 +97,7 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                                 } else {
                                                     ?>
                                                     <button id="inactiveAsset"
-                                                        onclick="changeStatus('Ativo','<?php echo $value['idAtivo']; ?>')"
+                                                        onclick="changeStatus('S','<?php echo $value['idAtivo']; ?>')"
                                                         class=" btn btn-danger">
                                                         <i class="bi bi-toggle-off"></i>
                                                     </button>

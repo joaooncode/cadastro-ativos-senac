@@ -8,10 +8,10 @@ $tipo = $_POST['tipo'];
 $user = $_SESSION['user_id'];
 $acao = $_POST['acao'];
 $idTipo = $_POST['idTipo'];
-//$statusAtivo = $_POST['status'];
+$statusTipo = $_POST['status'];
 
 if ($acao == 'inserir') {
-    $query = "
+  $query = "
         insert into tipo (
                               descricaoTipo,
                                
@@ -24,23 +24,24 @@ if ($acao == 'inserir') {
                             )
 
         ";
-    $result = mysqli_query($conn, $query) or die(false);
-    if ($result) {
-        echo "cadastro realizado";
-    }
+  $result = mysqli_query($conn, $query) or die(false);
+  if ($result) {
+    echo "cadastro realizado";
+  }
 }
 if ($acao == 'alterar_status') {
-    $sql = "
-    Update ativo set statusTipo ='$statusTipo' where idTipo=$idTipo
+  $sql = "
+    Update tipo set statusTipo ='$statusTipo' where idTipo='$idTipo'
   ";
-    $result = mysqli_query($conn, $sql) or die(false);
-    if ($result) {
-        echo "Status Alterado";
-    }
+  echo $sql;
+  $result = mysqli_query($conn, $sql) or die(false);
+  if ($result) {
+    echo "Status Alterado";
+  }
 }
 
 if ($acao == 'get_info') {
-    $sql = "
+  $sql = "
     Select
       descricaoTipo,
       idTipo
@@ -49,25 +50,25 @@ if ($acao == 'get_info') {
     where
       idTipo = $idTipo
   ";
-    $result = mysqli_query($conn, $sql) or die(false);
-    $ativo = $result->fetch_all(MYSQLI_ASSOC);
-    echo json_encode($ativo);
-    exit();
+  $result = mysqli_query($conn, $sql) or die(false);
+  $ativo = $result->fetch_all(MYSQLI_ASSOC);
+  echo json_encode($ativo);
+  exit();
 
 }
 
 if ($acao == 'update') {
-    $sql = "
+  $sql = "
     update tipo set
       descricaoTipo='$tipo'
      
     where idTipo = $idTipo
   ";
-    // echo $sql;
-    $result = mysqli_query($conn, $sql) or die(false);
-    if ($result) {
-        echo "Informações Alteradas";
-    }
+  // echo $sql;
+  $result = mysqli_query($conn, $sql) or die(false);
+  if ($result) {
+    echo "Informações Alteradas";
+  }
 }
 
 

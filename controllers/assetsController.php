@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 error_reporting(E_ERROR);
 
 include_once('../models/connect_db.php');
@@ -15,8 +15,11 @@ $user = $_SESSION['user_id'];
 $action = $_POST['action'];
 $idAsset = $_POST['idAtivo'];
 $statusAsset = $_POST['status'];
-$imagem = $_FILES['imagem_ativo'];
+$img = $_FILES['imagem_ativo'];
 
+
+var_dump($img);
+exit;
 
 if ($action == 'insert') {
 
@@ -37,10 +40,16 @@ INSERT INTO ativo(
     '" . $status . "',
     '" . $quantity . "',
     '" . $obs . "',
-    '" . $image . "'
+    '" . $img . "'
     NOW()
 )
 ";
+    $image = '';
+
+    $target_dir = "../temp/";
+    $target_file = $target_dir . basename($_FILES["imagem_ativo"]["name"]);
+    move_uploaded_file($_FILES["imagem_ativo"]["tmp_name"], $target_file);
+    $image = $target_file; // Agora a variável $image tem o caminho da imagem
 
 
     $result = mysqli_query($conn, $query) or die(false);
@@ -49,7 +58,6 @@ INSERT INTO ativo(
         # code...
         echo "Cadastro realizado com sucesso!";
     }
-
 }
 ;
 
@@ -109,4 +117,7 @@ if ($action == 'update') {
     if ($result) {
         echo "Informações alteradas";
     }
+
+
+
 }

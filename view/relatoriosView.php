@@ -13,7 +13,7 @@ include_once('dropdownView.php');
 
 $ativos = fetchData($conn, 'ativo', 'statusAtivo', 'S');
 $marcas = fetchData($conn, 'marca', 'statusMarca', 'S');
-$tipos = fetchData($conn, 'tipo', 'statusTipo', 'Ativo');
+$tipos = fetchData($conn, 'tipo', 'statusTipo', 'S');
 $usuarios = fetchData($conn, 'usuario', 'statusUsuario', 'Ativo');
 
 ?>

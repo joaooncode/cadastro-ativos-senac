@@ -11,6 +11,10 @@ $(document).ready(function () {
     const brand = $("#brand").val();
     const type = $("#type").val();
     const idAsset = $("#idAsset").val();
+
+    const imgAtivo = $("#imagem_ativo");
+    const img = imgAtivo[0].files[0];
+
     let action = "";
     console.log(idAsset);
 
@@ -19,24 +23,26 @@ $(document).ready(function () {
     } else {
       action = "update";
     }
-    console.log(action);
+
+    var formData = new FormData();
+
+    formData.append("action", action);
+    formData.append("description", description);
+    formData.append("obs", obs);
+    formData.append("type", type);
+    formData.append("brand", brand);
+    formData.append("status", status);
+    formData.append("quantity", quantity);
+    formData.append("imagem_ativo", img);
 
     $.ajax({
       type: "POST",
       url: "../controllers/assetsController.php",
-      data: {
-        action: action,
-        description: description,
-        quantity: quantity,
-        obs: obs,
-        status: status,
-        brand: brand,
-        type: type,
-        idAtivo: idAsset,
-      },
+      data: formData,
+      processData: false,
+      contentType: false,
       success: function (result) {
-        // alert(result);
-        location.reload();
+        alert(result);
       },
     });
   });

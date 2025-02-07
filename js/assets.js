@@ -43,6 +43,7 @@ $(document).ready(function () {
       contentType: false,
       success: function (result) {
         alert(result);
+        location.reload();
       },
     });
   });
@@ -98,4 +99,26 @@ function clearModal(params) {
   $("#brand").val("");
   $("#type").val("");
   $("#idAsset").val("");
+}
+
+// Função para excluir um ativo
+function deleteAsset(id) {
+  // Confirmação antes de excluir
+  if (confirm("Tem certeza que deseja excluir esse ativo?")) {
+    $.ajax({
+      type: "POST",
+      url: "../controllers/assetsController.php",
+      data: {
+        action: "delete",
+        idAtivo: id,
+      },
+      success: function (result) {
+        alert(result);
+        location.reload(); // Recarrega a página para atualizar a lista
+      },
+      error: function (xhr, status, error) {
+        console.error("Erro: " + error);
+      },
+    });
+  }
 }

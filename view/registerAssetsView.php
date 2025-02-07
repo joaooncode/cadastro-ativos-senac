@@ -22,6 +22,7 @@ $sql = "
     dataHoraCadastroAtivo, 
     quantidadeAtivo,
     obsAtivo,
+    url_imagem,
     (SELECT descricaotipo FROM tipo t WHERE t.idTipo = a.idTipo) as tipo
     FROM ativo a
 ";
@@ -59,6 +60,7 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                 <th scope="col">Status</th>
                                 <th scope="col">Observação</th>
                                 <th scope="col">Tipo</th>
+                                <th scope="col">Imagem</th>
                                 <th scope="col">Data de Cadastro</th>
                                 <th scope="col">Ações</th>
                             </tr>
@@ -75,14 +77,28 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                     <td><?php echo $value['statusAtivo'] ?></td>
                                     <td><?php echo $value['obsAtivo'] ?></td>
                                     <td><?php echo $value['tipo'] ?></td>
+                                    <td>
+                                        <?php if (!empty($value['url_imagem'])) { ?>
+                                            <img src="<?php echo $value['url_imagem']; ?>" alt="Imagem do Ativo"
+                                                style="max-width: 100px; height: auto;">
+                                        <?php } else {
+                                            echo 'Sem imagem';
+                                        } ?>
+                                    </td>
+
                                     <td><?php $date = new DateTime($value['dataHoraCadastroAtivo']);
                                     echo $date->format('d/m/Y H:i:s') ?>
                                     </td>
                                     <td>
-                                        <div class="actions d-flex justify-content-evenly">
+                                        <div class=" actions d-flex justify-content-evenly">
                                             <button id="editAsset" onclick="updateAsset('<?php echo $value['idAtivo']; ?>')"
                                                 class="mx-2 btn btn-primary">
                                                 <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                            <button id="deleteAsset"
+                                                onclick="deleteAsset('<?php echo $value['idAtivo']; ?>')"
+                                                class="mx-2 btn btn-danger">
+                                                <i class="bi bi-trash"></i>
                                             </button>
                                             <div class="changeStatus">
                                                 <?php

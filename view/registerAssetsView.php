@@ -79,8 +79,8 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                     <td><?php echo $value['tipo'] ?></td>
                                     <td>
                                         <?php if (!empty($value['url_imagem'])) { ?>
-                                            <img src="<?php echo $value['url_imagem']; ?>" alt="Imagem do Ativo"
-                                                style="max-width: 100px; height: auto;">
+                                            <img src="<?php echo "http://" . $_SERVER['SERVER_NAME'] . ':8080/' . $value['url_imagem']; ?>"
+                                                alt="Imagem do Ativo" style="max-width: 100px; height: auto;">
                                         <?php } else {
                                             echo 'Sem imagem';
                                         } ?>

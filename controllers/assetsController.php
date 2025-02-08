@@ -5,41 +5,78 @@ error_reporting(E_ERROR);
 include_once('../models/connect_db.php');
 include_once('sessionController.php');
 
-$description = $_POST['description'];
-$quantity = $_POST['quantity'];
-$obs = $_POST['obs'];
-$status = $_POST['status'];
-$brand = $_POST['brand'];
-$type = $_POST['type'];
-$user = $_SESSION['user_id'];
-$action = $_POST['action'];
-$idAsset = $_POST['idAtivo'];
-$statusAsset = $_POST['status'];
-// $img = $_FILES['imagem_ativo']; // Não usaremos o array completo, apenas os dados processados
+// Retrieve and trim input values
+$description = trim($_POST['description'] ?? '');
+$quantity = trim($_POST['quantity'] ?? '');
+$obs = trim($_POST['obs'] ?? '');
+$status = trim($_POST['status'] ?? '');
+$brand = trim($_POST['brand'] ?? '');
+$type = trim($_POST['type'] ?? '');
+$user = $_SESSION['user_id'] ?? '';
+$action = $_POST['action'] ?? '';
+$idAsset = trim($_POST['idAtivo'] ?? '');
+$statusAsset = trim($_POST['status'] ?? '');
+
+// Validate required fields based on action
+switch ($action) {
+    case "insert":
+        if (empty($description) || empty($quantity) || empty($status) || empty($brand) || empty($type)) {
+            echo "Por favor, preencha todos os campos obrigatórios para inserir.";
+            exit();
+        }
+        break;
+    case "update":
+        if (empty($idAsset) || empty($description) || empty($quantity) || empty($status) || empty($brand) || empty($type)) {
+            echo "Por favor, preencha todos os campos obrigatórios para atualizar.";
+            exit();
+        }
+        break;
+    case "changeStatus":
+        if (empty($idAsset) || empty($statusAsset)) {
+            echo "ID do ativo e status são obrigatórios para alterar o status.";
+            exit();
+        }
+        break;
+    case "getInfo":
+        if (empty($idAsset)) {
+            echo "ID do ativo é obrigatório para buscar informações.";
+            exit();
+        }
+        break;
+    case "delete":
+        if (empty($idAsset)) {
+            echo "ID do ativo é obrigatório para deletar.";
+            exit();
+        }
+        break;
+    default:
+        echo "Ação inválida.";
+        exit();
+}
+
+// Process actions based on the value of $action
 
 if ($action == 'insert') {
 
     // --- Upload da Imagem ---
-    $target_dir = "../temp/";
-    // Verifica se o diretório existe, senão tenta criá-lo
+    $target_dir = $_SERVER['DOCUMENT_ROOT'] . 'cadastro-ativos-senac/temp/';
+
+    // Create the directory if it doesn't exist
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true);
     }
 
-    // Define o caminho do arquivo (você pode adicionar lógica para renomear arquivos, se necessário)
+    // Define the file path (you can add renaming logic if needed)
     $target_file = $target_dir . basename($_FILES["imagem_ativo"]["name"]);
 
-    // Move o arquivo da pasta temporária para o diretório desejado
+    // Move the file from temporary directory to the target directory
     if (move_uploaded_file($_FILES["imagem_ativo"]["tmp_name"], $target_file)) {
-        // $image conterá o caminho da imagem que será salvo no banco
-        $image = $target_file;
+        $image = 'cadastro-ativos-senac/temp/' . basename($_FILES["imagem_ativo"]["name"]);
     } else {
-        // Em caso de erro no upload, pode definir $image como nulo ou tratar o erro conforme necessário
         $image = null;
     }
 
-    // --- Inserção no Banco ---
-    // Atenção: Corrigimos a query para incluir vírgulas entre os campos e usar NOW() corretamente.
+    // --- Insert into Database ---
     $query = "
         INSERT INTO ativo(
             idMarca,
@@ -70,11 +107,7 @@ if ($action == 'insert') {
 }
 
 if ($action == 'changeStatus') {
-    $sql = "
-        UPDATE ativo 
-        SET statusAtivo = '$statusAsset' 
-        WHERE idAtivo = '$idAsset'
-    ";
+    $sql = "UPDATE ativo SET statusAtivo = '$statusAsset' WHERE idAtivo = '$idAsset'";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
     if ($result) {
@@ -89,7 +122,8 @@ if ($action == 'getInfo') {
             idTipo,
             descricaoAtivo,
             quantidadeAtivo,
-            obsAtivo
+            obsAtivo,
+            url_imagem
         FROM 
             ativo
         WHERE 
@@ -98,7 +132,7 @@ if ($action == 'getInfo') {
 
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
-    // Retorna os dados do ativo em formato JSON
+    // Return the asset data as JSON
     $asset = $result->fetch_all(MYSQLI_ASSOC);
     echo json_encode($asset);
     exit();
@@ -111,7 +145,7 @@ if ($action == 'update') {
             quantidadeAtivo = '$quantity',
             obsAtivo = '$obs',
             idMarca = '$brand',
-            idTipo = '$type'
+            idTipo = '$type',
         WHERE idAtivo = $idAsset
     ";
 
@@ -122,14 +156,8 @@ if ($action == 'update') {
     }
 }
 
-
 if ($action == 'delete') {
-    // Recupera o ID do ativo a ser deletado
-    $idAsset = $_POST['idAtivo'];
-
-    // Query para deletar o ativo
     $sql = "DELETE FROM ativo WHERE idAtivo = '$idAsset'";
-
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
     if ($result) {

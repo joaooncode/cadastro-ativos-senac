@@ -31,6 +31,7 @@ include_once('headView.php');
                         <div class="mb-3">
                             <label for="brand">Marca:</label>
                             <select required id="brand" class="form-select" aria-label="Default select example">
+                                <option value="" selected>Selecione uma marca</option>
                                 <?php
                                 foreach ($brands as $brand => $value) {
                                     echo '<option value ="' . $value['idMarca'] . '">' . $value['descricaoMarca'] . '</option>';
@@ -45,6 +46,7 @@ include_once('headView.php');
                         <div class="mb-3">
                             <label for="type">Tipo:</label>
                             <select required id="type" class="form-select" aria-label="Default select example">
+                                <option value="" selected>Selecione um tipo</option>
                                 <?php
                                 foreach ($types as $type => $value) {
                                     echo '<option value="' . $value['idTipo'] . '">' . $value['descricaoTipo'] . '</option>';
@@ -56,6 +58,10 @@ include_once('headView.php');
                             <label for="formFile" class="form-label">Inserir Imagem</label>
                             <input class="form-control" accept="image/png, image/jpeg" type="file" name="imagem_ativo"
                                 id="imagem_ativo">
+                        </div>
+                        <div class="mb-3 preview" style="display:none">
+                            <label for="formFile" class="form-label">Imagem Preview</label>
+                            <img style="width: 150px; position: relative; left: 20%" src="" alt="" id="imagemPreview">
                         </div>
                     </div>
                     <input id='idAsset' type="hidden">

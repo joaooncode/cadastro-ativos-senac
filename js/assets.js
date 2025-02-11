@@ -9,6 +9,7 @@ $(function () {
     const type = $("#type").val();
     const idAsset = $("#idAsset").val();
     const img = $("#imagem_ativo")[0]?.files[0];
+    const quantityMin = $("#quantityMin").val();
 
     // Define a ação com base na existência do idAsset
     const action = idAsset === "" ? "insert" : "update";
@@ -24,6 +25,7 @@ $(function () {
     formData.append("brand", brand);
     formData.append("status", status);
     formData.append("quantity", quantity);
+    formData.append("quantityMin", quantityMin);
 
     // Adiciona a imagem se houver
     if (img) {

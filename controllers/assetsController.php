@@ -17,6 +17,7 @@ $action = $_POST['action'] ?? '';
 $idAsset = trim($_POST['idAtivo'] ?? '');
 // Para a ação changeStatus usamos o mesmo campo "status" (mas poderia ser distinto)
 $statusAsset = trim($_POST['status'] ?? '');
+$quantityMin = trim($_POST['quantityMin']);
 
 // Processa a ação solicitada
 if ($action == 'insert') {
@@ -48,7 +49,8 @@ if ($action == 'insert') {
             quantidadeAtivo,
             obsAtivo,
             dataHoraCadastroAtivo,
-            url_imagem
+            url_imagem,
+            quantidadeMinimaAtivo
         ) VALUES (
             '$brand',
             '$type',
@@ -57,7 +59,8 @@ if ($action == 'insert') {
             '$quantity',
             '$obs',
             NOW(),
-            '$image'
+            '$image',
+            '$quantityMin'
         )
     ";
 

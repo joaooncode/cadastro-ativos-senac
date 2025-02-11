@@ -25,6 +25,10 @@ include_once('headView.php');
                             <input required type="number" class="form-control" id="quantity"></input>
                         </div>
                         <div class="mb-3">
+                            <label for="quantityMin" class="col-form-label">Quantidade Minima:</label>
+                            <input required type="number" class="form-control" id="quantityMin"></input>
+                        </div>
+                        <div class="mb-3">
                             <label for="observation" class="col-form-label">Observação:</label>
                             <textarea type="text" class="form-control" id="observation"></textarea>
                         </div>

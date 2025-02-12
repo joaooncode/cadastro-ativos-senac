@@ -21,6 +21,7 @@ $sql = "
     statusAtivo,
     dataHoraCadastroAtivo, 
     quantidadeAtivo,
+    quantidadeMinimaAtivo,
     obsAtivo,
     url_imagem,
     (SELECT descricaotipo FROM tipo t WHERE t.idTipo = a.idTipo) as tipo
@@ -56,6 +57,7 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                 <th scope="col">Código</th>
                                 <th scope="col">Descrição</th>
                                 <th scope="col">Quantidade</th>
+                                <th scope="col">Quantidade Minima</th>
                                 <th scope="col">Marca</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Observação</th>
@@ -73,13 +75,14 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                     <td><?php echo $value['idAtivo'] ?></td>
                                     <td><?php echo $value['descricaoAtivo'] ?></td>
                                     <td><?php echo $value['quantidadeAtivo'] ?></td>
+                                    <td><?php echo $value['quantidadeMinimaAtivo'] ?></td>
                                     <td><?php echo $value['marca'] ?></td>
                                     <td><?php echo $value['statusAtivo'] ?></td>
                                     <td><?php echo $value['obsAtivo'] ?></td>
                                     <td><?php echo $value['tipo'] ?></td>
                                     <td>
                                         <?php if (!empty($value['url_imagem'])) { ?>
-                                            <img src="<?php echo "http://" . $_SERVER['SERVER_NAME'] . ':8080/' . $value['url_imagem']; ?>"
+                                            <img src="<?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . '/' . $value['url_imagem']; ?>"
                                                 alt="Imagem do Ativo" style="max-width: 100px; height: auto;">
                                         <?php } else {
                                             echo 'Sem imagem';

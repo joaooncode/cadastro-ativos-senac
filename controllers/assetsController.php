@@ -6,7 +6,7 @@ error_reporting(E_ERROR);
 include_once('../models/connect_db.php');
 include_once('sessionController.php');
 
-// Retrieve and trim input values
+// Recupera e trata os valores enviados
 $description = trim($_POST['description'] ?? '');
 $quantity = trim($_POST['quantity'] ?? '');
 $obs = trim($_POST['obs'] ?? '');
@@ -16,68 +16,31 @@ $type = trim($_POST['type'] ?? '');
 $user = $_SESSION['user_id'] ?? '';
 $action = $_POST['action'] ?? '';
 $idAsset = trim($_POST['idAtivo'] ?? '');
+// Para a ação changeStatus usamos o mesmo campo "status" (mas poderia ser distinto)
 $statusAsset = trim($_POST['status'] ?? '');
+$quantityMin = trim($_POST['quantityMin']);
 
-// Validate required fields based on action
-switch ($action) {
-    case "insert":
-        if (empty($description) || empty($quantity) || empty($status) || empty($brand) || empty($type)) {
-            echo "Por favor, preencha todos os campos obrigatórios para inserir.";
-            exit();
-        }
-        break;
-    case "update":
-        if (empty($idAsset) || empty($description) || empty($quantity) || empty($status) || empty($brand) || empty($type)) {
-            echo "Por favor, preencha todos os campos obrigatórios para atualizar.";
-            exit();
-        }
-        break;
-    case "changeStatus":
-        if (empty($idAsset) || empty($statusAsset)) {
-            echo "ID do ativo e status são obrigatórios para alterar o status.";
-            exit();
-        }
-        break;
-    case "getInfo":
-        if (empty($idAsset)) {
-            echo "ID do ativo é obrigatório para buscar informações.";
-            exit();
-        }
-        break;
-    case "delete":
-        if (empty($idAsset)) {
-            echo "ID do ativo é obrigatório para deletar.";
-            exit();
-        }
-        break;
-    default:
-        echo "Ação inválida.";
-        exit();
-}
-
-// Process actions based on the value of $action
-
+// Processa a ação solicitada
 if ($action == 'insert') {
 
     // --- Upload da Imagem ---
-    $target_dir = $_SERVER['DOCUMENT_ROOT'] . 'cadastro-ativos-senac/temp/';
-
-    // Create the directory if it doesn't exist
+    $target_dir = $_SERVER['DOCUMENT_ROOT'] . '/cadastro-ativos-senac/temp/';
+    // Cria o diretório caso não exista
     if (!is_dir($target_dir)) {
         mkdir($target_dir, 0777, true);
     }
 
-    // Define the file path (you can add renaming logic if needed)
-    $target_file = $target_dir . basename($_FILES["imagem_ativo"]["name"]);
-
-    // Move the file from temporary directory to the target directory
-    if (move_uploaded_file($_FILES["imagem_ativo"]["tmp_name"], $target_file)) {
-        $image = 'cadastro-ativos-senac/temp/' . basename($_FILES["imagem_ativo"]["name"]);
-    } else {
-        $image = null;
+    $image = null;
+    if (isset($_FILES["imagem_ativo"]) && $_FILES["imagem_ativo"]["error"] == UPLOAD_ERR_OK) {
+        // Define o caminho do arquivo (você pode adicionar lógica para renomear o arquivo, se necessário)
+        $target_file = $target_dir . basename($_FILES["imagem_ativo"]["name"]);
+        // Move o arquivo da pasta temporária para o diretório de destino
+        if (move_uploaded_file($_FILES["imagem_ativo"]["tmp_name"], $target_file)) {
+            $image = 'cadastro-ativos-senac/temp/' . basename($_FILES["imagem_ativo"]["name"]);
+        }
     }
 
-    // --- Insert into Database ---
+    // --- Insere os dados no Banco de Dados ---
     $query = "
         INSERT INTO ativo(
             idMarca,
@@ -87,7 +50,8 @@ if ($action == 'insert') {
             quantidadeAtivo,
             obsAtivo,
             dataHoraCadastroAtivo,
-            url_imagem
+            url_imagem,
+            quantidadeMinimaAtivo
         ) VALUES (
             '$brand',
             '$type',
@@ -96,27 +60,26 @@ if ($action == 'insert') {
             '$quantity',
             '$obs',
             NOW(),
-            '$image'
+            '$image',
+            '$quantityMin'
         )
     ";
 
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-
     if ($result) {
         echo "Cadastro realizado com sucesso!";
     }
-}
 
-if ($action == 'changeStatus') {
+} elseif ($action == 'changeStatus') {
+
     $sql = "UPDATE ativo SET statusAtivo = '$statusAsset' WHERE idAtivo = '$idAsset'";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
     if ($result) {
         echo "Status Alterado";
     }
-}
 
-if ($action == 'getInfo') {
+} elseif ($action == 'getInfo') {
+
     $sql = "
         SELECT   
             idMarca,
@@ -128,39 +91,52 @@ if ($action == 'getInfo') {
         FROM 
             ativo
         WHERE 
-            idAtivo = $idAsset
+            idAtivo = '$idAsset'
     ";
-
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
-    // Return the asset data as JSON
+    // Retorna os dados do ativo em formato JSON
     $asset = $result->fetch_all(MYSQLI_ASSOC);
     echo json_encode($asset);
     exit();
-}
 
-if ($action == 'update') {
+} elseif ($action == 'update') {
+
+    // --- Verifica se uma nova imagem foi enviada para atualização ---
+    $image_sql = "";
+    if (isset($_FILES["imagem_ativo"]) && $_FILES["imagem_ativo"]["error"] == UPLOAD_ERR_OK) {
+        $target_dir = $_SERVER['DOCUMENT_ROOT'] . '/cadastro-ativos-senac/temp/';
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
+        $target_file = $target_dir . basename($_FILES["imagem_ativo"]["name"]);
+        if (move_uploaded_file($_FILES["imagem_ativo"]["tmp_name"], $target_file)) {
+            $image = 'cadastro-ativos-senac/temp/' . basename($_FILES["imagem_ativo"]["name"]);
+            // Prepara a parte do SQL para atualizar a imagem
+            $image_sql = ", url_imagem = '$image'";
+        }
+    }
+
+    // --- Atualiza os dados do ativo ---
     $sql = "
         UPDATE ativo SET 
             descricaoAtivo = '$description',
             quantidadeAtivo = '$quantity',
             obsAtivo = '$obs',
             idMarca = '$brand',
-            idTipo = '$type',
-        WHERE idAtivo = $idAsset
+            idTipo = '$type'
+            $image_sql
+        WHERE idAtivo = '$idAsset'
     ";
 
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
     if ($result) {
         echo "Informações alteradas";
     }
-}
 
-if ($action == 'delete') {
+} elseif ($action == 'delete') {
+
     $sql = "DELETE FROM ativo WHERE idAtivo = '$idAsset'";
     $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
     if ($result) {
         echo "Ativo deletado com sucesso!";
     } else {

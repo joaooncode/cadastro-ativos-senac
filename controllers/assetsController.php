@@ -86,7 +86,8 @@ if ($action == 'insert') {
             descricaoAtivo,
             quantidadeAtivo,
             obsAtivo,
-            url_imagem
+            url_imagem,
+            quantidadeMinimaAtivo
         FROM 
             ativo
         WHERE 
@@ -122,7 +123,8 @@ if ($action == 'insert') {
             quantidadeAtivo = '$quantity',
             obsAtivo = '$obs',
             idMarca = '$brand',
-            idTipo = '$type'
+            idTipo = '$type',
+            quantidadeMinimaAtivo = '$quantityMin'
             $image_sql
         WHERE idAtivo = '$idAsset'
     ";

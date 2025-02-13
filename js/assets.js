@@ -81,6 +81,7 @@ const updateAsset = (id) => {
       $("#observation").val(jsonReturn[0].obsAtivo);
       $("#brand").val(jsonReturn[0].idMarca);
       $("#type").val(jsonReturn[0].idTipo);
+      $("#quantityMin").val(jsonReturn[0].quantidadeMinimaAtivo);
       if (jsonReturn[0]["url_imagem"] !== "") {
         $("#imagemPreview").attr(
           "src",

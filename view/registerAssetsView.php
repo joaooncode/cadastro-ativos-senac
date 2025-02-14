@@ -44,6 +44,15 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                 class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">Cadastrar Ativo</button>
 
+
+            <!-- Campo de busca api mercado livre-->
+            <div class="container mt-5">
+                <form class="d-flex align-items-center justify-content-between"
+                    action="../controllers/productsSearchApi.php" method="post">
+                    <input class="form-control m-2" name="search" type="text" placeholder="Pesquisar no Mercado Livre">
+                    <button type="submit" class="btn btn-outline-primary">Pesquisar</button>
+                </form>
+            </div>
             <!-- Tabela ativos cadastrados -->
             <div class="container-fluid mb-2 w-100">
 

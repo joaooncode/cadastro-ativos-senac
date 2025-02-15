@@ -47,8 +47,8 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
 
             <!-- Campo de busca api mercado livre-->
             <div class="container mt-5">
-                <form class="d-flex align-items-center justify-content-between"
-                    action="../controllers/productsSearchApi.php" method="post">
+                <form class="d-flex align-items-center justify-content-between" action="./productsResultApi.php"
+                    method="post">
                     <input class="form-control m-2" name="search" type="text" placeholder="Pesquisar no Mercado Livre">
                     <button type="submit" class="btn btn-outline-primary">Pesquisar</button>
                 </form>

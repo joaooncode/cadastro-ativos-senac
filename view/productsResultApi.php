@@ -7,7 +7,8 @@ include_once '../view/dropdownView.php';
 
 $inputSearch = $_POST['search'];
 
-$url = 'https://api.mercadolibre.com/sites/MLB/search?q=' . "$inputSearch";
+// Refine the request with additional parameters
+$url = 'https://api.mercadolibre.com/sites/MLB/search?q=' . urlencode($inputSearch) . '&limit=50&sort=relevance&condition=new';
 
 $ch = curl_init();
 
@@ -20,46 +21,43 @@ $output = curl_exec($ch);
 
 curl_close($ch);
 
-
 $data = json_decode($output, true);
 
-;
-
 ?>
-
-
 
 <body>
     <div class="container mt-5">
         <?php if (isset($data['results']) && is_array($data['results'])): ?>
-            <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Imagem</th>
-                        <th>Título</th>
-                        <th>Preço (BRL)</th>
-                        <th>Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    // Array com taxas de conversão para BRL (valores de exemplo)
-                    $conversionRates = [
-                        'ARS' => 0.025,  // Exemplo: 1 ARS = 0.025 BRL
-                        'USD' => 5.10,   // Exemplo: 1 USD = 5.10 BRL
-                        'BRL' => 1,
-                        // Adicione outras moedas, se necessário
-                    ];
-                    ?>
-                    <?php foreach ($data['results'] as $item): ?>
-                        <tr>
-                            <td>
-                                <?php if (isset($item['thumbnail'])): ?>
-                                    <img src="<?php echo htmlspecialchars($item['thumbnail']); ?>" width="50" alt="Thumbnail">
-                                <?php endif; ?>
-                            </td>
-                            <td><?php echo htmlspecialchars($item['title']); ?></td>
-                            <td>
+            <div class="d-flex flex-wrap justify-content-center">
+                <?php
+                // Array com taxas de conversão para BRL (valores de exemplo)
+                $conversionRates = [
+                    'ARS' => 0.025,  // Exemplo: 1 ARS = 0.025 BRL
+                    'USD' => 5.10,   // Exemplo: 1 USD = 5.10 BRL
+                    'BRL' => 1,
+                    // Adicione outras moedas, se necessário
+                ];
+                ?>
+                <?php foreach ($data['results'] as $item): ?>
+                    <div class="card m-2" style="width: 14rem;">
+                        <?php if (isset($item['thumbnail'])): ?>
+                            <?php
+                            // Check for high-quality image URLs
+                            $imageUrl = $item['thumbnail'];
+                            if (isset($item['pictures']) && is_array($item['pictures'])) {
+                                foreach ($item['pictures'] as $picture) {
+                                    if (isset($picture['url']) && $picture['size'] === 'full') {
+                                        $imageUrl = $picture['url'];
+                                        break;
+                                    }
+                                }
+                            }
+                            ?>
+                            <img src="<?php echo htmlspecialchars($imageUrl); ?>" class="card-img-top img-fluid" alt="Thumbnail" style="object-fit: cover; height: 150px;">
+                        <?php endif; ?>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><?php echo htmlspecialchars($item['title']); ?></h5>
+                            <p class="card-text">
                                 <?php
                                 if (isset($item['price']) && isset($item['currency_id'])) {
                                     $price = $item['price'];
@@ -69,17 +67,16 @@ $data = json_decode($output, true);
                                     echo 'R$ ' . number_format($priceBRL, 2, ',', '.');
                                 }
                                 ?>
-                            </td>
-                            <td>
-                                <?php if (isset($item['permalink'])): ?>
-                                    <a href="<?php echo htmlspecialchars($item['permalink']); ?>" target="_blank">Ver</a>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                            </p>
+                            <?php if (isset($item['permalink'])): ?>
+                                <a href="<?php echo htmlspecialchars($item['permalink']); ?>" class="btn btn-primary mt-auto" target="_blank">Ver</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php else: ?>
             <div class="alert alert-info">Nenhum resultado encontrado.</div>
         <?php endif; ?>
     </div>
+</body>

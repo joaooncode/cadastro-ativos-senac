@@ -13,7 +13,6 @@ if (isset($_GET['error_auten']) && $_GET['error_auten'] == 'yes') {
   </script>";
 }
 
-
 include('headView.php');
 
 ?>
@@ -61,5 +60,4 @@ include('headView.php');
   <!--Validação visual-->
   <script src="../js/emailValidation.js"></script>
 </body>
-
 </html>

@@ -1,3 +1,4 @@
+
 // Função para validar o formato do email
 function validarEmail(email) {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -24,3 +25,5 @@ document.getElementById("floatingEmail").addEventListener("input", function () {
     submitButton.disabled = true; // Desabilita o botão
   }
 });
+
+// Função para validar o formato da senha

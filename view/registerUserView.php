@@ -1,5 +1,5 @@
 <?php
-include('navbarView.php');
+include('dropdownView.php');
 
 ?>
 
@@ -48,6 +48,7 @@ include('navbarView.php');
         <button type="submit" class="btn btn-lg btn-outline-primary">Cadastrar</button>
     </main>
     <script src="../js/emailValidation.js"></script>
+    <script src="../js/password.js"></script>
 </body>
 
 </html>

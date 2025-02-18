@@ -102,7 +102,6 @@ $brand = fetchData($conn, 'tipo');
                         }
                         ?>
                     </tbody>
-
                     </tbody>
                 </table>
             </div>

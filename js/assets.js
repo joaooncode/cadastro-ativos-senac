@@ -1,5 +1,6 @@
 $(function () {
   $("#save-btn").click(() => {
+    alert('Teste')
     // Coleta os valores dos campos do formulário
     const description = $("#description").val();
     const quantity = $("#quantity").val();
@@ -10,6 +11,44 @@ $(function () {
     const idAsset = $("#idAsset").val();
     const img = $("#imagem_ativo")[0]?.files[0];
     const quantityMin = $("#quantityMin").val();
+
+    // Verifica se todos os campos obrigatórios estão preenchidos
+    let isValid = true;
+    if (!description) {
+      $("#description").addClass("is-invalid");
+      isValid = false;
+    } else {
+      $("#description").removeClass("is-invalid");
+    }
+    if (!quantity) {
+      $("#quantity").addClass("is-invalid");
+      isValid = false;
+    } else {
+      $("#quantity").removeClass("is-invalid");
+    }
+    if (!brand) {
+      $("#brand").addClass("is-invalid");
+      isValid = false;
+    } else {
+      $("#brand").removeClass("is-invalid");
+    }
+    if (!type) {
+      $("#type").addClass("is-invalid");
+      isValid = false;
+    } else {
+      $("#type").removeClass("is-invalid");
+    }
+    if (!quantityMin) {
+      $("#quantityMin").addClass("is-invalid");
+      isValid = false;
+    } else {
+      $("#quantityMin").removeClass("is-invalid");
+    }
+
+    if (!isValid) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
 
     // Define a ação com base na existência do idAsset
     const action = idAsset === "" ? "insert" : "update";

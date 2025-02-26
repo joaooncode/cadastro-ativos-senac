@@ -42,7 +42,6 @@ include_once('headView.php');
 
                                 }
 
-                                var_dump($brands)
                                     ?>
 
                             </select>

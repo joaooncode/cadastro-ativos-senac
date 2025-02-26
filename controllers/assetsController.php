@@ -7,17 +7,17 @@ include_once('../models/connect_db.php');
 include_once('sessionController.php');
 
 // Recupera e trata os valores enviados
-$description = trim($_POST['description'] ?? '');
-$quantity = trim($_POST['quantity'] ?? '');
-$obs = trim($_POST['obs'] ?? '');
-$status = trim($_POST['status'] ?? '');
-$brand = trim($_POST['brand'] ?? '');
-$type = trim($_POST['type'] ?? '');
-$user = $_SESSION['user_id'] ?? '';
-$action = $_POST['action'] ?? '';
-$idAsset = trim($_POST['idAtivo'] ?? '');
+$description = trim($_POST['description']);
+$quantity = trim($_POST['quantity']);
+$obs = trim($_POST['obs']);
+$status = trim($_POST['status']);
+$brand = trim($_POST['brand']);
+$type = trim($_POST['type']);
+$user = $_SESSION['user_id'];
+$action = $_POST['action'];
+$idAsset = trim($_POST['idAtivo']);
 // Para a ação changeStatus usamos o mesmo campo "status" (mas poderia ser distinto)
-$statusAsset = trim($_POST['status'] ?? '');
+$statusAsset = trim($_POST['status']);
 $quantityMin = trim($_POST['quantityMin']);
 
 // Processa a ação solicitada

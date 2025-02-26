@@ -2,6 +2,7 @@
 
 include_once('../controllers/sessionController.php');
 include_once('../controllers/functionsController.php');
+include_once('../models/connect_db.php');
 include_once('dropdownView.php');
 
 
@@ -11,7 +12,7 @@ quantidadeMinimaAtivo,
 descricaoAtivo,
 (select descricaoMarca from marca m where m.idMarca = a.idMarca ) as descricaoMarca
 (select quantidadeUso from movimentacao u where u.idAtivo = a.idAtivo and u.statusMovimentacao = 'S')
- as uso from ativo a;";
+ as quantidadeUso from ativo a;";
 
 
 $result = mysqli_query($conn, $query);
@@ -21,7 +22,7 @@ $getResult = '';
 
 
 foreach ($assets as $asset) {
-    $available = $asset['quantidadeAtivo'] - $asset['uso'];
+    $available = $asset['quantidadeAtivo'] - $asset['quantidadeUso'];
     if ($available < $asset['quantidadeMinimaAtivo']) {
 
         $queryTerm = $asset['descricaoAtivo'] . $asset['descricaoMarca'];

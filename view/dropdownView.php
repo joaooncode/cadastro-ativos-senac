@@ -35,6 +35,9 @@ include_once('headView.php');
                     <li class="nav-item">
                         <a class="nav-link link-primary" href="registerAssetsView.php">Ativos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-primary" href="repositionView">Reposição</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="dropdown" class="nav-link link-primary dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">

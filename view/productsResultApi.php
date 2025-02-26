@@ -7,7 +7,6 @@ include_once '../view/dropdownView.php';
 
 $inputSearch = $_POST['search'];
 
-// Refine the request with additional parameters
 $url = 'https://api.mercadolibre.com/sites/MLB/search?q=' . urlencode($inputSearch) . '&limit=50&sort=relevance&condition=new';
 
 $ch = curl_init();

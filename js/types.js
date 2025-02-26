@@ -19,7 +19,7 @@ $(document).ready(function () {
         idTipo: idTipo,
       },
       success: function (result) {
-        //alert(result);
+        alert(result);
         location.reload();
       },
     });

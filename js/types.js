@@ -3,13 +3,17 @@ $(document).ready(function () {
     let tipo = $("#tipo").val();
     let idTipo = $("#idTipo").val();
 
-    if (idTipo == "") {
-      acao = "inserir";
+    // Verifica se o campo obrigatório está preenchido
+    if (!tipo) {
+      alert("Por favor, preencha o campo Tipo.");
+      $("#tipo").addClass("is-invalid");
+      return;
     } else {
-      acao = "update";
+      $("#tipo").removeClass("is-invalid");
     }
 
-    //alert(descricao_ativo);
+    let acao = idTipo === "" ? "inserir" : "update";
+
     $.ajax({
       type: "POST",
       url: "../controllers/typesController.php",
@@ -21,6 +25,9 @@ $(document).ready(function () {
       success: function (result) {
         alert(result);
         location.reload();
+      },
+      error: function (xhr, status, error) {
+        console.error("Erro na requisição:", error);
       },
     });
   });
@@ -36,9 +43,10 @@ function muda_status(status, idTipo) {
       idTipo: idTipo,
     },
     success: function (result) {
-      //console.log(result)
-      //alert(result);
       location.reload();
+    },
+    error: function (xhr, status, error) {
+      console.error("Erro na requisição:", error);
     },
   });
 }
@@ -53,16 +61,17 @@ function editar(idTipo) {
       idTipo: idTipo,
     },
     success: function (result) {
-      retorno = JSON.parse(result);
+      let retorno = JSON.parse(result);
       $("#cadastrarTipoBtn").click();
-
       $("#tipo").val(retorno[0]["descricaoTipo"]);
       $("#idTipo").val(retorno[0]["idTipo"]);
-
-      console.log(retorno);
+    },
+    error: function (xhr, status, error) {
+      console.error("Erro na requisição:", error);
     },
   });
 }
+
 function limpar_modal() {
   $("#tipo").val("");
   $("#idTipo").val("");

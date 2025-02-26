@@ -3,13 +3,17 @@ $(document).ready(function () {
     let marca = $("#marca").val();
     let idMarca = $("#idMarca").val();
 
-    if (idMarca == "") {
-      acao = "inserir";
+    // Verifica se o campo obrigatório está preenchido
+    if (!marca) {
+      alert("Por favor, preencha o campo Marca.");
+      $("#marca").addClass("is-invalid");
+      return;
     } else {
-      acao = "update";
+      $("#marca").removeClass("is-invalid");
     }
 
-    //alert(descricao_ativo);
+    let acao = idMarca === "" ? "inserir" : "update";
+
     $.ajax({
       type: "POST",
       url: "../controllers/brandsController.php",
@@ -19,8 +23,11 @@ $(document).ready(function () {
         idMarca: idMarca,
       },
       success: function (result) {
-        //alert(result);
+        alert(result);
         location.reload();
+      },
+      error: function (xhr, status, error) {
+        console.error("Erro na requisição:", error);
       },
     });
   });
@@ -36,9 +43,11 @@ function muda_status(status, idMarca) {
       idMarca: idMarca,
     },
     success: function (result) {
-      //console.log(result)
       alert(result);
       location.reload();
+    },
+    error: function (xhr, status, error) {
+      console.error("Erro na requisição:", error);
     },
   });
 }
@@ -53,18 +62,17 @@ function editar(idMarca) {
       idMarca: idMarca,
     },
     success: function (result) {
-      console.log(result);
-
-      retorno = JSON.parse(result);
+      let retorno = JSON.parse(result);
       $("#cadastrarMarcaBtn").click();
-
       $("#marca").val(retorno[0]["descricaoMarca"]);
       $("#idMarca").val(retorno[0]["idMarca"]);
-
-      console.log(retorno);
+    },
+    error: function (xhr, status, error) {
+      console.error("Erro na requisição:", error);
     },
   });
 }
+
 function limpar_modal() {
   $("#marca").val("");
   $("#idMarca").val("");

@@ -26,7 +26,7 @@
                     </select>
                     </select>
                     <label for="quantidade" class="col-form-label"><span class="text-danger">*</span>Quantidade</label>
-                    <input type="text" class="form-control" name="quantidadeMovimentacao" id="quantidadeMovimentacao">
+                    <input type="number" class="form-control" name="quantidadeMovimentacao" id="quantidadeMovimentacao">
                     <label for="localOrigem" class="col-form-label">Local Origem</label>
                     <input type="text" class="form-control" name="localOrigem" id="localOrigem">
                     <label for="localDestino" class="col-form-label">Local Destino</label>

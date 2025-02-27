@@ -10,7 +10,40 @@ $(".salvar").click(function (params) {
   let destino = $("#localDestino").val();
   let descricao = $("#descricaoMovimentacao").val();
 
-  if (ativo == "" || tipo == "" || quantidade == "") {
+  // Verifica se os campos obrigatórios estão preenchidos
+  let isValid = true;
+  if (!ativo) {
+    $("#ativo").addClass("is-invalid");
+    isValid = false;
+  } else {
+    $("#ativo").removeClass("is-invalid");
+  }
+  if (!tipo) {
+    $("#tipoMovimentacao").addClass("is-invalid");
+    isValid = false;
+  } else {
+    $("#tipoMovimentacao").removeClass("is-invalid");
+  }
+  if (!quantidade) {
+    $("#quantidadeMovimentacao").addClass("is-invalid");
+    isValid = false;
+  } else {
+    $("#quantidadeMovimentacao").removeClass("is-invalid");
+  }
+  if (!origem) {
+    $("#localOrigem").addClass("is-invalid");
+    isValid = false;
+  } else {
+    $("#localOrigem").removeClass("is-invalid");
+  }
+  if (!destino) {
+    $("#localDestino").addClass("is-invalid");
+    isValid = false;
+  } else {
+    $("#localDestino").removeClass("is-invalid");
+  }
+
+  if (!isValid) {
     alert("Campos obrigatórios não preenchidos!");
     return;
   }

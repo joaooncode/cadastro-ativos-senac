@@ -20,6 +20,7 @@ $idAsset = trim($_POST['idAtivo']);
 $statusAsset = trim($_POST['status']);
 $quantityMin = trim($_POST['quantityMin']);
 
+
 // Processa a ação solicitada
 if ($action == 'insert') {
 
@@ -51,7 +52,8 @@ if ($action == 'insert') {
             obsAtivo,
             dataHoraCadastroAtivo,
             url_imagem,
-            quantidadeMinimaAtivo
+            quantidadeMinimaAtivo,
+            usuarioCadastro
         ) VALUES (
             '$brand',
             '$type',

@@ -9,6 +9,7 @@ $brands = fetchData($conn, 'marca');
 $types = fetchData($conn, 'tipo');
 
 include_once('modalView.php');
+include_once('./modal/info_modal.php');
 include_once('modal/update_assets_btn.php');
 
 $assets = fetchData($conn, 'ativo');
@@ -24,11 +25,12 @@ $sql = "
     quantidadeMinimaAtivo,
     obsAtivo,
     url_imagem,
-    (SELECT descricaotipo FROM tipo t WHERE t.idTipo = a.idTipo) as tipo
+    (SELECT descricaotipo FROM tipo t WHERE t.idTipo = a.idTipo) as tipo,
+    (SELECT quantidadeUso from movimentacao m  where m.idAtivo = a.idAtivo and statusMovimentacao = 'S') as quantidadeUso
     FROM ativo a
 ";
 
-$result = mysqli_query($conn, query: $sql) or die(false);
+$result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
 //retorna todos os ativos
 $data = $result->fetch_all(MYSQLI_ASSOC);
@@ -65,29 +67,34 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                             <tr>
                                 <th scope="col">Código</th>
                                 <th scope="col">Descrição</th>
-                                <th scope="col">Quantidade</th>
+                                <th scope="col">Quantidade Cadastrada</th>
                                 <th scope="col">Quantidade Minima</th>
+                                <th scope="col">Quantidade em uso</th>
                                 <th scope="col">Marca</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Observação</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Imagem</th>
-                                <th scope="col">Data de Cadastro</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             foreach ($data as $assets => $value) {
+                                $quantidadeDisponivel = $value['quantidadeAtivo'] - $value['quantidadeUso'];
                                 ?>
                                 <tr class="text-uppercase">
                                     <td><?php echo $value['idAtivo'] ?></td>
-                                    <td><?php echo $value['descricaoAtivo'] ?></td>
-                                    <td><?php echo $value['quantidadeAtivo'] ?></td>
-                                    <td><?php echo $value['quantidadeMinimaAtivo'] ?></td>
+                                    <td><?php echo $value['descricaoAtivo']?></td>
+                                    <td>
+                                        <?php echo $value['quantidadeAtivo'] ?>
+                                        <?php if ($quantidadeDisponivel < $value['quantidadeMinimaAtivo']) { ?>
+                                            <i class="bi bi-exclamation-triangle-fill text-danger" title="Quantidade abaixo do mínimo"></i>
+                                        <?php } ?>
+                                    </td>
+                                    <td><?php echo $value['quantidadeMinimaAtivo']  ?></td>
+                                    <td><?php echo $value['quantidadeUso']  ?></td>
                                     <td><?php echo $value['marca'] ?></td>
                                     <td><?php echo $value['statusAtivo'] ?></td>
-                                    <td><?php echo $value['obsAtivo'] ?></td>
                                     <td><?php echo $value['tipo'] ?></td>
                                     <td>
                                         <?php if (!empty($value['url_imagem'])) { ?>
@@ -97,12 +104,9 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                             echo 'Sem imagem';
                                         } ?>
                                     </td>
-
-                                    <td><?php $date = new DateTime($value['dataHoraCadastroAtivo']);
-                                    echo $date->format('d/m/Y H:i:s') ?>
-                                    </td>
                                     <td>
                                         <div class=" actions d-flex justify-content-evenly">
+                                            <button class="mx-2 btn btn-primary btn-sm" id="info" onclick="showInfo('<?php echo $value['idAtivo'];?>')" data-bs-toggle="modal" data-bs-target="#infoAtivo">Ver informações</button>
                                             <button id="editAsset" onclick="updateAsset('<?php echo $value['idAtivo']; ?>')"
                                                 class="mx-2 btn btn-primary">
                                                 <i class="bi bi-pencil-square"></i>

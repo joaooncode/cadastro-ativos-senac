@@ -11,6 +11,7 @@ $(function () {
     const idAsset = $("#idAsset").val();
     const img = $("#imagem_ativo")[0]?.files[0];
     const quantityMin = $("#quantityMin").val();
+    
 
     // Verifica se todos os campos obrigatórios estão preenchidos
     let isValid = true;
@@ -96,7 +97,7 @@ const changeStatus = (status, id) => {
     url: "../controllers/assetsController.php",
     data: { action: "changeStatus", status, idAtivo: id },
     success: (result) => {
-      alert(result);
+      //alert(result);
       location.reload();
     },
     error: (xhr, status, error) => {
@@ -163,4 +164,38 @@ const deleteAsset = (id) => {
       },
     });
   }
+};
+const showInfo = (id) => {
+  $.ajax({
+    type: "POST",
+    url: "../controllers/assetsController.php",
+    data: { action: "getInfo", idAtivo: id },
+    success: (result) => {
+      const jsonReturn = JSON.parse(result);
+      $("#infoDescricao").text(jsonReturn[0].descricaoAtivo);
+      $("#infoQuantidade").text(jsonReturn[0].quantidadeAtivo);
+      $("#infoQuantidadeMinima").text(jsonReturn[0].quantidadeMinimaAtivo);
+      $("#infoQuantidadeUso").text(jsonReturn[0].quantidadeUso);
+      $("#infoMarca").text(jsonReturn[0].idMarca);
+      $("#infoStatus").text(jsonReturn[0].statusAtivo);
+      $("#infoTipo").text(jsonReturn[0].idTipo);
+      $("#infoObservacao").text(jsonReturn[0].obsAtivo);
+      if (jsonReturn[0]["url_imagem"] !== "") {
+        $("#infoImagem").attr(
+          "src",
+          window.location.protocol +
+            "//" +
+            window.location.host +
+            "/" +
+            jsonReturn[0]["url_imagem"]
+        );
+      } else {
+        $("#infoImagem").attr("src", "");
+      }
+      $("#infoAtivo").modal("show");
+    },
+    error: (xhr, status, error) => {
+      console.error("Erro:", error);
+    },
+  });
 };

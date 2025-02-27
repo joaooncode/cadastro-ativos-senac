@@ -24,7 +24,7 @@ $moveQuery = "SELECT idUsuario,
                      dataHoraMovimentacao,
                      (SELECT nomeUsuario FROM usuario u WHERE u.idUsuario = m.idUsuario) AS usuario,
                      (SELECT descricaoAtivo FROM ativo a WHERE a.idAtivo = m.idAtivo) AS ativo,
-                     (SELECT descricaoAtivo FROM ativo a WHERE a.idAtivo = m.idAtivo) AS ativo,
+                     (SELECT quantidadeAtivo FROM ativo a WHERE a.idAtivo = m.idAtivo) AS quantidadeTotal,
                      (SELECT quantidadeMovimentacao FROM ativo a WHERE a.idAtivo = m.idAtivo) AS quantidadeMovimentacao
               FROM movimentacao m
               WHERE m.statusMovimentacao = 'S'";
@@ -54,7 +54,7 @@ $movimentacoes = $moveQueryResult->fetch_all(MYSQLI_ASSOC);
                                 <th scope="col">Ativo</th>
                                 <th scope="col">Tipo</th>
                                 <th scope="col">Quantidade Última Movimentação</th>
-                                <th scope="col">Quantidade</th>
+                                <th scope="col">Quantidade Total</th>
                                 <th scope="col">Quantidade Uso</th>
                                 <th scope="col">Local Origem</th>
                                 <th scope="col">Local Destino</th>
@@ -68,8 +68,8 @@ $movimentacoes = $moveQueryResult->fetch_all(MYSQLI_ASSOC);
                                 <td><?php echo $value['ativo']; ?></td>
                                 <td><?php echo $value['tipoMovimentacao']; ?></td>
                                 <td><?php echo $value['quantidadeMovimentacao']; ?></td>
+                                <td><?php echo $value['quantidadeTotal']; ?></td>
                                 <td><?php echo $value['quantidadeUso']; ?></td>
-                                <td><?php echo $value['quantidadeMovimentacao']; ?></td>
                                 <td><?php echo $value['localOrigem']; ?></td>
                                 <td><?php echo $value['localDestino']; ?></td>
                                 <td><?php echo $value['descricaoMovimentacao']; ?></td>

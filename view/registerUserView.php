@@ -1,6 +1,6 @@
 <?php
-include('dropdownView.php');
-
+// include('dropdownView.php');
+include('headView.php');
 ?>
 
 <!doctype html>

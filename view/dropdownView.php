@@ -18,26 +18,40 @@ include_once('headView.php');
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav flex-grow-1 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link link-primary" aria-current="page" href="index.php">Home</a>
+                        <a class="nav-link link-primary" aria-current="page" href="registerAssetsView.php">Início</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-primary" href="moveView.php">Movimentações</a>
+                    <!--Controle-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link link-primary dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Controle
+                        </a>
+                        <ul id="dropdown-menu" class="dropdown-menu">
+                            <li><a class="dropdown-item link-primary" href="moveView.php">Movimentações</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item link-primary" href="relatoriosView.php">Relatórios</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item link-primary" href="relatoriosView.php">Reposição</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-primary" href="relatoriosView.php">Relatórios</a>
+                    <!---Fim controle-->
+
+                    <!--Registros-->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link link-primary dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Registros
+                        </a>
+                        <ul id="dropdown-item" class="dropdown-menu">
+                            <li><a class="dropdown-item link-primary" href="registerAssetsView.php">Ativos</a></li>
+                            <li><a class="dropdown-item link-primary" href="brandView.php">Marcas</a></li>
+                            <li><a class="dropdown-item link-primary" href="typesView.php">Tipos</a></li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-primary" href="brandView.php">Marcas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-primary" href="typesView.php">Tipos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-primary" href="registerAssetsView.php">Ativos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-primary" href="repositionView">Reposição</a>
-                    </li>
+                    <!--Fim Registros--->
                     <li class="nav-item dropdown">
                         <a id="dropdown" class="nav-link link-primary dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">

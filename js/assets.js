@@ -1,6 +1,6 @@
 $(function () {
   $("#save-btn").click(() => {
-    alert('Teste')
+    
     // Coleta os valores dos campos do formulário
     const description = $("#description").val();
     const quantity = $("#quantity").val();
@@ -177,7 +177,7 @@ const showInfo = (id) => {
       $("#infoQuantidadeMinima").text(jsonReturn[0].quantidadeMinimaAtivo);
       $("#infoQuantidadeUso").text(jsonReturn[0].quantidadeUso);
       $("#infoMarca").text(jsonReturn[0].idMarca);
-      $("#infoStatus").text(jsonReturn[0].statusAtivo);
+      $("#infoStatus").text(jsonReturn[0].idStatus);
       $("#infoTipo").text(jsonReturn[0].idTipo);
       $("#infoObservacao").text(jsonReturn[0].obsAtivo);
       if (jsonReturn[0]["url_imagem"] !== "") {

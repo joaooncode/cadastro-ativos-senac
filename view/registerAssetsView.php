@@ -81,14 +81,15 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                             <?php
                             foreach ($data as $assets => $value) {
                                 $quantidadeDisponivel = $value['quantidadeAtivo'] - $value['quantidadeUso'];
-                                ?>
+                            ?>
                                 <tr class="text-uppercase">
                                     <td><?php echo $value['idAtivo'] ?></td>
-                                    <td><?php echo $value['descricaoAtivo']?></td>
+                                    <td><?php echo $value['descricaoAtivo'] ?></td>
                                     <td>
                                         <?php echo $value['quantidadeAtivo'] ?>
                                         <?php if ($quantidadeDisponivel < $value['quantidadeMinimaAtivo']) { ?>
-                                            <i class="bi bi-exclamation-triangle-fill text-danger" title="Quantidade abaixo do mínimo"></i>
+                                            <i class="bi bi-exclamation-triangle-fill text-danger"
+                                                title="Quantidade abaixo do mínimo"></i>
                                         <?php } ?>
                                     </td>
                                     <td><?php echo $value['quantidadeMinimaAtivo']  ?></td>
@@ -106,7 +107,9 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                     </td>
                                     <td>
                                         <div class=" actions d-flex justify-content-evenly">
-                                            <button class="mx-2 btn btn-primary btn-sm" id="info" onclick="showInfo('<?php echo $value['idAtivo'];?>')" data-bs-toggle="modal" data-bs-target="#infoAtivo">Ver informações</button>
+                                            <button class="mx-2 btn btn-primary btn-sm" id="info"
+                                                onclick="showInfo('<?php echo $value['idAtivo']; ?>')" data-bs-toggle="modal"
+                                                data-bs-target="#infoAtivo">Ver informações</button>
                                             <button id="editAsset" onclick="updateAsset('<?php echo $value['idAtivo']; ?>')"
                                                 class="mx-2 btn btn-primary">
                                                 <i class="bi bi-pencil-square"></i>
@@ -119,28 +122,28 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                                             <div class="changeStatus">
                                                 <?php
                                                 if ($value['statusAtivo'] == "S") {
-                                                    ?>
+                                                ?>
                                                     <button id=" activeAsset"
                                                         onclick="changeStatus('N','<?php echo $value['idAtivo']; ?>')"
                                                         class=" btn btn-success">
                                                         <i class="bi bi-toggle-on"></i>
                                                     </button>
-                                                    <?php
+                                                <?php
                                                 } else {
-                                                    ?>
+                                                ?>
                                                     <button id="inactiveAsset"
                                                         onclick="changeStatus('S','<?php echo $value['idAtivo']; ?>')"
                                                         class=" btn btn-danger">
                                                         <i class="bi bi-toggle-off"></i>
                                                     </button>
-                                                    <?php
+                                                <?php
                                                 }
                                                 ?>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                <?php
+                            <?php
                             }
                             ?>
                         </tbody>

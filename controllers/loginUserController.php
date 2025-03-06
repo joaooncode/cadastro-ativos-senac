@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Redirecionar para a página padrão
                 echo "<script>
                         alert('Login bem-sucedido!');
-                        window.location.href='../view/listUsersView.php';
+                        window.location.href='../view/registerAssetsView.php';
                       </script>";
             }
         } else {

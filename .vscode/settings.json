@@ -1,3 +1,6 @@
 {
-  "php.version": "8.4"
+  "php.version": "8.4",
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  }
 }

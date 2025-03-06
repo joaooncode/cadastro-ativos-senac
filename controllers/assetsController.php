@@ -19,7 +19,7 @@ $idAsset = trim($_POST['idAtivo']);
 // Para a ação changeStatus usamos o mesmo campo "status" (mas poderia ser distinto)
 $statusAsset = trim($_POST['status']);
 $quantityMin = trim($_POST['quantityMin']);
-
+$obsAlterQuantity = trim($_POST['obsAlterQuantity']);
 
 // Processa a ação solicitada
 if ($action == 'insert') {
@@ -71,7 +71,6 @@ if ($action == 'insert') {
     if ($result) {
         echo "Cadastro realizado com sucesso!";
     }
-
 } elseif ($action == 'changeStatus') {
 
     $sql = "UPDATE ativo SET statusAtivo = '$statusAsset' WHERE idAtivo = '$idAsset'";
@@ -79,7 +78,6 @@ if ($action == 'insert') {
     if ($result) {
         echo "Status Alterado";
     }
-
 } elseif ($action == 'getInfo') {
 
     $sql = "
@@ -101,7 +99,6 @@ if ($action == 'insert') {
     $asset = $result->fetch_all(MYSQLI_ASSOC);
     echo json_encode($asset);
     exit();
-
 } elseif ($action == 'update') {
 
     // --- Verifica se uma nova imagem foi enviada para atualização ---
@@ -136,7 +133,6 @@ if ($action == 'insert') {
     if ($result) {
         echo "Informações alteradas";
     }
-
 } elseif ($action == 'delete') {
 
     $sql = "DELETE FROM ativo WHERE idAtivo = '$idAsset'";
@@ -148,4 +144,3 @@ if ($action == 'insert') {
     }
     exit();
 }
-?>

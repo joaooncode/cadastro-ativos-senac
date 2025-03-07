@@ -44,9 +44,24 @@ $(".salvar").click(function (params) {
   }
 
   if (!isValid) {
-    alert("Campos obrigatórios não preenchidos!");
+    Swal.fire({
+      title: "Atenção!",
+      text: "Campos obrigatórios não preenchidos!",
+      icon: "warning",
+      confirmButtonText: "OK",
+    });
     return;
   }
+
+  // Mostrar loading enquanto processa
+  Swal.fire({
+    title: "Processando...",
+    text: "Registrando movimentação do ativo.",
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
 
   $.ajax({
     type: "POST",
@@ -62,17 +77,33 @@ $(".salvar").click(function (params) {
     success: function (response) {
       if (response == "Sucesso") {
         console.log(response);
-        alert("Movimentação cadastrada com sucesso!");
-        location.reload();
+        Swal.fire({
+          title: "Sucesso!",
+          text: "Movimentação cadastrada com sucesso!",
+          icon: "success",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.reload();
+          }
+        });
       } else {
-        alert(response);
+        Swal.fire({
+          title: "Erro!",
+          html: response,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
     },
-    error: function (response) {
-      if (response == "Erro") {
-        console.log(error);
-        alert("Falha ao realizar a movimentação\n" + error);
-      }
+    error: function (xhr, status, error) {
+      console.error("Erro:", error);
+      Swal.fire({
+        title: "Falha na operação!",
+        html: "Falha ao realizar a movimentação<br>" + error,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     },
   });
 });

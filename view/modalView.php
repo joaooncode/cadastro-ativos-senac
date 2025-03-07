@@ -32,6 +32,10 @@ include_once('headView.php');
                             <label for="observation" class="col-form-label">Observação:</label>
                             <textarea type="text" class="form-control" id="observation"></textarea>
                         </div>
+                        <div class="mb-3" id="reason-change-div" style="display: none;">
+                            <label for="reasonChange" class="col-form-label">Motivo da alteração:</label>
+                            <textarea type="text" class="form-control" id="reasonChange"></textarea>
+                        </div>
                         <div class="mb-3">
                             <label for="brand">Marca:</label>
                             <select required id="brand" class="form-select" aria-label="Default select example">
@@ -39,10 +43,9 @@ include_once('headView.php');
                                 <?php
                                 foreach ($brands as $brand => $value) {
                                     echo '<option value ="' . $value['idMarca'] . '">' . $value['descricaoMarca'] . '</option>';
-
                                 }
 
-                                    ?>
+                                ?>
 
                             </select>
                         </div>

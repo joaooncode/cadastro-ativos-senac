@@ -19,7 +19,7 @@ $idAsset = trim($_POST['idAtivo']);
 // Para a ação changeStatus usamos o mesmo campo "status" (mas poderia ser distinto)
 $statusAsset = trim($_POST['status']);
 $quantityMin = trim($_POST['quantityMin']);
-$obsAlterQuantity = trim($_POST['obsAlterQuantity']);
+$reasonChange = trim($_POST['reasonChange']);
 
 // Processa a ação solicitada
 if ($action == 'insert') {
@@ -53,7 +53,8 @@ if ($action == 'insert') {
             dataHoraCadastroAtivo,
             url_imagem,
             quantidadeMinimaAtivo,
-            usuarioCadastro
+            obsAlterarQtd
+
         ) VALUES (
             '$brand',
             '$type',
@@ -63,7 +64,8 @@ if ($action == 'insert') {
             '$obs',
             NOW(),
             '$image',
-            '$quantityMin'
+            '$quantityMin',
+            '$reasonChange'
         )
     ";
 
@@ -88,7 +90,8 @@ if ($action == 'insert') {
             quantidadeAtivo,
             obsAtivo,
             url_imagem,
-            quantidadeMinimaAtivo
+            quantidadeMinimaAtivo,
+            obsAlterarQtd
         FROM 
             ativo
         WHERE 

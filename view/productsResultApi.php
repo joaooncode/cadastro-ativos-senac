@@ -31,6 +31,9 @@ $ch = curl_init();
 // Configurar opções do cURL
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+//curl_setpot($ch, CURLOPT_HTTPHEADER,['Authorization: Bearer access_token', 'Accept: application/json']);
+
 curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; YourApp/1.0)');
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);

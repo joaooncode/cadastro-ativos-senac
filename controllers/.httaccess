@@ -1,0 +1,7 @@
+Copy# Negar acesso direto a todos os arquivos PHP
+<FilesMatch "\.php$">
+    # Permitir apenas requisições POST ou requisições do servidor local
+    <If "%{REQUEST_METHOD} != 'POST' && %{REMOTE_ADDR} != '127.0.0.1'">
+        Redirect 403 /view/index.php
+    </If>
+</FilesMatch>

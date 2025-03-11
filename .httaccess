@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Redirecionar acesso direto a controllers
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+controllers/([^.]+)\.php [NC]
+RewriteRule ^ /view/index.php [L,R=302]
+
+# Bloquear acesso direto a todos os arquivos PHP em controllers
+RewriteCond %{REQUEST_URI} ^/controllers/ [NC]
+RewriteRule ^ /view/index.php [L]

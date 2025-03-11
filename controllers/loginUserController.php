@@ -1,4 +1,9 @@
 <?php
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header("Location: /view/index.php");
+    exit();
+}
 // Incluir a conexão com o banco de dados
 include('../models/connect_db.php');
 
@@ -21,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Consultar o banco de dados para verificar se o email existe
-    $query = "SELECT COUNT('*') as quantidade, idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ? AND senhaUsuario =?";
+    $query = "SELECT idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
         echo "<script>
@@ -32,7 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Vincular o parâmetro
-    $stmt->bind_param("ss", $email, $crip);
+    $query = "SELECT idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $email); // ✅ Agora está correto
+
 
     // Executar a consulta
     $stmt->execute();
@@ -72,14 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['login_ok'] = false;
             unset($_SESSION['login_controle']);
             echo "<script>
-                    window.location.href='../view/index.php?error_auten=yes';
+                    window.location.href='/view/index.php?error_auten=yes';
                   </script>";
         }
     } else {
         $_SESSION['login_ok'] = false;
         unset($_SESSION['login_controle']);
         echo "<script>
-                window.location.href='../view/index.php?error_auten=yes';
+                window.location.href='/view/index.php?error_auten=yes';
               </script>";
     }
 

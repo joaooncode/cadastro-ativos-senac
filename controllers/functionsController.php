@@ -1,4 +1,5 @@
 <?php
+include_once('../models/connect_db.php');
 
 
 function fetchData($conn, $table, $col_where = false, $value_where = false)

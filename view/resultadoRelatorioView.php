@@ -77,7 +77,6 @@ $movimentacoesResult = $resultQuery->fetch_all(MYSQLI_ASSOC);
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-
 <body>
     <div class="container mt-5">
         <div id="toolbar" class="mb-5"></div>
@@ -123,12 +122,16 @@ $movimentacoesResult = $resultQuery->fetch_all(MYSQLI_ASSOC);
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             let table = $('#relatorios').DataTable({
                 search: {
                     return: true
                 },
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/Portuguese-Brasil.json'
+                },
                 dom: 'Bfrtip',
+
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
@@ -139,5 +142,6 @@ $movimentacoesResult = $resultQuery->fetch_all(MYSQLI_ASSOC);
         });
     </script>
 </body>
+
 
 </html>

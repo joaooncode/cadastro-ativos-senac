@@ -40,7 +40,7 @@ if (isset($_GET['error_auten']) && $_GET['error_auten'] == 'yes') {
         Entrar
       </button>
       <p class="mt-5 fs-5">
-        <a class="link-offset-2 link-underline link-underline-opacity-0" href="/cadastro-ativos-senac/view/registerUserView.php">
+        <a class="link-offset-2 link-underline link-underline-opacity-0" href="/view/registerUserView.php">
           Cadastrar novo usuário?
         </a>
       </p>

@@ -28,12 +28,14 @@ $query = "
         emailUsuario,
         senhaUsuario,
         turmaUsuario,
-        dataCriacaoUsuario
+        dataCriacaoUsuario,
+        dataAlteracaoUsuario
       )values(
         '" . $name . "',
         '" . $email . "',
         '" . $passwd_hash . "',
         '" . $class . "',
+        NOW(),
         NOW()
       )
 ";

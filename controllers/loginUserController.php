@@ -4,19 +4,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: /view/index.php");
     exit();
 }
-// Incluir a conexão com o banco de dados
+
+// Include database connection
 include('../models/connect_db.php');
 
 session_start();
 
-// Verificar se o formulário foi enviado
+// Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Obter dados do formulário
+    // Get form data
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
-    $crip = base64_encode($password);
-    // Verificar se os campos foram preenchidos
+    
+    // Check if fields are filled
     if (empty($email) || empty($password)) {
         echo "<script>
                 alert('Por favor, preencha todos os campos!');
@@ -25,9 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Consultar o banco de dados para verificar se o email existe
+    // Query database to check if email exists
     $query = "SELECT idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
     $stmt = $conn->prepare($query);
+    
     if ($stmt === false) {
         echo "<script>
                 alert('Erro ao preparar a consulta');
@@ -36,41 +38,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Vincular o parâmetro
-    $query = "SELECT idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $email); // ✅ Agora está correto
-
-
-    // Executar a consulta
+    // Bind parameter
+    $stmt->bind_param("s", $email);
+    
+    // Execute query
     $stmt->execute();
     $result = $stmt->get_result();
 
-
-
-    // Verificar se o usuário existe
+    // Check if user exists
     if ($result->num_rows > 0) {
-        // Obter os dados do usuário
+        // Get user data
         $user = $result->fetch_assoc();
 
-
-        // Verificar se a senha fornecida corresponde ao hash bcrypt armazenado
-        if ($user['quantidade'] > 0) {
-            // Iniciar a sessão e armazenar o ID do usuário
+        // Verify password - use password_verify if you're storing hashed passwords (recommended)
+        // For bcrypt: if (password_verify($password, $user['senhaUsuario'])) {
+        
+        // If you're using base64 encoding (not recommended for production):
+        if (base64_encode($password) === $user['senhaUsuario']) {
+            // Start session and store user ID
             $_SESSION['user_id'] = $user['idUsuario'];
             $_SESSION['login_ok'] = true;
             $_SESSION['login_controle'] = true;
 
-            // Verificar se o usuário é um admin
+            // Check if user is admin
             if ($user['isAdmin'] == 'S') {
-                $_SESSION['is_admin'] = 'S'; // Definir uma variável de sessão para o admin
-                // Redirecionar para a página de administração
+                $_SESSION['is_admin'] = 'S'; // Set session variable for admin
+                // Redirect to admin page
                 echo "<script>
                         alert('Login bem-sucedido! Você é um administrador.');
                         window.location.href='../view/registerAssetsView.php';
                       </script>";
             } else {
-                // Redirecionar para a página padrão
+                // Redirect to default page
                 echo "<script>
                         alert('Login bem-sucedido!');
                         window.location.href='../view/registerAssetsView.php';
@@ -91,10 +90,10 @@ $stmt->bind_param("s", $email); // ✅ Agora está correto
               </script>";
     }
 
-    // Fechar a declaração
+    // Close statement
     $stmt->close();
 }
 
-// Fechar a conexão
+// Close connection
 $conn->close();
 ?>

@@ -22,6 +22,10 @@ if (empty($inputSearch)) {
     exit;
 }
 
+$token_info = json_decode(file_get_contents('/var/www/scripts/mercadolivre/ml_token_info.json'), true);
+
+$access_token = $token_info['access_token'];
+
 // Construir a URL da API
 $url = 'https://api.mercadolibre.com/sites/MLB/search?q=' . urlencode($inputSearch) . '&limit=50&sort=relevance&condition=new';
 
@@ -32,7 +36,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-//curl_setpot($ch, CURLOPT_HTTPHEADER,['Authorization: Bearer access_token', 'Accept: application/json']);
+curl_setopt($ch, CURLOPT_HTTPHEADER,['Authorization: Bearer '. $access_token, 'Accept: application/json']);
 
 curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; YourApp/1.0)');
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);

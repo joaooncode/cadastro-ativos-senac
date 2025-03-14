@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Include database connection
 include('../models/connect_db.php');
+include('../view/headView.php');
 
 session_start();
 
@@ -20,8 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if fields are filled
     if (empty($email) || empty($password)) {
         echo "<script>
-                alert('Por favor, preencha todos os campos!');
-                window.location.href='../view/login.php';
+                // Incluir SweetAlert2 (adicione isso no head do seu HTML também)
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Atenção!',
+                        text: 'Por favor, preencha todos os campos!',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        window.location.href='../view/login.php';
+                    });
+                });
               </script>";
         exit();
     }
@@ -32,8 +42,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     if ($stmt === false) {
         echo "<script>
-                alert('Erro ao preparar a consulta');
-                window.location.href='../view/login.php';
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Erro ao preparar a consulta',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        window.location.href='../view/login.php';
+                    });
+                });
               </script>";
         exit();
     }
@@ -65,14 +83,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['is_admin'] = 'S'; // Set session variable for admin
                 // Redirect to admin page
                 echo "<script>
-                        alert('Login bem-sucedido! Você é um administrador.');
-                        window.location.href='../view/registerAssetsView.php';
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'Login bem-sucedido! Você é um administrador.',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                window.location.href='../view/registerAssetsView.php';
+                            });
+                        });
                       </script>";
             } else {
                 // Redirect to default page
                 echo "<script>
-                        alert('Login bem-sucedido!');
-                        window.location.href='../view/registerAssetsView.php';
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'Login bem-sucedido!',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                window.location.href='../view/registerAssetsView.php';
+                            });
+                        });
                       </script>";
             }
         } else {

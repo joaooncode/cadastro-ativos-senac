@@ -35,6 +35,9 @@ include_once('headView.php');
                             <li><a class="dropdown-item link-primary" href="relatoriosView.php">Relatórios</a></li>
                             <hr class="dropdown-divider">
                             <li><a class="dropdown-item link-primary" href="relatoriosView.php">Reposição</a></li>
+                            <hr class="dropdown-divider">
+                            <li><a class="dropdown-item link-primary" href="list_options.php">Controle de Opções</a>
+                            </li>
                         </ul>
                     </li>
                     <!---Fim controle-->

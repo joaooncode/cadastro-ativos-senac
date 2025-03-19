@@ -1,65 +1,94 @@
 <?php
 
-include_once("'sessionController.php");
+include_once("sessionController.php");
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'] ?? null;
 
 class Option
 {
     public function insert($conn, $level, $description, $url, $user_id)
     {
-        $sql_query = "
-                INSERT INTO opcoes_menu (
-                    descricao_opcao,
-                    nivel_opcao,
-                    url_opcao,
-                    status_opcao,
-                    idUsuario,
-                    data_cadastro
-                ) values(
-                     $description,
-                     $level,
-                     $url,
-                     'S',
-                     $user_id,
-                     NOW()
-                )      
-            ";
+        // Use prepared statements to prevent SQL injection
+        $stmt = $conn->prepare("
+            INSERT INTO opcoes_menu (
+                descricao_opcao,
+                nivel_opcao,
+                url_opcao,
+                status_opcao,
+                idUsuario,
+                data_cadastro
+            ) VALUES (?, ?, ?, 'S', ?, NOW())
+        ");
+
+        $stmt->bind_param("sssi", $description, $level, $url, $user_id);
+
+        if ($stmt->execute()) {
+            return "Cadastro Realizado";
+        } else {
+            return "Erro: " . $stmt->error;
+        }
     }
 
     public function update($conn, $level, $description, $url, $idOption, $user_id)
     {
-
-        $sql_query = "
+        $stmt = $conn->prepare("
             UPDATE opcoes_menu SET 
-            descricao_opcao = '$description',
-            nivel_opcao = '$level',
-            url_opcao = '$url',
-            id_usuario = '$user_id'
-            where id_opcao='$idOption'
-        ";
-        $data = mysqli_query($conn, $sql_query)
-        if ($data) {
-            return "Cadastro Realizado";
+            descricao_opcao = ?,
+            nivel_opcao = ?,
+            url_opcao = ?,
+            id_usuario = ?
+            WHERE id_opcao = ?
+        ");
+
+        $stmt->bind_param("sssii", $description, $level, $url, $user_id, $idOption);
+
+        if ($stmt->execute()) {
+            return "Opção atualizada com sucesso";
+        } else {
+            return "Erro: " . $stmt->error;
         }
     }
 
     public function delete($conn, $idOption)
     {
-        $sql_query = "
-            DELETE  FROM opcoes_menu WHERE id_opcao = '$idOption'
-        ";
+        $stmt = $conn->prepare("DELETE FROM opcoes_menu WHERE id_opcao = ?");
+        $stmt->bind_param("i", $idOption);
 
-        
+        if ($stmt->execute()) {
+            return "Opção excluída com sucesso";
+        } else {
+            return "Erro: " . $stmt->error;
+        }
     }
 
     public function get_info($conn, $idOption)
     {
-        $sql_query = "SELECT * FROM opcoes_menu";
+        if ($idOption) {
+            $stmt = $conn->prepare("SELECT * FROM opcoes_menu WHERE id_opcao = ?");
+            $stmt->bind_param("i", $idOption);
+        } else {
+            $stmt = $conn->prepare("SELECT * FROM opcoes_menu");
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return json_encode($result->fetch_all(MYSQLI_ASSOC));
+        } else {
+            return "Nenhum registro encontrado";
+        }
     }
 
-    public function change_status($conn, $idOption,  $status)
+    public function change_status($conn, $idOption, $status)
     {
-        $sql_query = "UPDATE opcoes_menu SET status_opcao = '$status'";
+        $stmt = $conn->prepare("UPDATE opcoes_menu SET status_opcao = ? WHERE id_opcao = ?");
+        $stmt->bind_param("si", $status, $idOption);
+
+        if ($stmt->execute()) {
+            return "Status atualizado com sucesso";
+        } else {
+            return "Erro: " . $stmt->error;
+        }
     }
 }

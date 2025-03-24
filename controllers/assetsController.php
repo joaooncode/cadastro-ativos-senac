@@ -88,7 +88,7 @@ if ($action == 'insert') {
         echo "Erro ao cadastrar: " . mysqli_error($conn);
         // Verificar se há triggers na tabela que podem estar causando o problema
         $triggers = mysqli_query($conn, "SHOW TRIGGERS WHERE `Table` = 'ativo'");
-        if ($triggers && mysqli_num_rows($triggers) > 0) {
+        if ($triggers& & mysqli_num_rows($triggers) > 0) {
             echo "<br>Triggers encontrados nesta tabela:";
             while ($trigger = mysqli_fetch_assoc($triggers)) {
                 echo "<br>- " . $trigger['Trigger'] . " (" . $trigger['Timing'] . " " . $trigger['Event'] . ")";

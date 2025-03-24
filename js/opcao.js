@@ -6,11 +6,14 @@ $(document).on('click', '.salvar', function () {
     var opcaoSuperior = $("#opcao_superior").val();
     var urlOpcao = $("#url_opcao").val();
 
+    let acao = idOpcao === "" ? "inserir" : "update";
+
     // Exemplo de requisição AJAX
     $.ajax({
-        url: '../controllers/optionsController', // Altere para a URL correta do seu endpoint
+        url: '../controllers/optionsController.php', // Altere para a URL correta do seu endpoint
         type: 'POST',
         data: {
+            acao: acao,
             descricao_opcao: descricaoOpcao,
             id_opcao: idOpcao,
             nivel_opcao: nivelOpcao,
@@ -21,7 +24,7 @@ $(document).on('click', '.salvar', function () {
             // Se a requisição for bem-sucedida, você pode tratar a resposta conforme necessário
             console.log('Sucesso:', response);
             // Exemplo: fechar o modal e atualizar a interface
-            $("#novaOpcao").modal('hide');
+            //$("#novaOpcao").modal('hide');
             // Atualize a listagem ou exiba uma mensagem de sucesso
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -31,3 +34,48 @@ $(document).on('click', '.salvar', function () {
         }
     });
 });
+
+
+
+function muda_status(status, idOpcao) {
+    $.ajax({
+        type: "POST",
+        url: "../controllers/optionsController.php",
+        data: {
+            acao: "alterar_status",
+            status: status,
+            id_opcao: idOpcao,
+        },
+        success: function (result) {
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            console.error("Erro na requisição:", error);
+        },
+    });
+}
+
+
+function editar(idOpcao) {
+    $("#id_opcao").val(idOpcao);
+    $.ajax({
+        type: "POST",
+        url: "../controllers/optionsController.php",
+        data: {
+            acao: "get_info",
+            id_opcao: idOpcao,
+        },
+        success: function (result) {
+            let retorno = JSON.parse(result);
+            alert('teste')
+            $("#novaOpcaoBtn").click();
+            $("#descricao_opcao").val(retorno[0]["descricao_opcao"]);
+            $("#url_opcao").val(retorno[0]["url_opcao"]);
+            $("#nivel_opcao").val(retorno[0]["nivel_opcao"]);
+            $("#id_opcao").val(retorno[0]["id_opcao"]);
+        },
+        error: function (xhr, status, error) {
+            console.error("Erro na requisição:", error);
+        },
+    });
+}

@@ -6,7 +6,7 @@ $user_id = $_SESSION['user_id'] ?? null;
 
 class Option
 {
-    public function insert($conn, $level, $description, $url, $user_id)
+    public function insert($conn, $level, $description, $url, $user_id, $idMenuSuperior)
     {
         // Use prepared statements to prevent SQL injection
         $stmt = $conn->prepare("
@@ -16,7 +16,8 @@ class Option
                 url_opcao,
                 status_opcao,
                 idUsuario,
-                data_cadastro
+                data_cadastro,
+                id_menu_superior
             ) VALUES (?, ?, ?, 'S', ?, NOW())
         ");
 
@@ -82,13 +83,12 @@ class Option
 
     public function change_status($conn, $idOption, $status)
     {
-        $stmt = $conn->prepare("UPDATE opcoes_menu SET status_opcao = ? WHERE id_opcao = ?");
-        $stmt->bind_param("si", $status, $idOption);
-
-        if ($stmt->execute()) {
-            return "Status atualizado com sucesso";
-        } else {
-            return "Erro: " . $stmt->error;
+        $sql = "
+    Update opcoes_menu set status_opcao ='$status' where id_opcao='$idOption'
+  ";
+        $result = mysqli_query($conn, $sql) or die(false);
+        if ($result) {
+            return "Status Alterado";
         }
     }
 }

@@ -35,8 +35,8 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
     <div class="container mt-3">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h1 class="text-primary">Controle de Opções</h1>
-            <button class="btn btn-primary" onclick="" data-bs-toggle="modal"
-                data-bs-target="#novaOpcao">Nova Opção</button>
+            <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#novaOpcao" id='novaOpcao'>Nova
+                Opção</button>
         </div>
 
         <div class="table-responsive">
@@ -53,29 +53,40 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
                 </thead>
                 <tbody>
                     <?php if (empty($data)): ?>
-                        <tr>
-                            <td colspan="6" class="text-center">Nenhum registro encontrado</td>
-                        </tr>
+                    <tr>
+                        <td colspan="6" class="text-center">Nenhum registro encontrado</td>
+                    </tr>
                     <?php else: ?>
-                        <?php foreach ($data as $row): ?>
-                            <tr>
-                                <td><?php echo $row['id_opcao']; ?></td>
-                                <td><?php echo $row['descricao_opcao']; ?></td>
-                                <td><?php echo $row['nivel_opcao']; ?></td>
-                                <td><?php echo $row['url_opcao']; ?></td>
-                                <td>
-                                    <?php if ($row['status_opcao'] == 1): ?>
-                                        <span class="badge bg-success">Ativo</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-danger">Inativo</span>
+                    <?php foreach ($data as $row): ?>
+                    <tr>
+                        <td><?php echo $row['id_opcao']; ?></td>
+                        <td><?php echo $row['descricao_opcao']; ?></td>
+                        <td><?php echo $row['nivel_opcao']; ?></td>
+                        <td><?php echo $row['url_opcao']; ?></td>
+                        <td>
+                            <?php if ($row['status_opcao'] == 'S'): ?>
+                            <button class="badge bg-success btn"
+                                onclick="muda_status('N','<?php echo $row['id_opcao']; ?>')">Ativo</>
+                                <?php else: ?>
+                                <button class="badge btn bg-danger pointer"
+                                    onclick="muda_status('S','<?php echo $row['id_opcao']; ?>')">Inativo</>
                                     <?php endif; ?>
-                                </td>
-                                <td>
-                                    <a href="editar_opcao.php?id=<?php echo $row['id_opcao']; ?>" class="btn btn-sm btn-warning">Editar</a>
-                                    <a href="javascript:void(0)" onclick="confirmarExclusao(<?php echo $row['id_opcao']; ?>)" class="btn btn-danger btn-sm">Excluir</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                        </td>
+                        <td>
+                            <div class=" actions d-flex  align-items-center justify-content-evenly">
+                                <button id="editAsset" onclick="editar('<?php echo $row['id_opcao']; ?>')"
+                                    class="mx-2 btn btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+
+                                </button>
+                                <button id="deleteAsset" onclick="deleteAsset('<?php echo $row['id_opcao']; ?>')"
+                                    class="mx-2 btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -83,11 +94,11 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
     </div>
 
     <script>
-        function confirmarExclusao(id) {
-            if (confirm("Tem certeza que deseja excluir esta opção?")) {
-                window.location.href = "excluir_opcao.php?id=" + id;
-            }
+    function confirmarExclusao(id) {
+        if (confirm("Tem certeza que deseja excluir esta opção?")) {
+            window.location.href = "excluir_opcao.php?id=" + id;
         }
+    }
     </script>
     <script src="../js/opcao.js"></script>
 </body>

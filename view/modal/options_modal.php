@@ -7,21 +7,23 @@
             <div class="modal-body">
 
                 <div class="mb-3">
-                    <label for="descricao_opcao" class="col-form-label">Descrição Opção <span class="text-danger">*</span></label>
+                    <label for="descricao_opcao" class="col-form-label">Descrição Opção <span
+                            class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="descricao_opcao">
                     <input type="hidden" class="form-control" id="id_opcao">
 
                 </div>
                 <div class="mb-3">
-                    <label for="nivel_opcao" class="col-form-label">Nivel Opção <span class="text-danger">*</span></label>
+                    <label for="nivel_opcao" class="col-form-label">Nivel Opção <span
+                            class="text-danger">*</span></label>
                     <select name="" id="nivel_opcao" class="form-select">
                         <option value="" disabled selected>Selecione o nível da opção</option>
                         <?php
-                                foreach ($levels as $value) {
-                                    echo '<option value ="' . $value['id_nivel'] . '">' . $value['descricao_nivel'] . '</option>';
-                                }
+                        foreach ($levels as $value) {
+                            echo '<option value ="' . $value['id_nivel'] . '">' . $value['descricao_nivel'] . '</option>';
+                        }
 
-                                ?>
+                        ?>
 
                     </select>
                 </div>

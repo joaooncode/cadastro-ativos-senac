@@ -6,25 +6,25 @@ include_once("../models/connect_db.php");
 include_once("./options.php");
 
 // Get the action from POST
-$acao = $_POST['acao'];
+$acao = isset($_POST['acao']) ? $_POST['acao'] : null;
 
 // Initialize the Options class
 $options = new Option();
 
-// Get other parameters from POST
+// Get other parameters from POST safely
 $level = isset($_POST['nivel_opcao']) ? $_POST['nivel_opcao'] : null;
 $description = isset($_POST['descricao_opcao']) ? $_POST['descricao_opcao'] : null;
 $url = isset($_POST['url']) ? $_POST['url'] : null;
 $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : null;
 $idOption = isset($_POST['id_opcao']) ? $_POST['id_opcao'] : null;
 $status = isset($_POST['status']) ? $_POST['status'] : null;
-
+$idOpcaoSuperior = isset($_POST['opcaoSuperior']) ? $_POST['opcaoSuperior'] : null;
 
 // Perform the requested action
 if ($acao == 'inserir') {
-    $result = $options->insert($conn, $level, $description, $url, $user_id);
+    $result = $options->insert($conn, $level, $description, $url, $user_id, $idOpcaoSuperior);
 } else if ($acao == 'update') {
-    $result = $options->update($conn, $level, $description, $url);
+    $result = $options->update($conn, $idOption, $level, $description, $url, $user_id);
 } else if ($acao == 'delete') {
     $result = $options->delete($conn, $idOption);
 } else if ($acao == 'get_info') {

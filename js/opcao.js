@@ -1,10 +1,11 @@
 $(document).on('click', '.salvar', function () {
     // Coleta os dados dos campos do modal
-    var descricaoOpcao = $("#descricao_opcao").val();
-    var idOpcao = $("#id_opcao").val();
-    var nivelOpcao = $("#nivel_opcao").val();
-    var opcaoSuperior = $("#opcao_superior").val();
-    var urlOpcao = $("#url_opcao").val();
+    let descricaoOpcao = $("#descricao_opcao").val();
+    let idOpcao = $("#id_opcao").val();
+    let nivelOpcao = $("#nivel_opcao").val();
+    let opcaoSuperior = $("#opcao_superior").val();
+    let urlOpcao = $("#url_opcao").val();
+
 
     let acao = idOpcao === "" ? "inserir" : "update";
 
@@ -68,7 +69,7 @@ function editar(idOpcao) {
         success: function (result) {
             let retorno = JSON.parse(result);
             alert('teste')
-            $("#novaOpcaoBtn").click();
+            $("#novaOpcaoBtn").click()
             $("#descricao_opcao").val(retorno[0]["descricao_opcao"]);
             $("#url_opcao").val(retorno[0]["url_opcao"]);
             $("#nivel_opcao").val(retorno[0]["nivel_opcao"]);
@@ -78,4 +79,13 @@ function editar(idOpcao) {
             console.error("Erro na requisição:", error);
         },
     });
+}
+
+
+
+function limpar_modal() {
+    $("#descricao_opcao").val("");
+    $("#id_opcao").val("");
+    $("#url_opcao").val("");
+    $("#nivel_opcao").val("");
 }

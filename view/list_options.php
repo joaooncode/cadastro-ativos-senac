@@ -35,7 +35,7 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
     <div class="container mt-3">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h1 class="text-primary">Controle de Opções</h1>
-            <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#novaOpcao" id='novaOpcao'>Nova
+            <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#novaOpcao" id='novaOpcaoBtn' onclcik='limpar_modal'>Nova
                 Opção</button>
         </div>
 

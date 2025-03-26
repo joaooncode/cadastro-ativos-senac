@@ -14,98 +14,77 @@ $brand = fetchData($conn, 'marca');
 
 ?>
 
-<body class="min-vw-100 min-vh-100 overflow-hidden">
-    <div class="container min-vh-100 min-vw-100 d-flex align-content-center justify-content-center flex-column">
-        <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
-            <!--Tabela ativos cadastrados-->
-            <div class="container mb-5 w-100">
-                <div class="d-flex flex-column justify-content-evenly align-items-center">
-                    <h1 class="text-center text-primary">Marcas</h1>
-                    <button id="cadastrarMarcaBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
-                        type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
-                        data-bs-target="#cadastrarMarca">Cadastrar Marca
+<body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid flex-grow-1 py-4">
+        <main class="h-100">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h1 class="text-primary mb-3">Marcas</h1>
+                    <button id="cadastrarMarcaBtn" onclick="limpar_modal()" 
+                            class="btn btn-outline-primary w-100 w-md-auto mb-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#cadastrarMarca">
+                        <i class="bi bi-plus-lg d-md-none"></i>
+                        <span class="d-none d-md-inline">Cadastrar Marca</span>
                     </button>
                 </div>
-                <div class="container w-100 overflow-auto">
-                    <table class="table  table-bordered border-dark mt-5">
-                        <thead class="table table-dark">
-                            <th scope="col">
-                                Descrição
-                            </th>
-                            <th scope="col">
-                                Usuário de cadastro
-                            </th>
-                            <th scope="col">Data de Cadastro</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Ações</th>
+
+                <div class="table-responsive rounded-3 shadow">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Descrição</th>
+                                <th scope="col" class="d-none d-md-table-cell">Usuário</th>
+                                <th scope="col" class="d-none d-lg-table-cell">Data Cadastro</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="width: 150px;">Ações</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            foreach ($brand as $row => $value) {
-                                ?>
+                            <?php foreach ($brand as $value): ?>
                             <tr>
-
-                                <td>
-                                    <p>
-                                        <?php echo $value['descricaoMarca'] ?>
-                                    </p>
-                                </td>
-
-                                <td>
-                                    <p>
-                                        <?php echo $value['idUsuario'] ?>
-                                    </p>
+                                <td class="fw-bold"><?= $value['descricaoMarca'] ?></td>
+                                <td class="d-none d-md-table-cell"><?= $value['idUsuario'] ?></td>
+                                <td class="d-none d-lg-table-cell">
+                                    <?= date('d/m/Y H:i', strtotime($value['dataCadastroMarca'])) ?>
                                 </td>
                                 <td>
-                                    <p>
-                                        <?php echo $value['dataCadastroMarca'] ?>
-                                    </p>
+                                    <?php if ($value['statusMarca'] == "S"): ?>
+                                        <span class="badge bg-success">Ativo</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-danger">Inativo</span>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
-                                    <p>
-                                        <?php echo $value['statusMarca'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <div class="actions d-flex justify-content-evenly">
-                                        <button id="editBrand" data-bs-toggle="modal" data-bs-target="#cadastrarMarca"
-                                            onclick="editar('<?php echo $value['idMarca']; ?>')"
-                                            class="mx-2 btn btn-primary">
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <button class="btn btn-sm btn-primary"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#cadastrarMarca"
+                                                onclick="editar('<?= $value['idMarca'] ?>')"
+                                                title="Editar">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <div class="changeStatus">
-                                            <?php
-                                                if ($value['statusMarca'] == "S") {
-                                                    ?>
-                                            <button id="activeBrand"
-                                                onclick="muda_status('N','<?php echo $value['idMarca']; ?>')"
-                                                class=" btn btn-success">
+                                        <?php if ($value['statusMarca'] == "S"): ?>
+                                            <button class="btn btn-sm btn-success"
+                                                    onclick="muda_status('N','<?= $value['idMarca'] ?>')"
+                                                    title="Desativar">
                                                 <i class="bi bi-toggle-on"></i>
                                             </button>
-                                            <?php
-                                                } else {
-                                                    ?>
-                                            <button id="inactiveBrand"
-                                                onclick="muda_status('S','<?php echo $value['idMarca']; ?>')"
-                                                class=" btn btn-danger">
+                                        <?php else: ?>
+                                            <button class="btn btn-sm btn-danger"
+                                                    onclick="muda_status('S','<?= $value['idMarca'] ?>')"
+                                                    title="Ativar">
                                                 <i class="bi bi-toggle-off"></i>
                                             </button>
-                                            <?php
-                                                }
-                                                ?>
-                                        </div>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>
-                            <?php
-                            }
-                            ?>
+                            <?php endforeach; ?>
                         </tbody>
-
                     </table>
                 </div>
             </div>
-
         </main>
     </div>
     <script src="../js/marcas.js"></script>

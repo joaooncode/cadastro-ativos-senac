@@ -15,97 +15,77 @@ include_once('modal/types_modal.php');
 $brand = fetchData($conn, 'tipo');
 
 ?>
-
-<body class="min-vw-100 min-vh-100 overflow-hidden">
-    <div class="container min-vh-100 min-vw-100 d-flex align-content-center justify-content-center flex-column">
-        <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
-            <!--Tabela ativos cadastrados-->
-            <div class="container mb-5 w-100">
-                <div class="d-flex flex-column justify-content-evenly align-items-center">
-                    <h1 class="text-center text-primary">Tipos</h1>
-                    <button id="cadastrarTipoBtn" onclick="limpar_modal()" style="width: 100%; max-width: 200px;"
-                        type="button" class="btn btn-outline-primary mt-3 mb-3 p-3" data-bs-toggle="modal"
-                        data-bs-target="#typesModal">Cadastrar Tipo</button>
+<body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid flex-grow-1 py-4">
+        <main class="h-100">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h1 class="text-primary mb-3">Tipos</h1>
+                    <button id="cadastrarTipoBtn" onclick="limpar_modal()" 
+                            class="btn btn-outline-primary w-100 w-md-auto mb-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#typesModal">
+                        <i class="bi bi-plus-lg d-md-none"></i>
+                        <span class="d-none d-md-inline">Cadastrar Tipo</span>
+                    </button>
                 </div>
-                <table class="table table-bordered  border-dark mt-5">
-                    <thead class="table table-dark">
-                        <th scope="col">
-                            Descrição
-                        </th>
-                        <th scope="col">
-                            Usuário de cadastro
-                        </th>
-                        <th scope="col">Data de Cadastro</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Ações</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($brand as $row => $value) {
-                            ?>
+
+                <div class="table-responsive rounded-3 shadow">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="table-dark">
                             <tr>
-
-                                <td>
-                                    <p>
-                                        <?php echo $value['descricaoTipo'] ?>
-                                    </p>
-                                </td>
-
-                                <td>
-                                    <p>
-                                        <?php echo $value['idUsuario'] ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <p>
-                                        <?php echo $value['dataCadastroTipo'] ?>
-                                    </p>
+                                <th scope="col">Descrição</th>
+                                <th scope="col" class="d-none d-md-table-cell">Usuário</th>
+                                <th scope="col" class="d-none d-lg-table-cell">Data Cadastro</th>
+                                <th scope="col">Status</th>
+                                <th scope="col" style="min-width: 120px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($brand as $value): ?>
+                            <tr>
+                                <td class="fw-bold"><?= $value['descricaoTipo'] ?></td>
+                                <td class="d-none d-md-table-cell"><?= $value['idUsuario'] ?></td>
+                                <td class="d-none d-lg-table-cell">
+                                    <?= date('d/m/Y H:i', strtotime($value['dataCadastroTipo'])) ?>
                                 </td>
                                 <td>
-                                    <p>
-                                        <?php echo $value['statusTipo'] ?>
-                                    </p>
+                                    <?php if ($value['statusTipo'] == "S"): ?>
+                                        <span class="badge bg-success">Ativo</span>
+                                    <?php else: ?>
+                                        <span class="badge bg-danger">Inativo</span>
+                                    <?php endif; ?>
                                 </td>
-
                                 <td>
-                                    <div class="actions d-flex justify-content-evenly">
-                                        <button id="editType" data-bs-toggle="modal" data-bs-target="updateTypes"
-                                            onclick="editar('<?php echo $value['idTipo']; ?>')"
-                                            class="mx-2 btn btn-primary">
+                                    <div class="d-flex gap-2 justify-content-center flex-wrap">
+                                        <button class="btn btn-sm btn-primary"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#updateTypes"
+                                                onclick="editar('<?= $value['idTipo'] ?>')"
+                                                title="Editar">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <div class="changeStatus">
-                                            <?php
-                                            if ($value['statusTipo'] == "S") {
-                                                ?>
-                                                <button id=" activeType"
-                                                    onclick="muda_status('N','<?php echo $value['idTipo']; ?>')"
-                                                    class=" btn btn-success">
-                                                    <i class="bi bi-toggle-on"></i>
-                                                </button>
-                                                <?php
-                                            } else {
-                                                ?>
-                                                <button id="inactiveType"
-                                                    onclick="muda_status('S','<?php echo $value['idTipo']; ?>')"
-                                                    class=" btn btn-danger">
-                                                    <i class="bi bi-toggle-off"></i>
-                                                </button>
-                                                <?php
-                                            }
-                                            ?>
-                                        </div>
+                                        <?php if ($value['statusTipo'] == "S"): ?>
+                                            <button class="btn btn-sm btn-success"
+                                                    onclick="muda_status('N','<?= $value['idTipo'] ?>')"
+                                                    title="Desativar">
+                                                <i class="bi bi-toggle-on"></i>
+                                            </button>
+                                        <?php else: ?>
+                                            <button class="btn btn-sm btn-danger"
+                                                    onclick="muda_status('S','<?= $value['idTipo'] ?>')"
+                                                    title="Ativar">
+                                                <i class="bi bi-toggle-off"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>
-                            <?php
-                        }
-                        ?>
-                    </tbody>
-                    </tbody>
-                </table>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </main>
     </div>
     <script src="../js/types.js"></script>

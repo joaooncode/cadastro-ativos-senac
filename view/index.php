@@ -17,39 +17,63 @@ if (isset($_GET['error_auten']) && $_GET['error_auten'] == 'yes') {
   <!-- Inclua aqui os seus links de CSS, meta tags, etc. -->
   <?php include('headView.php'); ?>
 </head>
-<body class="min-vw-100 min-vh-100">
-  <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
-    <div class="container mb-5">
-      <h1 class="text-primary text-center">Login usuário</h1>
-    </div>
-    <!-- Formulário de Login -->
-    <form class="container d-flex flex-column align-items-center justify-content-center"
-          action="/controllers/loginUserController.php" method="POST">
-      <div class="container d-flex flex-column align-items-center justify-content-center">
-        <div class="form-floating mb-3 w-75">
-          <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required />
-          <label for="floatingInput">Endereço de e-mail</label>
-          <div id="email-feedback" class="invalid-feedback">Por favor, insira um e-mail válido.</div>
-        </div>
-        <div class="form-floating w-75 mt-4">
-          <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password" required />
-          <label for="floatingPassword">Senha</label>
+<body class="d-flex flex-column min-vh-100 bg-light">
+  <main class="flex-grow-1 d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="text-center mb-5">
+            <h1 class="text-primary display-5 mb-4">Login usuário</h1>
+          </div>
+          
+          <!-- Login Form -->
+          <form class="bg-white p-4 rounded-4 shadow" 
+                action="/controllers/loginUserController.php" 
+                method="POST">
+            <div class="mb-4">
+              <div class="form-floating">
+                <input name="email" type="email" 
+                       class="form-control form-control-lg" 
+                       id="floatingInput" 
+                       placeholder="name@example.com" 
+                       required>
+                <label for="floatingInput">Endereço de e-mail</label>
+                <div id="email-feedback" class="invalid-feedback">
+                  Por favor, insira um e-mail válido.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <div class="form-floating">
+                <input name="password" type="password" 
+                       class="form-control form-control-lg" 
+                       id="floatingPassword" 
+                       placeholder="Password" 
+                       required>
+                <label for="floatingPassword">Senha</label>
+              </div>
+            </div>
+
+            <div class="d-grid gap-3">
+              <button type="submit" 
+                      class="btn btn-primary btn-lg py-3">
+                Entrar
+              </button>
+              
+              <div class="text-center mt-3">
+                <a href="/view/registerUserView.php" 
+                   class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                  Cadastrar novo usuário?
+                </a>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-      <button type="submit" class="btn btn-outline-primary btn-md mt-5 px-4 py-4 w-25">
-        Entrar
-      </button>
-      <p class="mt-5 fs-5">
-        <a class="link-offset-2 link-underline link-underline-opacity-0" href="/view/registerUserView.php">
-          Cadastrar novo usuário?
-        </a>
-      </p>
-    </form>
+    </div>
   </main>
-  <footer>
-    <!-- Conteúdo do rodapé, se houver -->
-  </footer>
-  <!--Validação visual-->
+
   <script src="../js/emailValidation.js"></script>
 </body>
 </html>

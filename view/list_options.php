@@ -31,56 +31,75 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
     <!-- Add your CSS links here if needed -->
 </head>
 
-<body class="d-flex flex-column bg-light w-vw-100 min-vh-100 overflow-hidden">
-    <div class="container mt-3">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h1 class="text-primary">Controle de Opções</h1>
-            <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#novaOpcao" id='novaOpcaoBtn' onclcik='limpar_modal'>Nova
-                Opção</button>
+<body class="d-flex flex-column bg-light min-vh-100">
+    <div class="container-fluid px-lg-5 mt-3">
+        <div class="row align-items-center mb-3 mb-md-4 g-2">
+            <div class="col-12 col-md-6">
+                <h1 class="text-primary h4 mb-0">Controle de Opções</h1>
+            </div>
+            <div class="col-12 col-md-6 text-md-end">
+                <button class="btn btn-primary w-100 w-md-auto" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#novaOpcao"
+                        id="novaOpcaoBtn" 
+                        onclick="limpar_modal()">
+                    <i class="bi bi-plus-lg d-md-none"></i>
+                    <span class="d-none d-md-inline">Nova Opção</span>
+                </button>
+            </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="table table-hover table-striped">
+        <div class="table-responsive rounded-3 shadow-sm">
+            <table class="table table-hover table-striped mb-0">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col" class="text-nowrap">ID</th>
                         <th scope="col">Descrição</th>
-                        <th scope="col">Nivel</th>
-                        <th scope="col">URL</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Nível</th>
+                        <th scope="col" class="d-none d-lg-table-cell">URL</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Ações</th>
+                        <th scope="col" style="width: 120px;">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($data)): ?>
                     <tr>
-                        <td colspan="6" class="text-center">Nenhum registro encontrado</td>
+                        <td colspan="6" class="text-center py-4">Nenhum registro encontrado</td>
                     </tr>
                     <?php else: ?>
                     <?php foreach ($data as $row): ?>
                     <tr>
-                        <td><?php echo $row['id_opcao']; ?></td>
-                        <td><?php echo $row['descricao_opcao']; ?></td>
-                        <td><?php echo $row['nivel_opcao']; ?></td>
-                        <td><?php echo $row['url_opcao']; ?></td>
-                        <td>
-                            <?php if ($row['status_opcao'] == 'S'): ?>
-                            <button class="badge bg-success btn"
-                                onclick="muda_status('N','<?php echo $row['id_opcao']; ?>')">Ativo</>
-                                <?php else: ?>
-                                <button class="badge btn bg-danger pointer"
-                                    onclick="muda_status('S','<?php echo $row['id_opcao']; ?>')">Inativo</>
-                                    <?php endif; ?>
+                        <td class="fw-bold"><?= $row['id_opcao'] ?></td>
+                        <td><?= $row['descricao_opcao'] ?></td>
+                        <td class="d-none d-sm-table-cell"><?= $row['nivel_opcao'] ?></td>
+                        <td class="d-none d-lg-table-cell text-truncate" style="max-width: 200px;">
+                            <?= $row['url_opcao'] ?>
                         </td>
                         <td>
-                            <div class=" actions d-flex  align-items-center justify-content-evenly">
-                                <button id="editAsset" onclick="editar('<?php echo $row['id_opcao']; ?>')"
-                                    class="mx-2 btn btn-primary">
+                            <?php if ($row['status_opcao'] == 'S'): ?>
+                            <button class="btn btn-sm btn-success py-1" 
+                                    onclick="muda_status('N','<?= $row['id_opcao'] ?>')">
+                                <i class="bi bi-check-circle"></i>
+                                <span class="d-none d-md-inline">Ativo</span>
+                            </button>
+                            <?php else: ?>
+                            <button class="btn btn-sm btn-danger py-1" 
+                                    onclick="muda_status('S','<?= $row['id_opcao'] ?>')">
+                                <i class="bi bi-x-circle"></i>
+                                <span class="d-none d-md-inline">Inativo</span>
+                            </button>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button onclick="editar('<?= $row['id_opcao'] ?>')"
+                                        class="btn btn-sm btn-primary"
+                                        title="Editar">
                                     <i class="bi bi-pencil-square"></i>
-
                                 </button>
-                                <button id="deleteAsset" onclick="deleteAsset('<?php echo $row['id_opcao']; ?>')"
-                                    class="mx-2 btn btn-danger">
+                                <button onclick="confirmarExclusao('<?= $row['id_opcao'] ?>')"
+                                        class="btn btn-sm btn-danger"
+                                        title="Excluir">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>

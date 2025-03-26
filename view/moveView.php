@@ -33,47 +33,51 @@ $moveQueryResult = mysqli_query($conn, $moveQuery) or die(false);
 $movimentacoes = $moveQueryResult->fetch_all(MYSQLI_ASSOC);
 ?>
 
-<body class="min-vw-100 min-vh-100">
-    <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
-        <main class="vw-100 vh-100 d-flex flex-column align-items-center justify-content-center">
-            <!-- Tabela ativos cadastrados -->
-            <div class="container mb-5 w-100">
+<body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid flex-grow-1 py-4">
+        <main class="d-flex flex-column h-100">
+            <div class="container">
                 <div class="text-center mb-4">
-                    <h1 class="text-primary">Movimentações</h1>
-                    <button id="cadastrarTipoBtn" class="btn btn-outline-primary mt-3 mb-3 p-3"
-                        style="width: 100%; max-width: 200px;" data-bs-toggle="modal"
+                    <h1 class="text-primary mb-3">Movimentações</h1>
+                    <button id="cadastrarTipoBtn" class="btn btn-outline-primary w-100 w-md-auto mb-3"
+                        data-bs-toggle="modal"
                         data-bs-target="#cadastrarMovimentacao">
-                        Realizar Nova Movimentação
+                        <i class="bi bi-plus-lg d-md-none"></i>
+                        <span class="d-none d-md-inline">Realizar Nova Movimentação</span>
                     </button>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table  table-bordered border-dark mt-5">
+                <div class="table-responsive rounded-3 shadow">
+                    <table class="table table-bordered table-striped table-hover mb-0">
                         <thead class="table-dark">
                             <tr>
                                 <th scope="col">Ativo</th>
                                 <th scope="col">Tipo</th>
-                                <th scope="col">Quantidade Última Movimentação</th>
-                                <th scope="col">Quantidade Total</th>
-                                <th scope="col">Quantidade Uso</th>
-                                <th scope="col">Local Origem</th>
-                                <th scope="col">Local Destino</th>
-                                <th scope="col">Descrição</th>
-                                <th scope="col">Data</th>
+                                <th scope="col" class="d-none d-lg-table-cell">Qtd. Mov.</th>
+                                <th scope="col" class="d-none d-md-table-cell">Qtd. Total</th>
+                                <th scope="col">Qtd. Uso</th>
+                                <th scope="col" class="d-none d-xl-table-cell">Origem</th>
+                                <th scope="col" class="d-none d-xl-table-cell">Destino</th>
+                                <th scope="col" class="d-none d-sm-table-cell">Descrição</th>
+                                <th scope="col" class="text-nowrap">Data</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($movimentacoes as $value): ?>
                             <tr>
-                                <td><?php echo $value['ativo']; ?></td>
-                                <td><?php echo $value['tipoMovimentacao']; ?></td>
-                                <td><?php echo $value['quantidadeMovimentacao']; ?></td>
-                                <td><?php echo $value['quantidadeTotal']; ?></td>
-                                <td><?php echo $value['quantidadeUso']; ?></td>
-                                <td><?php echo $value['localOrigem']; ?></td>
-                                <td><?php echo $value['localDestino']; ?></td>
-                                <td><?php echo $value['descricaoMovimentacao']; ?></td>
-                                <td><?php echo $value['dataHoraMovimentacao']; ?></td>
+                                <td class="fw-bold"><?= $value['ativo'] ?></td>
+                                <td><?= $value['tipoMovimentacao'] ?></td>
+                                <td class="d-none d-lg-table-cell"><?= $value['quantidadeMovimentacao'] ?></td>
+                                <td class="d-none d-md-table-cell"><?= $value['quantidadeTotal'] ?></td>
+                                <td><?= $value['quantidadeUso'] ?></td>
+                                <td class="d-none d-xl-table-cell"><?= $value['localOrigem'] ?></td>
+                                <td class="d-none d-xl-table-cell"><?= $value['localDestino'] ?></td>
+                                <td class="d-none d-sm-table-cell text-truncate" style="max-width: 200px;">
+                                    <?= $value['descricaoMovimentacao'] ?>
+                                </td>
+                                <td class="text-nowrap">
+                                    <?= date('d/m/Y H:i', strtotime($value['dataHoraMovimentacao'])) ?>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>

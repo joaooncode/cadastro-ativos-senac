@@ -14,49 +14,43 @@ $users = fetchData($conn, 'usuario');
 
 ?>
 
-<body class="min-vw-100 min-vh-100">
-    <main class="vw-100 vh-100 d-flex align-items-center justify-content-center flex-column">
-        <!--Tabela usuários cadastrados-->
-        <div class=" container mb-5 w-100">
-            <h1 class="text-center text-primary">Lista de usuários</h1>
-            <table class="table table-bordered border-dark mt-5">
-                <thead class="table table-dark">
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Turma</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($users as $user => $value) {
-                        ?>
-                        <tr>
-                            <td>
-                                <?php echo $value['idUsuario'] ?>
-                            </td>
-                            <td>
-                                <p>
-                                    <a class="link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
-                                        <?php echo $value['nomeUsuario'] ?>
-                                    </a>
-                                </p>
-                            </td>
-                            <td>
-                                <p>
-                                    <a class=" link-dark link-offset-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
-                                        href="patchUserView.php?idUsuario=<?php echo $value['idUsuario'] ?>">
-                                        <?php echo $value['turmaUsuario'] ?>
-                                    </a>
-                                </p>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
+<body class="min-vh-100">
+    <main class="container-fluid py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+                <h1 class="text-center text-primary mb-4 mb-md-5">Lista de usuários</h1>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col" class="text-nowrap">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col" class="d-none d-md-table-cell">Turma</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($users as $user => $value) { ?>
+                                <tr>
+                                    <td class="fw-bold"><?= $value['idUsuario'] ?></td>
+                                    <td>
+                                        <a class="link-dark link-underline link-underline-opacity-0 link-underline-opacity-75-hover" 
+                                           href="patchUserView.php?idUsuario=<?= $value['idUsuario'] ?>">
+                                            <?= $value['nomeUsuario'] ?>
+                                        </a>
+                                    </td>
+                                    <td class="d-none d-md-table-cell">
+                                        <a class="link-dark link-underline link-underline-opacity-0 link-underline-opacity-75-hover" 
+                                           href="patchUserView.php?idUsuario=<?= $value['idUsuario'] ?>">
+                                            <?= $value['turmaUsuario'] ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </main>
 </body>

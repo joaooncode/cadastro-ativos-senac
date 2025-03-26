@@ -113,9 +113,8 @@ $(function () {
 
     // Mostrar loading enquanto processa
     Swal.fire({
-      title: `${
-        actionText.charAt(0).toUpperCase() + actionText.slice(1)
-      } ativo...`,
+      title: `${actionText.charAt(0).toUpperCase() + actionText.slice(1)
+        } ativo...`,
       text: "Por favor, aguarde enquanto processamos sua solicitação.",
       allowOutsideClick: false,
       didOpen: () => {
@@ -150,6 +149,8 @@ $(function () {
           icon: "error",
           confirmButtonText: "OK",
         });
+        console.log(error);
+
       },
     });
   });
@@ -237,10 +238,10 @@ const updateAsset = (id) => {
         $("#imagemPreview").attr(
           "src",
           window.location.protocol +
-            "//" +
-            window.location.host +
-            "/" +
-            jsonReturn[0]["url_imagem"]
+          "//" +
+          window.location.host +
+          "/" +
+          jsonReturn[0]["url_imagem"]
         );
         $(".preview").css("display", "block");
       } else {
@@ -348,10 +349,10 @@ const showInfo = (id) => {
         $("#infoImagem").attr(
           "src",
           window.location.protocol +
-            "//" +
-            window.location.host +
-            "/" +
-            jsonReturn[0]["url_imagem"]
+          "//" +
+          window.location.host +
+          "/" +
+          jsonReturn[0]["url_imagem"]
         );
       } else {
         $("#infoImagem").attr("src", "");

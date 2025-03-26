@@ -153,8 +153,5 @@ $data = $result->fetch_all(MYSQLI_ASSOC);
             </div>
         </main>
     </div>
-
     <script src="../js/assets.js"></script>
-    <script src="../js/updateAssets.js"></script>
-
 </body>

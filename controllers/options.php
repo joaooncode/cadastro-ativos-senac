@@ -80,6 +80,21 @@ class Option
             return "Nenhum registro encontrado";
         }
     }
+    public function busca_superior($conn, $level)
+    {
+            $stmt = $conn->prepare("SELECT * FROM opcoes_menu WHERE nivel_opcao = ?");
+            $stmt->bind_param("i", $level);
+        
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return json_encode($result->fetch_all(MYSQLI_ASSOC));
+        } else {
+            return "Nenhum registro encontrado";
+        }
+    }
 
     public function change_status($conn, $idOption, $status)
     {

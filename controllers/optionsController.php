@@ -31,7 +31,11 @@ if ($acao == 'inserir') {
     $result = $options->get_info($conn, $idOption);
 } else if ($acao == 'alterar_status') {
     $result = $options->change_status($conn, $idOption, $status);
-} else {
+}elseif ($acao == 'buscar_opcoes_pai') {
+    $result = $options->busca_superior($conn, $level);
+}
+
+else {
     $result = "Invalid action";
 }
 

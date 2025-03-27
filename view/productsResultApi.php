@@ -105,17 +105,19 @@ echo "</pre>";
     <!-- <link rel="stylesheet" href="path/to/bootstrap.min.css"> -->
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h3>Resultados para: "<?php echo htmlspecialchars($inputSearch); ?>"</h3>
-
-        <?php if (isset($data['results']) && is_array($data['results']) && count($data['results']) > 0): ?>
-            <div class="d-flex flex-wrap justify-content-center">
-                <?php foreach ($data['results'] as $item): ?>
-                    <div class="card m-2" style="width: 14rem;">
-                        <?php if (isset($item['thumbnail'])): ?>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="h3 text-primary mb-3">Resultados para: "<?= htmlspecialchars($inputSearch) ?>"</h2>
+                
+                <?php if (isset($data['results']) && is_array($data['results']) && count($data['results']) > 0): ?>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    <?php foreach ($data['results'] as $item): ?>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 hover-shadow transition-all">
+                            <?php if (isset($item['thumbnail'])): ?>
                             <?php
-                            // Check for high-quality image URLs
                             $imageUrl = $item['thumbnail'];
                             if (isset($item['pictures']) && is_array($item['pictures'])) {
                                 foreach ($item['pictures'] as $picture) {
@@ -126,46 +128,63 @@ echo "</pre>";
                                 }
                             }
                             ?>
-                            <img src="<?php echo htmlspecialchars($imageUrl); ?>" class="card-img-top img-fluid" alt="Thumbnail"
-                                style="object-fit: cover; height: 150px;">
-                        <?php else: ?>
-                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
-                                style="height: 150px;">
-                                <span class="text-muted">Sem imagem</span>
+                            <div class="ratio ratio-1x1 bg-light">
+                                <img src="<?= htmlspecialchars($imageUrl) ?>" 
+                                     class="card-img-top object-fit-cover" 
+                                     alt="<?= htmlspecialchars($item['title']) ?>">
                             </div>
-                        <?php endif; ?>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title" style="font-size: 0.9rem;"><?php echo htmlspecialchars($item['title']); ?>
-                            </h5>
-                            <p class="card-text">
-                                <?php
-                                if (isset($item['price']) && isset($item['currency_id'])) {
-                                    $price = $item['price'];
-                                    $currency = $item['currency_id'];
-                                    $rate = isset($conversionRates[$currency]) ? $conversionRates[$currency] : 1;
-                                    $priceBRL = $price * $rate;
-                                    echo 'R$ ' . number_format($priceBRL, 2, ',', '.');
-                                } else {
-                                    echo 'Preço não disponível';
-                                }
-                                ?>
-                            </p>
-                            <?php if (isset($item['permalink'])): ?>
-                                <a href="<?php echo htmlspecialchars($item['permalink']); ?>" class="btn btn-primary mt-auto"
-                                    target="_blank">Ver</a>
+                            <?php else: ?>
+                            <div class="ratio ratio-1x1 bg-light d-flex align-items-center justify-content-center">
+                                <i class="bi bi-image text-muted fs-1"></i>
+                            </div>
                             <?php endif; ?>
+                            
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title mb-2 text-truncate"><?= htmlspecialchars($item['title']) ?></h5>
+                                
+                                <div class="d-flex align-items-center mb-3">
+                                    <span class="badge bg-primary fs-6 py-2">
+                                        <?php
+                                        if (isset($item['price']) && isset($item['currency_id'])) {
+                                            $price = $item['price'];
+                                            $currency = $item['currency_id'];
+                                            $rate = $conversionRates[$currency] ?? 1;
+                                            $priceBRL = $price * $rate;
+                                            echo 'R$ ' . number_format($priceBRL, 2, ',', '.');
+                                        } else {
+                                            echo 'Preço indisponível';
+                                        }
+                                        ?>
+                                    </span>
+                                    <?php if (isset($item['currency_id']) && $item['currency_id'] !== 'BRL'): ?>
+                                    <small class="ms-2 text-muted">(convertido de <?= $item['currency_id'] ?>)</small>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <?php if (isset($item['permalink'])): ?>
+                                <a href="<?= htmlspecialchars($item['permalink']) ?>" 
+                                   class="btn btn-outline-primary w-100 mt-auto d-flex align-items-center justify-content-center"
+                                   target="_blank">
+                                    <i class="bi bi-eye me-2"></i>
+                                    Ver produto
+                                </a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
+                <?php else: ?>
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <i class="bi bi-exclamation-triangle me-3 fs-4"></i>
+                    <div>
+                        Nenhum resultado encontrado para "<?= htmlspecialchars($inputSearch) ?>"
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
-        <?php else: ?>
-            <div class="alert alert-info">Nenhum resultado encontrado para "<?php echo htmlspecialchars($inputSearch); ?>".
-            </div>
-        <?php endif; ?>
+        </div>
     </div>
-
-    <!-- Adicione seus arquivos JS aqui, caso não estejam incluídos em outro lugar -->
-    <!-- <script src="path/to/bootstrap.min.js"></script> -->
 </body>
 
 </html>

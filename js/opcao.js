@@ -3,8 +3,8 @@ $(document).on('click', '.salvar', function () {
   let descricaoOpcao = $("#descricao_opcao").val();
   let idOpcao = $("#id_opcao").val();
   let nivelOpcao = $("#nivel_opcao").val();
-  let opcaoSuperior = $("#opcao_superior").val();
   let urlOpcao = $("#url_opcao").val();
+  let nivel_superior = $("#nivel_superior").val();
 
 
   let acao = idOpcao === "" ? "inserir" : "update";
@@ -18,7 +18,7 @@ $(document).on('click', '.salvar', function () {
       descricao_opcao: descricaoOpcao,
       id_opcao: idOpcao,
       nivel_opcao: nivelOpcao,
-      opcao_superior: opcaoSuperior,
+      nivel_superior: nivel_superior,
       url_opcao: urlOpcao
     },
     success: function (response) {
@@ -66,7 +66,6 @@ function editar(idOpcao) {
     },
     success: function (result) {
       let retorno = JSON.parse(result);
-      alert('teste')
       $("#novaOpcaoBtn").click()
       $("#descricao_opcao").val(retorno[0]["descricao_opcao"]);
       $("#url_opcao").val(retorno[0]["url_opcao"]);
@@ -80,55 +79,50 @@ function editar(idOpcao) {
 }
 
 
-function verificarNivelOpcao(idNivel) {
-  const campoSuperior = $("#nivel_opcao_dinamico");
-  const selectOpcaoSuperior = $("#opcaoSuperior");
-  const labelOpcaoSuperior = $("#labelOpcaoSuperior");
 
-  // Esconde o campo dinâmico e limpa o select
-  campoSuperior.hide();
-  selectOpcaoSuperior.empty();
+function buscarOpcaoSuperior(id_superior = false) {
+  let nivel_opcao = $('#nivel_opcao').val();
+  if (nivel_opcao == 1 || nivel_opcao == '') {
+    $('#div_superior').attr('style', 'display:none')
+  } else {
 
-  // Verifica o nível selecionado
-  if (idNivel == 2) { // Submenu
-    labelOpcaoPai.text("Selecione o Menu:");
-    buscarOpcoesPai(1); // Busca opções do tipo menu (idNivel = 1)
-    campoSuperior.show();
-  } else if (idNivel == 3) { // Ação
-    labelOpcaoPai.text("Selecione o Submenu:");
-    buscarOpcoesPai(2); // Busca opções do tipo submenu (idNivel = 2)
-    campoSuperior.show();
-  } else { // Menu
-    campoSuperior.hide();
-  }
-}
+    nivel_opcao = nivel_opcao - 1;
+    $.ajax({
+      type: 'POST',
+      url: "../controllers/optionsController.php",
+      data: {
+        acao: 'buscar_opcoes_pai',
+        nivel_opcao: nivel_opcao
+      },
+      success: function (result) {
+        let resposta = JSON.parse(result);
+        let select = `<select class="form-select" id="nivel_superior">
+                        <option value="">Selecione o nível superior</option>
+                        `
+        $(resposta).each(function (index, element) {
+          if (id_superior == element.idOpcao) {
+            select += '<option value="' + element.id_opcao + '" selected>' + element.descricao_opcao + '</option>'
+          } else {
+            select += '<option value="' + element.id_opcao + '">' + element.descricao_opcao + '</option>'
+          }
 
+        })
+        select += '</select>';
+        $('#select').html(select);
+      },
 
-function buscarOpcaoSuperior(idOpcaoSuperior) {
-  $.ajax({
-    type: 'POST',
-    url: "../controllers/optionsController.php",
-    data: {
-      acao: 'buscar_opcoes_pai',
-      idOpcaoSuperior: idOpcaoSuperior
-    },
-    success: function (result) {
-      let resposta = JSON.parse(result);
-      if (resposta.status === 'sucesso') {
-        const selectOpcaoPai = $("#opcaoSuperior");
-        selectOpcaoPai.empty();
-        selectOpcaoPai.append('<option value="">Selecione uma opção</option>');
-        resposta.dados.forEach(opcao => {
-          selectOpcaoPai.append(`<option value="${opcao.idOpcao}">${opcao.descricaoOpcao}</option>`);
-        });
-      } else {
-        alert('Erro: ' + resposta.mensagem);
+      error: function (xhr, status, error) {
+        alert('Erro na requisição: ' + error);
       }
-    },
-    error: function (xhr, status, error) {
-      alert('Erro na requisição: ' + error);
-    }
-  });
+    });
+
+    $('#div_superior').attr('style', 'display:block')
+
+
+  }
+  return
+
+
 }
 
 

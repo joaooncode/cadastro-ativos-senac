@@ -16,7 +16,7 @@
                 <div class="mb-3">
                     <label for="nivel_opcao" class="col-form-label">Nivel Opção <span
                             class="text-danger">*</span></label>
-                    <select name="" id="nivel_opcao" class="form-select">
+                    <select name="" id="nivel_opcao" class="form-select" onchange='buscarOpcaoSuperior()'>
                         <option value="" disabled selected>Selecione o nível da opção</option>
                         <?php
                         foreach ($levels as $value) {
@@ -27,15 +27,11 @@
 
                     </select>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3" id='div_superior' style='display:none'>
                     <label for="opcao_superior">Opção Superior</label>
-                    <select name="" id="opcao_superior" class="form-select">
-                        <option value="" disabled selected>Selecione a opção superior</option>
-                        <option value="" disabled selected>Selecione o nível da opção</option>
-                        <option id="menu" value="menu">Menu</option>
-                        <option id="submenu" value="submenu">Submenu</option>
-                        <option id="acao" value="acao">Ação</option>
-                    </select>
+                   <div id='select'>
+
+                   </div>
                 </div>
                 <div class="mb-3">
                     <label for="url_opcao">URL</label>

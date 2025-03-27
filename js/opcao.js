@@ -4,7 +4,7 @@ $(document).on('click', '.salvar', function () {
   let idOpcao = $("#id_opcao").val();
   let nivelOpcao = $("#nivel_opcao").val();
   let urlOpcao = $("#url_opcao").val();
-  let nivel_superior = $("#nivel_superior").val();
+  let nivel_superior = $("#nivel_superior1").val();
 
 
   let acao = idOpcao === "" ? "inserir" : "update";
@@ -71,6 +71,7 @@ function editar(idOpcao) {
       $("#url_opcao").val(retorno[0]["url_opcao"]);
       $("#nivel_opcao").val(retorno[0]["nivel_opcao"]);
       $("#id_opcao").val(retorno[0]["id_opcao"]);
+      buscarOpcaoSuperior(retorno[0]['nivel_opcao'], retorno[0]['id_menu_superior']);
     },
     error: function (xhr, status, error) {
       console.error("Erro na requisição:", error);
@@ -80,8 +81,14 @@ function editar(idOpcao) {
 
 
 
-function buscarOpcaoSuperior(id_superior = false) {
-  let nivel_opcao = $('#nivel_opcao').val();
+function buscarOpcaoSuperior(nivel_opcao = false, id_superior) {
+  console.log(id_superior);
+
+  if (nivel_opcao != false) {
+    nivel_opcao = nivel_opcao;
+  } else {
+    nivel_opcao = $('#nivel_opcao').val();
+  }
   if (nivel_opcao == 1 || nivel_opcao == '') {
     $('#div_superior').attr('style', 'display:none')
   } else {
@@ -96,11 +103,11 @@ function buscarOpcaoSuperior(id_superior = false) {
       },
       success: function (result) {
         let resposta = JSON.parse(result);
-        let select = `<select class="form-select" id="nivel_superior">
+        let select = `<select class="form-select" id="nivel_superior1">
                         <option value="">Selecione o nível superior</option>
                         `
         $(resposta).each(function (index, element) {
-          if (id_superior == element.idOpcao) {
+          if (id_superior == element.id_opcao) {
             select += '<option value="' + element.id_opcao + '" selected>' + element.descricao_opcao + '</option>'
           } else {
             select += '<option value="' + element.id_opcao + '">' + element.descricao_opcao + '</option>'

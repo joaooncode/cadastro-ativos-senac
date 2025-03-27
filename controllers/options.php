@@ -6,7 +6,7 @@ $user_id = $_SESSION['user_id'] ?? null;
 
 class Option
 {
-    public function insert($conn, $level, $description, $url, $user_id, $idMenuSuperior)
+    public function insert($conn, $level, $description, $url, $user_id, $id_menu_superior)
     {
         // Use prepared statements to prevent SQL injection
         $stmt = $conn->prepare("
@@ -16,12 +16,12 @@ class Option
                 url_opcao,
                 status_opcao,
                 idUsuario,
-                data_cadastro,
-                id_menu_superior
-            ) VALUES (?, ?, ?, 'S', ?, NOW())
+                id_menu_superior,
+                data_cadastro
+            ) VALUES (?, ?, ?, 'S', ?, ?, NOW() )
         ");
 
-        $stmt->bind_param("sssi", $description, $level, $url, $user_id);
+        $stmt->bind_param("sssii", $description, $level, $url, $user_id, $id_menu_superior);
 
         if ($stmt->execute()) {
             return "Cadastro Realizado";

@@ -18,11 +18,11 @@ $url = isset($_POST['url']) ? $_POST['url'] : null;
 $user_id = isset($_POST['user_id']) ? $_POST['user_id'] : null;
 $idOption = isset($_POST['id_opcao']) ? $_POST['id_opcao'] : null;
 $status = isset($_POST['status']) ? $_POST['status'] : null;
-$idOpcaoSuperior = isset($_POST['opcaoSuperior']) ? $_POST['opcaoSuperior'] : null;
+$id_nivel_superior = isset($_POST['nivel_superior']) ? $_POST['nivel_superior'] : null;
 
 // Perform the requested action
 if ($acao == 'inserir') {
-    $result = $options->insert($conn, $level, $description, $url, $user_id, $idOpcaoSuperior);
+    $result = $options->insert($conn, $level, $description, $url, $user_id, $id_nivel_superior);
 } else if ($acao == 'update') {
     $result = $options->update($conn, $idOption, $level, $description, $url, $user_id);
 } else if ($acao == 'delete') {

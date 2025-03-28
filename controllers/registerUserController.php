@@ -7,7 +7,7 @@ $email = $_POST['emailUser'];
 $passwd = $_POST['passwordUser'];
 $passwdConfirm = $_POST['confirmPasswordUser'];
 $class = $_POST['classUser'];
-
+$cargo = '1';
 // checks password confirm
 if ($passwd !== $passwdConfirm) {
     echo "<script>
@@ -29,14 +29,16 @@ $query = "
         senhaUsuario,
         turmaUsuario,
         dataCriacaoUsuario,
-        dataAlteracaoUsuario
+        dataAlteracaoUsuario,
+        id_cargo
       )values(
         '" . $name . "',
         '" . $email . "',
         '" . $passwd_hash . "',
         '" . $class . "',
         NOW(),
-        NOW()
+        NOW(),
+        '$cargo'
       )
 ";
 

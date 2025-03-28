@@ -6,12 +6,14 @@ $nome = $_POST['nomeUsuario'];
 $turma = $_POST['turmaUsuario'];
 
 $id = $_POST['idUsuario'];
+$cargo = $_POST['id_cargo'];
 
 $sql_query = "
     UPDATE usuario 
     SET 
         nomeUsuario='$nome', 
-        turmaUsuario='$turma'
+        turmaUsuario='$turma',
+        id_cargo='$cargo'
     WHERE 
         idUsuario='$id' 
 ";

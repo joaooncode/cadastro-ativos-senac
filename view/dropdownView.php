@@ -1,7 +1,33 @@
 <?php
 include_once('headView.php');
+include_once('../models/connect_db.php');
 
-?>
+
+$cargo = $_SESSION['id_cargo'];
+
+
+$db_query = "SELECT 
+            id_opcao, 
+            descricao_opcao
+            FROM opcoes_menu o WHERE nivel_opcao = 1 
+                and status_opcao = 'S'
+                and id_opcao 
+                in
+                (
+                    SELECT id_opcao FROM acesso a WHERE a.id_opcao = o.id_opcao AND status_acesso = 'S' AND idUsuario = $cargo
+                )";
+
+// var_dump($_SESSION);
+
+$result = mysqli_query($conn, $db_query) or die(mysqli_error($conn));
+
+$acessos_menu = $result->fetch_all(MYSQLI_ASSOC);
+
+echo ($db_query);
+
+var_dump($acessos_menu)
+
+    ?>
 
 <body class="min-vh-100 min-vw-100 overflow-x-hidden position-relative">
     <nav class="navbar navbar-expand-lg bg-body-tertiary fs-4 mb-5 position-sticky">

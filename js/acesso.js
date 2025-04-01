@@ -1,24 +1,29 @@
 $(document).ready(function () {
     $(".salva_acesso").click(function () {
-        $input = document.querySelectorAll(".check");
+        $inputs = document.querySelectorAll(".check");
         arrAcesso = {};
-        if (!arrAcesso[index]) {
-            arrAcesso[index] = {};
-        }
-        if ($(elemento).is(":checked")) {
-            arrAcesso[index]["id_opcao"] = $(elemento).val();
-            arrAcesso[index]["acesso"] = "S";
-        } else {
-            arrAcesso[index]["id_opcao"] = $(elemento).val();
-            arrAcesso[index]["acesso"] = "N";
-        }
+        $(inputs).each(function (index, elemento) {
+            console.log(elemento);
+
+            if (!arrAcesso[index]) {
+                arrAcesso[index] = {};  // Inicializando o objeto no índice específico
+            }
+            if ($(elemento).is(":checked")) {
+                arrAcesso[index]['id_opcao'] = $(elemento).val();
+                arrAcesso[index]['acesso'] = 'S';
+
+            } else {
+                arrAcesso[index]['id_opcao'] = $(elemento).val();
+                arrAcesso[index]['acesso'] = 'N';
+            }
+        });
 
 
         cargo = $("#cargo").val();
         arrData = {};
         arrData["acao"] = "grava_acessos";
         arrData["cargo"] = cargo;
-        arrData["acao"] = arrAcesso;
+        arrData["acessos"] = arrAcesso;
         console.log(arrData);
 
         $.ajax({

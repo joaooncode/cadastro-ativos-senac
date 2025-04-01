@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
-    
+
     // Check if fields are filled
     if (empty($email) || empty($password)) {
         echo "<script>
@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Query database to check if email exists
-    $query = "SELECT idUsuario, senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
+    $query = "SELECT idUsuario, id_cargo,  senhaUsuario, isAdmin FROM usuario WHERE emailUsuario = ?";
     $stmt = $conn->prepare($query);
-    
+
     if ($stmt === false) {
         echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Bind parameter
     $stmt->bind_param("s", $email);
-    
+
     // Execute query
     $stmt->execute();
     $result = $stmt->get_result();
@@ -70,11 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Verify password - use password_verify if you're storing hashed passwords (recommended)
         // For bcrypt: if (password_verify($password, $user['senhaUsuario'])) {
-        
+
         // If you're using base64 encoding (not recommended for production):
         if (base64_encode($password) === $user['senhaUsuario']) {
             // Start session and store user ID
             $_SESSION['user_id'] = $user['idUsuario'];
+            $_SESSION['id_cargo'] = $user['id_cargo'];
             $_SESSION['login_ok'] = true;
             $_SESSION['login_controle'] = true;
 

@@ -37,7 +37,7 @@ if ($acao == 'grava_acessos') {
     $arr_selecionados = [];
 
     foreach ($data['acessos'] as $getAcesso) {
-        $arr_selecionados[$getAcesso['id__opcao']] = $getAcesso;
+        $arr_selecionados[$getAcesso['id_opcao']] = $getAcesso['acesso'];
     }
 
     $sql = '';
@@ -53,7 +53,6 @@ if ($acao == 'grava_acessos') {
             ;
         }
     }
-
     foreach ($arr_selecionados as $id_opcao => $value) {
         $sql .= "INSERT INTO acesso (id_cargo, id_opcao, status_acesso, data_cadastro, idUsuario)
      VALUES (
@@ -68,7 +67,12 @@ if ($acao == 'grava_acessos') {
 
     $sql = substr($sql, 0, -2);
 
-    $resul = mysqli_multi_query($conn, $sql) or die(false);
+    var_dump($sql);
+
+    $result = mysqli_multi_query($conn, $sql) or die(false);
+
+
+
 
     if ($result) {
         echo json_encode('Cadastro realizado');

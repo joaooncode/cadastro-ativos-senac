@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     $.ajax({
         method: "post",
-        url: "../controllers/acessoController.php",
+        url: "/controllers/acessoController.php",
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(arrAcesso),
@@ -37,7 +37,7 @@ function get_acessos() {
     let cargo = $('#cargo').val()
     $.ajax({
         type: 'post',
-        url: '../controller/acessoController.php',
+        url: '/controllers/acessoController.php',
         data: {
             acao: 'busca_acessos',
             cargo: cargo

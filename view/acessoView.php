@@ -15,13 +15,13 @@ $query = 'SELECT
             status_opcao,
             idUsuario,
             data_cadastro
-        FROM opcoes_menu';
+        FROM opcoes_menu WHERE nivel_opcao = 1';
 
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $data = $result->fetch_all(MYSQLI_ASSOC);
 
 $arr = [];
-foreach ($opcoes as $row) {
+foreach ($data as $row) {
     $arr[$row['id_opcao']]['descricao_opcao'] = $row['descricao_opcao'];
     $arr[$row['id_opcao']]['nivel_opcao'] = $row['nivel_opcao'];
     $arr[$row['id_opcao']]['url_opcao'] = $row['url_opcao'];
@@ -71,7 +71,10 @@ foreach ($opcoes as $row) {
 }
 
 
+
 ?>
+
+
 
 <body>
     <div class="container">
@@ -79,15 +82,13 @@ foreach ($opcoes as $row) {
             <div class="col-md-6">
                 <div class="mb-4">
                     <label for="cargo" class="form-label">Cargo</label>
-                    <select name="cargo" id="cargo" class="form-select">
+                    <select name="cargo" id="cargo" onchange="get_acessos()" class="form-select">
                         <option value="" disabled selected>Selecione o cargo</option>
                         <?php
                         foreach ($cargos as $value) {
-                            if ($value['id_cargo'] == $id_cargo) {
-                                echo '<option value="' . $value['id_cargo'] . '" selected>' . $value['descricao_cargo'] . '</option>';
-                            } else {
-                                echo '<option value="' . $value['id_cargo'] . '">' . $value['descricao_cargo'] . '</option>';
-                            }
+
+                            echo '<option value="' . $value['id_cargo'] . '">' . $value['descricao_cargo'] . '</option>';
+
                         }
                         ?>
                     </select>
@@ -104,4 +105,5 @@ foreach ($opcoes as $row) {
             ?>
         </div>
     </div>
+    <script src="../js/acesso.js"></script>
 </body>

@@ -99,10 +99,18 @@ foreach ($data as $row) {
             <?php
             foreach ($arr as $id_opcao => $opcao) {
                 ?>
-            <div class="col-md-4"><?php echo $opcao['descricao_opcao']; ?></div>
+            <div class="input-group mb-3">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0 check <?php echo $opcao['id_opcao']; ?>"
+                        value="<?php echo $opcao['id_opcao']; ?>" type="checkbox" value=""
+                        aria-label="Checkbox for following text input">
+                </div>
+                <?php echo $opcao['descricao_opcao']; ?>
+            </div>
             <?php
             }
             ?>
+            <button class="salva_acesso btn btn-primary">Salvar</button>
         </div>
     </div>
     <script src="../js/acesso.js"></script>

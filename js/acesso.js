@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    $(".salvar_acesso").click(function () {
+    $(".salva_acesso").click(function () {
         $input = document.querySelectorAll(".check");
-        let arrAcesso = {};
+        arrAcesso = {};
         if (!arrAcesso[index]) {
             arrAcesso[index] = {};
         }
@@ -12,29 +12,29 @@ $(document).ready(function () {
             arrAcesso[index]["id_opcao"] = $(elemento).val();
             arrAcesso[index]["acesso"] = "N";
         }
-    });
 
-    let cargo = $("#cargo").val();
-    let arrData = {};
-    arrData["acao"] = "grava_acessos";
-    arrData["cargo"] = cargo;
-    arrData["acao"] = arrAcesso;
-    console.log(arrData);
 
-    $.ajax({
-        method: "post",
-        url: "/controllers/acessoController.php",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(arrAcesso),
-        success: function (result) {
-            alert(result);
-        },
+        cargo = $("#cargo").val();
+        arrData = {};
+        arrData["acao"] = "grava_acessos";
+        arrData["cargo"] = cargo;
+        arrData["acao"] = arrAcesso;
+        console.log(arrData);
+
+        $.ajax({
+            method: "post",
+            url: "/controllers/acessoController.php",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(arrData),
+            success: function (result) {
+                alert(result);
+            },
+        });
     });
 });
-
 function get_acessos() {
-    let cargo = $('#cargo').val()
+    cargo = $('#cargo').val()
     $.ajax({
         type: 'post',
         url: '/controllers/acessoController.php',
@@ -43,9 +43,9 @@ function get_acessos() {
             cargo: cargo
         },
         success: function (result) {
-            let retorno = JSON.parse(result)
+            retorno = JSON.parse(result)
             if (retorno) {
-                let inputs = document.querySelectorAll('.check')
+                inputs = document.querySelectorAll('.check')
 
                 $(inputs).each(function (index, elemento) {
                     $(elemento).prop('checked', false)

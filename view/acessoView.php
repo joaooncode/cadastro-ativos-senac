@@ -5,6 +5,7 @@ include('dropdownView.php');
 
 $options_data = fetchData($conn, 'opcoes_menu');
 $levels = fetchData($conn, 'nivel_acesso');
+$cargos = fetchData($conn, 'cargo');
 include_once('./modal/options_modal.php');
 $query = 'SELECT 
             id_opcao,

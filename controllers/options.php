@@ -8,7 +8,6 @@ class Option
 {
     public function insert($conn, $level, $description, $url, $user_id, $id_menu_superior)
     {
-        // Use prepared statements to prevent SQL injection
         $stmt = $conn->prepare("
             INSERT INTO opcoes_menu (
                 descricao_opcao,
@@ -18,7 +17,7 @@ class Option
                 idUsuario,
                 id_menu_superior,
                 data_cadastro
-            ) VALUES (?, ?, ?, 'S', ?, ?, NOW() )
+            ) VALUES (?, ?, ?, 'S', ?, ?, NOW())
         ");
 
         $stmt->bind_param("sssii", $description, $level, $url, $user_id, $id_menu_superior);
@@ -30,18 +29,22 @@ class Option
         }
     }
 
-    public function update($conn, $level, $description, $url, $idOption, $user_id)
+    public function update($conn, $level, $description, $id_nivel_superior, $url, $idOption, $user_id)
     {
-        $stmt = $conn->prepare("
+        $query = "
             UPDATE opcoes_menu SET 
-            descricao_opcao = ?,
-            nivel_opcao = ?,
-            url_opcao = ?,
-            id_usuario = ?
-            WHERE id_opcao = ?
-        ");
+            descricao_opcao = '$description',
+            nivel_opcao = '$level',
+            url_opcao = '$url',
+            idUsuario = '$user_id',
+            id_menu_superior = '$id_nivel_superior'
+            WHERE id_opcao = '$idOption'
+        ";
 
-        $stmt->bind_param("sssii", $description, $level, $url, $user_id, $idOption);
+        $stmt = $conn->prepare($query);
+
+
+        // $stmt->bind_param("ssiiii", $description, $level, $url, $user_id, $id_nivel_superior, $idOption);
 
         if ($stmt->execute()) {
             return "Opção atualizada com sucesso";
@@ -80,11 +83,11 @@ class Option
             return "Nenhum registro encontrado";
         }
     }
+
     public function busca_superior($conn, $level)
     {
-            $stmt = $conn->prepare("SELECT * FROM opcoes_menu WHERE nivel_opcao = ?");
-            $stmt->bind_param("i", $level);
-        
+        $stmt = $conn->prepare("SELECT * FROM opcoes_menu WHERE nivel_opcao = ?");
+        $stmt->bind_param("i", $level);
 
         $stmt->execute();
         $result = $stmt->get_result();
@@ -98,12 +101,13 @@ class Option
 
     public function change_status($conn, $idOption, $status)
     {
-        $sql = "
-    Update opcoes_menu set status_opcao ='$status' where id_opcao='$idOption'
-  ";
-        $result = mysqli_query($conn, $sql) or die(false);
-        if ($result) {
+        $stmt = $conn->prepare("UPDATE opcoes_menu SET status_opcao = ? WHERE id_opcao = ?");
+        $stmt->bind_param("si", $status, $idOption);
+
+        if ($stmt->execute()) {
             return "Status Alterado";
+        } else {
+            return "Erro: " . $stmt->error;
         }
     }
 }

@@ -22,7 +22,8 @@ $(document).on('click', '.salvar', function () {
       url_opcao: urlOpcao
     },
     success: function (response) {
-
+      // alert(response);
+      location.reload()
       console.log('Sucesso:', response);
 
     },

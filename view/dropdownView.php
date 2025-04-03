@@ -26,6 +26,7 @@ $result = mysqli_query($conn, $db_query) or die(mysqli_error($conn));
 $acessos_menu = $result->fetch_all(MYSQLI_ASSOC);
 
 
+
 ?>
 
 <body class="min-vh-100 min-vw-100 overflow-x-hidden position-relative">
@@ -43,7 +44,10 @@ $acessos_menu = $result->fetch_all(MYSQLI_ASSOC);
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav flex-grow-1 mb-2 mb-lg-0">
                     <?php
+                    var_dump($acessos_menu);
+
                     foreach ($acessos_menu as $menu) {
+
                         var_dump($menu);
                         $sub_menu = "SELECT 
                                 id_opcao, 

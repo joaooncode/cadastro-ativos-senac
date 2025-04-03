@@ -40,6 +40,13 @@ $(document).ready(function () {
 });
 function get_acessos() {
     cargo = $('#cargo').val()
+
+    inputs = document.querySelectorAll('.check')
+
+    $(inputs).each(function (index, elemento) {
+        $(elemento).prop('checked', false)
+    })
+
     $.ajax({
         type: 'post',
         url: '/controllers/acessoController.php',
@@ -49,21 +56,15 @@ function get_acessos() {
         },
         success: function (result) {
             retorno = JSON.parse(result)
-            if (retorno) {
-                inputs = document.querySelectorAll('.check')
 
-                $(inputs).each(function (index, elemento) {
-                    $(elemento).prop('checked', false)
-                })
-            } else {
-                $(retorno).each(function (index, elemento) {
-                    if (elemento.statusAcesso == 'S') {
-                        $('.' + elemento.id_opcao).prop('checked', true)
-                    } else {
-                        $('.' + elemento.id_opcao).prop('checked', false)
-                    }
-                })
-            }
+            $(retorno).each(function (index, elemento) {
+                if (elemento.status_acesso == 'S') {
+                    $('.' + elemento.id_opcao).prop('checked', true)
+                } else {
+                    $('.' + elemento.id_opcao).prop('checked', false)
+                }
+            })
+
         }
     })
 }

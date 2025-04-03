@@ -67,8 +67,6 @@ if ($acao == 'grava_acessos') {
 
     $sql = substr($sql, 0, -2);
 
-    var_dump($sql);
-
     $result = mysqli_multi_query($conn, $sql) or die(false);
 
 

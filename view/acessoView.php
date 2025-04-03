@@ -1,24 +1,30 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 include('../models/connect_db.php');
 include('../controllers/functionsController.php');
 include('dropdownView.php');
+
+
 
 $options_data = fetchData($conn, 'opcoes_menu');
 $levels = fetchData($conn, 'nivel_acesso');
 $cargos = fetchData($conn, 'cargo');
 include_once('./modal/options_modal.php');
-$query = 'SELECT 
+$query = "SELECT 
             id_opcao,
             descricao_opcao,
             nivel_opcao,
             url_opcao,
             status_opcao,
             idUsuario,
-            data_cadastro
-        FROM opcoes_menu WHERE nivel_opcao = 1';
+            data_cadastro,
+            (SELECT descricao_nivel FROM nivel_acesso ac WHERE ac.id_nivel = a.nivel_opcao) AS descricao_nivel
+        FROM opcoes_menu  a WHERE nivel_opcao = '1'";
 
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $data = $result->fetch_all(MYSQLI_ASSOC);
+
 
 $arr = [];
 foreach ($data as $row) {
@@ -96,9 +102,8 @@ foreach ($data as $row) {
                 ?>
             <div class="input-group mb-3">
                 <div class="input-group-text">
-                    <input class="form-check-input mt-0 check <?php echo $opcao['id_opcao']; ?>"
-                        value="<?php echo $opcao['id_opcao']; ?>" type="checkbox"
-                        aria-label="Checkbox for following text input" />
+                    <input class="form-check-input mt-0 check <?php echo $id_opcao; ?>" value="<?php echo $id_opcao; ?>"
+                        type="checkbox" aria-label="Checkbox for following text input" />
                 </div>
                 <?php echo $opcao['descricao_opcao']; ?>
             </div>

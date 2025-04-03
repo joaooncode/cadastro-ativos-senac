@@ -36,7 +36,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-curl_setopt($ch, CURLOPT_HTTPHEADER,['Authorization: Bearer '. $access_token, 'Accept: application/json']);
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $access_token, 'Accept: application/json']);
 
 curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; YourApp/1.0)');
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
@@ -83,15 +83,15 @@ $conversionRates = [
 ];
 
 // Para depuração - descomente se necessário
-/*
-echo "<pre>";
-echo "Termo de busca: " . htmlspecialchars($inputSearch) . "\n";
-echo "URL: " . $url . "\n";
-echo "HTTP Code: " . $httpCode . "\n";
-echo "Response: ";
-print_r($data);
-echo "</pre>";
-*/
+
+// echo "<pre>";
+// echo "Termo de busca: " . htmlspecialchars($inputSearch) . "\n";
+// echo "URL: " . $url . "\n";
+// echo "HTTP Code: " . $httpCode . "\n";
+// echo "Response: ";
+// print_r($data);
+// echo "</pre>";
+
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +110,7 @@ echo "</pre>";
         <div class="row mb-4">
             <div class="col-12">
                 <h2 class="h3 text-primary mb-3">Resultados para: "<?= htmlspecialchars($inputSearch) ?>"</h2>
-                
+
                 <?php if (isset($data['results']) && is_array($data['results']) && count($data['results']) > 0): ?>
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                     <?php foreach ($data['results'] as $item): ?>
@@ -118,53 +118,52 @@ echo "</pre>";
                         <div class="card h-100 shadow-sm border-0 hover-shadow transition-all">
                             <?php if (isset($item['thumbnail'])): ?>
                             <?php
-                            $imageUrl = $item['thumbnail'];
-                            if (isset($item['pictures']) && is_array($item['pictures'])) {
-                                foreach ($item['pictures'] as $picture) {
-                                    if (isset($picture['url']) && isset($picture['size']) && $picture['size'] === 'full') {
-                                        $imageUrl = $picture['url'];
-                                        break;
-                                    }
-                                }
-                            }
-                            ?>
+                                        $imageUrl = $item['thumbnail'];
+                                        if (isset($item['pictures']) && is_array($item['pictures'])) {
+                                            foreach ($item['pictures'] as $picture) {
+                                                if (isset($picture['url']) && isset($picture['size']) && $picture['size'] === 'full') {
+                                                    $imageUrl = $picture['url'];
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        ?>
                             <div class="ratio ratio-1x1 bg-light">
-                                <img src="<?= htmlspecialchars($imageUrl) ?>" 
-                                     class="card-img-top object-fit-cover" 
-                                     alt="<?= htmlspecialchars($item['title']) ?>">
+                                <img src="<?= htmlspecialchars($imageUrl) ?>" class="card-img-top object-fit-cover"
+                                    alt="<?= htmlspecialchars($item['title']) ?>">
                             </div>
                             <?php else: ?>
                             <div class="ratio ratio-1x1 bg-light d-flex align-items-center justify-content-center">
                                 <i class="bi bi-image text-muted fs-1"></i>
                             </div>
                             <?php endif; ?>
-                            
+
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title mb-2 text-truncate"><?= htmlspecialchars($item['title']) ?></h5>
-                                
+
                                 <div class="d-flex align-items-center mb-3">
                                     <span class="badge bg-primary fs-6 py-2">
                                         <?php
-                                        if (isset($item['price']) && isset($item['currency_id'])) {
-                                            $price = $item['price'];
-                                            $currency = $item['currency_id'];
-                                            $rate = $conversionRates[$currency] ?? 1;
-                                            $priceBRL = $price * $rate;
-                                            echo 'R$ ' . number_format($priceBRL, 2, ',', '.');
-                                        } else {
-                                            echo 'Preço indisponível';
-                                        }
-                                        ?>
+                                                if (isset($item['price']) && isset($item['currency_id'])) {
+                                                    $price = $item['price'];
+                                                    $currency = $item['currency_id'];
+                                                    $rate = $conversionRates[$currency] ?? 1;
+                                                    $priceBRL = $price * $rate;
+                                                    echo 'R$ ' . number_format($priceBRL, 2, ',', '.');
+                                                } else {
+                                                    echo 'Preço indisponível';
+                                                }
+                                                ?>
                                     </span>
                                     <?php if (isset($item['currency_id']) && $item['currency_id'] !== 'BRL'): ?>
                                     <small class="ms-2 text-muted">(convertido de <?= $item['currency_id'] ?>)</small>
                                     <?php endif; ?>
                                 </div>
-                                
+
                                 <?php if (isset($item['permalink'])): ?>
-                                <a href="<?= htmlspecialchars($item['permalink']) ?>" 
-                                   class="btn btn-outline-primary w-100 mt-auto d-flex align-items-center justify-content-center"
-                                   target="_blank">
+                                <a href="<?= htmlspecialchars($item['permalink']) ?>"
+                                    class="btn btn-outline-primary w-100 mt-auto d-flex align-items-center justify-content-center"
+                                    target="_blank">
                                     <i class="bi bi-eye me-2"></i>
                                     Ver produto
                                 </a>

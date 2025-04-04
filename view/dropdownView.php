@@ -7,6 +7,8 @@ include_once('../models/connect_db.php');
 $cargo = $_SESSION['id_cargo'];
 
 
+
+
 $db_query = "SELECT 
             id_opcao, 
             descricao_opcao,
@@ -44,20 +46,21 @@ $acessos_menu = $result->fetch_all(MYSQLI_ASSOC);
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav flex-grow-1 mb-2 mb-lg-0">
                     <?php
-                    var_dump($acessos_menu);
-
+                    // var_dump($acessos_menu);
+                    
                     foreach ($acessos_menu as $menu) {
 
-                        var_dump($menu);
+                        // var_dump($menu);
                         $sub_menu = "SELECT 
                                 id_opcao, 
-                                descricao_opcao
+                                descricao_opcao,
+                                url_opcao
                                 FROM opcoes_menu o WHERE id_menu_superior = '" . $menu['id_opcao'] . "' 
                                     and status_opcao = 'S'
                                     and id_opcao 
                                     in
                                     (
-                                        SELECT id_opcao FROM acesso a WHERE a.id_opcao = o.id_opcao AND status_acesso = 'S' AND idUsuario = $cargo
+                                        SELECT id_opcao FROM acesso a WHERE a.id_opcao = o.id_opcao AND status_acesso = 'S' AND id_cargo = $cargo
                                     )";
 
                         // var_dump($_SESSION);
@@ -67,81 +70,29 @@ $acessos_menu = $result->fetch_all(MYSQLI_ASSOC);
                         $acessos_sub_menu = $result_sub_menu->fetch_all(MYSQLI_ASSOC);
 
 
-                        if (count($acessos_menu) > 0) {
+                        if (count($acessos_sub_menu) > 0) {
                             ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <li class="nav-item dropdown link-primary">
+                        <a class="nav-link dropdown-toggle link-primary" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <?php echo $menu['descricao_opcao'] ?>
                         </a>
                         <ul class="dropdown-menu">
                             <?php foreach ($acessos_sub_menu as $sub) {
-                                        echo '<li><a class="dropdown-item" href="' . $sub['url_opcao'] . '">' . $sub['descricao_opcao'] . '</a></li>';
+                                        echo '<li><a class="dropdown-item link-primary" href="' . $sub['url_opcao'] . '">' . $sub['descricao_opcao'] . '</a></li>';
                                     } ?>
                         </ul>
                     </li>
                     <?php
                         } else {
                             echo ' <li class="nav-item">
-                            <a class="nav-link" href=' . $menu['url_opcao'] . '>' . $menu['descricao_opcao'] . '</a>
+                            <a class="nav-link link-primary" href=' . $menu['url_opcao'] . '>' . $menu['descricao_opcao'] . '</a>
                           </li>';
                         }
 
-                        var_dump($acessos_sub_menu);
                     }
                     ?>
-                    <li class="nav-item">
-                        <a class="nav-link link-primary" aria-current="page" href="registerAssetsView.php">Início</a>
-                    </li>
-                    <!--Controle-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link link-primary dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Controle
-                        </a>
-                        <ul id="dropdown-menu" class="dropdown-menu">
-
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item link-primary" href="relatoriosView.php">Relatórios</a></li>
-                            <hr class="dropdown-divider">
-                            <li><a class="dropdown-item link-primary" href="relatoriosView.php">Reposição</a></li>
-                            <hr class="dropdown-divider">
-                            <li><a class="dropdown-item link-primary" href="list_options.php">Controle de Opções</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!---Fim controle-->
-
-                    <!--Registros-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link link-primary dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Registros
-                        </a>
-                        <ul id="dropdown-item" class="dropdown-menu">
-                            <li><a class="dropdown-item link-primary" href="registerAssetsView.php">Ativos</a></li>
-                            <li><a class="dropdown-item link-primary" href="brandView.php">Marcas</a></li>
-                            <li><a class="dropdown-item link-primary" href="typesView.php">Tipos</a></li>
-                        </ul>
-                    </li>
-                    <!--Fim Registros--->
-                    <li class="nav-item dropdown">
-                        <a id="dropdown" class="nav-link link-primary dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Usuário
-                        </a>
-                        <ul id="dropdown-menu" class="dropdown-menu">
-                            <li><a class="dropdown-item link-primary" href="registerUserView.php">Cadastrar usuário</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item link-primary" href="listUsersView.php">Listar Usuário</a></li>
-                        </ul>
-                    </li>
+                    
                 </ul>
                 <!-- Botão de fechar alinhado à direita -->
                 <form action="../controllers/logoutController.php" method="post">

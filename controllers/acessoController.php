@@ -61,11 +61,12 @@ if ($acao == 'grava_acessos') {
      '" . $value . "', 
      NOW(),
      '" . $user . "'
-     );";
+     ); ";
     }
 
 
     $sql = substr($sql, 0, -2);
+
 
     $result = mysqli_multi_query($conn, $sql) or die(false);
 
